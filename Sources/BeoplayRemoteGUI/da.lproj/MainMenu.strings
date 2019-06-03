@@ -1,0 +1,21 @@
+/* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
+"5Jz-9g-qZA.title" = "Luk";
+
+/* Class = "NSMenuItem"; title = "Forward"; ObjectID = "KeU-58-sE1"; */
+"KeU-58-sE1.title" = "Frem";
+
+/* Class = "NSMenuItem"; title = "Volume: "; ObjectID = "OHD-zl-J7n"; */
+"OHD-zl-J7n.title" = "Lydstyrke: ";
+
+/* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
+"p6f-gd-ldN.title" = "Afspil";
+
+/* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
+"S5r-Ym-sNj.title" = "Tilbage";
+
+/* Class = "NSMenuItem"; title = "Pause"; ObjectID = "VFe-4y-61o"; */
+"VFe-4y-61o.title" = "Pause";
+
+/* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
+"vNB-tl-eiA.title" = "VolumeSlider";
+

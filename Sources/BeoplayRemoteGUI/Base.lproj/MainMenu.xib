@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="BeoplayRemoteGUI" customModuleProvider="target"/>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <customObject id="alx-iL-ssJ" customClass="StatusMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
+            <connections>
+                <outlet property="statusMenu" destination="1Xh-Lf-Elu" id="kDo-2h-EvE"/>
+                <outlet property="volumeLevelSlider" destination="lMI-Wr-2xK" id="AOd-CA-EV2"/>
+                <outlet property="volumeLevelView" destination="Qyl-Dg-uny" id="9Sj-DX-kvy"/>
+            </connections>
+        </customObject>
+        <menu id="1Xh-Lf-Elu">
+            <items>
+                <menuItem title="Volume: " enabled="NO" id="OHD-zl-J7n">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="VolumeSlider" id="vNB-tl-eiA">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Play" id="p6f-gd-ldN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playClicked:" target="alx-iL-ssJ" id="AG6-ad-V9Z"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Pause" id="VFe-4y-61o">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="pauseClicked:" target="alx-iL-ssJ" id="REm-Bw-lOL"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Forward" id="KeU-58-sE1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="forwardClicked:" target="alx-iL-ssJ" id="yn1-oQ-tSy"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Backward" id="S5r-Ym-sNj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="backwardClicked:" target="alx-iL-ssJ" id="9gc-ON-Pm7"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="qEB-Ww-KcO"/>
+                <menuItem title="Quit" id="5Jz-9g-qZA" userLabel="Quit">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitClicked:" target="alx-iL-ssJ" id="i16-ZR-b1R"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-243" y="-355"/>
+        </menu>
+        <customView id="Qyl-Dg-uny" customClass="VolumeLevelView" customModule="BeoplayRemoteGUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="203" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <slider canDrawConcurrently="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-Wr-2xK">
+                    <rect key="frame" x="19" y="5" width="174" height="19"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <sliderCell key="cell" continuous="YES" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="OUU-1o-3ef"/>
+                    <connections>
+                        <action selector="sliderMoved:" target="alx-iL-ssJ" id="zVg-4Q-ddb"/>
+                    </connections>
+                </slider>
+            </subviews>
+            <point key="canvasLocation" x="-199" y="-191"/>
+        </customView>
+    </objects>
+</document>
