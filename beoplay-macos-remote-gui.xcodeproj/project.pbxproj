@@ -33,7 +33,6 @@
 		5AA3793D22A4F14A00184947 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; };
 		5AA3793E22A4F14A00184947 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		OBJ_38 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Package.swift */; };
-		OBJ_43 /* CommandLineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* CommandLineTool.swift */; };
 		OBJ_44 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* RemoteControl.swift */; };
 		OBJ_45 /* RemoteNotificationsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* RemoteNotificationsSession.swift */; };
 		OBJ_47 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; };
@@ -161,20 +160,20 @@
 		OBJ_11 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_12 /* BeoplayRemote 0.0.2 */,
+				OBJ_12 /* BeoplayRemote 0.0.4 */,
 				OBJ_19 /* SwiftyJSON 4.3.0 */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
-		OBJ_12 /* BeoplayRemote 0.0.2 */ = {
+		OBJ_12 /* BeoplayRemote 0.0.4 */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_13 /* RemoteCLI */,
 				OBJ_14 /* RemoteCore */,
 				OBJ_18 /* Package.swift */,
 			);
-			name = "BeoplayRemote 0.0.2";
+			name = "BeoplayRemote 0.0.4";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_13 /* RemoteCLI */ = {
@@ -412,7 +411,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_43 /* CommandLineTool.swift in Sources */,
 				OBJ_44 /* RemoteControl.swift in Sources */,
 				OBJ_45 /* RemoteNotificationsSession.swift in Sources */,
 			);

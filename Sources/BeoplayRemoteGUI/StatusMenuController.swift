@@ -17,7 +17,7 @@ class StatusMenuController: NSObject {
     private var volumeLevelMenuItem: NSMenuItem!
 
     private let remoteControl = RemoteControl()
-    private var volume: Int = 0
+    private var lastVolumeLevel: Int = 0
     private var ignoreReceivedVolumeUpdates = false
 
     override func awakeFromNib() {
@@ -33,32 +33,40 @@ class StatusMenuController: NSObject {
     private func setupVolumeUpdateReceiver() {
         // read the current volume level
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.getVolume(callback: self.receiveVolumeUpdate)
+            self.remoteControl.getVolume(self.receiveVolumeUpdate)
         }
         
         // receive updates on future volume levels
         DispatchQueue.global(qos: .userInitiated).async {
-            self.remoteControl.receiveVolumeNotifications(volumeUpdate: self.receiveVolumeUpdate) { state in
-                NSLog("connection state: \(state)")
+            self.remoteControl.receiveVolumeNotifications(volumeUpdate: self.receiveVolumeUpdate) { (state, message) in
+                if message == nil {
+                    NSLog("connection state: \(state)")
+                } else {
+                    NSLog("connection state: \(state): \(message!)")
+                }
             }
         }
     }
 
-    private func receiveVolumeUpdate(vol: Int) {
+    private func receiveVolumeUpdate(vol: Int?) {
         DispatchQueue.main.async {
+            if (vol == nil) {
+                return
+            }
+
             if self.ignoreReceivedVolumeUpdates {
-                NSLog("receive: \(vol)  (ignored!)")
+                NSLog("receive: \(vol!)  (ignored!)")
             } else {
-                self.volume = vol
-                self.volumeLevelSlider.integerValue = vol
-                NSLog("receive: \(vol)")
+                self.lastVolumeLevel = vol!
+                self.volumeLevelSlider.integerValue = self.lastVolumeLevel
+                NSLog("receive: \(self.lastVolumeLevel)")
             }
         }
     }
-    
+
     private func sendVolumeUpdate(vol: Int) {
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.setVolume(volume: vol)
+            self.remoteControl.setVolume(volume: vol)
             NSLog("send: \(vol)")
         }
     }
@@ -70,39 +78,41 @@ class StatusMenuController: NSObject {
         
         if sender.window?.currentEvent?.type == NSEvent.EventType.leftMouseUp {
             self.ignoreReceivedVolumeUpdates = false
+
+            // close the dropdown menu
             self.statusMenu.cancelTracking()
         }
         
-        if self.volume != sender.integerValue {
-            self.volume = sender.integerValue
+        if self.lastVolumeLevel != sender.integerValue {
+            self.lastVolumeLevel = sender.integerValue
             self.sendVolumeUpdate(vol: sender.integerValue)
         }
     }
     
     @IBAction func playClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.play()
+            self.remoteControl.play()
             NSLog("play")
         }
     }
     
     @IBAction func pauseClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.pause()
+            self.remoteControl.pause()
             NSLog("pause")
         }
     }
     
     @IBAction func forwardClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.forward()
+            self.remoteControl.forward()
             NSLog("forward")
         }
     }
     
     @IBAction func backwardClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            try? self.remoteControl.backward()
+            self.remoteControl.backward()
             NSLog("backward")
         }
     }
