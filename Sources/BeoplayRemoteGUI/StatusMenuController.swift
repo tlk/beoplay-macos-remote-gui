@@ -31,12 +31,7 @@ class StatusMenuController: NSObject {
     }
 
     private func setupVolumeUpdateReceiver() {
-        // read the current volume level
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.remoteControl.getVolume(self.receiveVolumeUpdate)
-        }
-        
-        // receive updates on future volume levels
+        // read the current volume level and receive updates on future volume levels
         DispatchQueue.global(qos: .userInitiated).async {
             self.remoteControl.receiveVolumeNotifications(volumeUpdate: self.receiveVolumeUpdate) { (state, message) in
                 if message == nil {

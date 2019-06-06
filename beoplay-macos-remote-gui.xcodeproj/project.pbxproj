@@ -160,20 +160,20 @@
 		OBJ_11 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_12 /* BeoplayRemote 0.0.4 */,
+				OBJ_12 /* BeoplayRemote 0.0.5 */,
 				OBJ_19 /* SwiftyJSON 4.3.0 */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
-		OBJ_12 /* BeoplayRemote 0.0.4 */ = {
+		OBJ_12 /* BeoplayRemote 0.0.5 */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_13 /* RemoteCLI */,
 				OBJ_14 /* RemoteCore */,
 				OBJ_18 /* Package.swift */,
 			);
-			name = "BeoplayRemote 0.0.4";
+			name = "BeoplayRemote 0.0.5";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_13 /* RemoteCLI */ = {
