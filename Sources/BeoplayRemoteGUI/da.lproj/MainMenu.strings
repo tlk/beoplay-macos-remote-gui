@@ -19,3 +19,6 @@
 /* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
 "vNB-tl-eiA.title" = "VolumeSlider";
 
+/* Class = "NSMenuItem"; title = "Device:"; ObjectID = "jiP-To-6zk"; */
+"jiP-To-6zk.title" = "Enhed til lyd ud:";
+

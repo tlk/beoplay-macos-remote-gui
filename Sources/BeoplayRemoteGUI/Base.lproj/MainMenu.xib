@@ -29,6 +29,10 @@
                 <menuItem title="VolumeSlider" id="vNB-tl-eiA">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
+                <menuItem title="Device:" enabled="NO" id="jiP-To-6zk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" title="deviceSeparator" identifier="deviceSeparator" id="GZI-74-Bbh"/>
                 <menuItem title="Play" id="p6f-gd-ldN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
