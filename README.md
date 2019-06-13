@@ -1,6 +1,6 @@
 # BeoplayRemoteGUI.app
 
-This is an unofficial menu bar app for Mac OS to remote control network enabled beoplay loudspeakers such as the Beoplay M5.
+This is an unofficial menu bar app for Mac OS to remote control network enabled Beoplay loudspeakers.
 
 ## Example
 
