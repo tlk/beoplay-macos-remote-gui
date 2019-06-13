@@ -17,3 +17,6 @@ rm -rf /Applications/BeoplayRemoteGUI.app
 cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Applications
 $
 ```
+
+## Related
+This application depends on the RemoteCore library that is found in the https://github.com/tlk/beoplay-macos-remote-cli project.
