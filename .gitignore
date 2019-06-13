@@ -19,6 +19,7 @@ build/
 *.o
 *.LinkFileList
 *.hmap
+*.xcarchive
 
 # Automatic backup files
 *~.nib/
