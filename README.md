@@ -19,4 +19,4 @@ $
 ```
 
 ## Related
-This application depends on the RemoteCore library that is found in the https://github.com/tlk/beoplay-macos-remote-cli project.
+This application depends on the RemoteCore library from https://github.com/tlk/beoplay-macos-remote-cli.
