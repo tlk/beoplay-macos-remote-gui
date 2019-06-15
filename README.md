@@ -10,9 +10,12 @@ The menu bar has basic support for play/pause, forward/backward (fx for shufflin
 
 ## Installation
 ```
-$ make release
-xcodebuild -workspace BeoplayRemoteGUI.xcodeproj/project.xcworkspace -scheme BeoplayRemoteGUI clean archive -configuration Release -archivePath Release.xcarchive
+$ xcodebuild -version
+Xcode 11.0
+Build version 11M336w
+
 $ make install
+xcodebuild [..]
 rm -rf /Applications/BeoplayRemoteGUI.app
 cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Applications
 $
