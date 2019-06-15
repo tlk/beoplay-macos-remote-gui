@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A1E011D22B447AB00AEC342 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */; };
 		5A3352AF22B4019300E926BD /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A3352AE22B4019300E926BD /* BeoplayRemoteCore */; };
 		5A513B9E22A4E13D00BE2687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9622A4E13D00BE2687 /* Assets.xcassets */; };
 		5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		5A41B2AD22A543B800D06281 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		5A513B9522A4E13D00BE2687 /* BeoplayRemoteGUI.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BeoplayRemoteGUI.entitlements; sourceTree = "<group>"; };
 		5A513B9622A4E13D00BE2687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				5A513B9822A4E13D00BE2687 /* MainMenu.xib */,
 				5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */,
 				5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */,
+				5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */,
 				5A513B9D22A4E13D00BE2687 /* Info.plist */,
 			);
 			name = BeoplayRemoteGUI;
@@ -173,6 +176,7 @@
 				5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */,
 				5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */,
 				5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */,
+				5A1E011D22B447AB00AEC342 /* ScrollableSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@ class StatusMenuController: NSObject {
     private var remoteControl = RemoteControl()
     private var lastVolumeLevel: Int = 0
     private var ignoreReceivedVolumeUpdates = false
+    private var timer: Timer? = nil
 
     override func awakeFromNib() {
         statusItem.button?.title = "BeoplayRemote"
@@ -87,28 +88,45 @@ class StatusMenuController: NSObject {
         }
     }
 
-    private func sendVolumeUpdate(vol: Int) {
-        DispatchQueue.global(qos: .userInitiated).async {
+    @IBAction func sliderMoved(_ sender: NSSlider) {
+        // https://stackoverflow.com/a/50451240/936466
+        func debounce(seconds: TimeInterval, function: @escaping () -> ()) {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false, block: { _ in
+                function()
+            })
+        }
+
+        func sendVolumeUpdate(vol: Int) {
             self.remoteControl.setVolume(volume: vol)
             NSLog("send: \(vol)")
         }
-    }
 
-    @IBAction func sliderMoved(_ sender: NSSlider) {
-        if sender.window?.currentEvent?.type == NSEvent.EventType.leftMouseDown {
-            self.ignoreReceivedVolumeUpdates = true
-        }
+        let eventType = sender.window?.currentEvent?.type
+        let volume = sender.integerValue
 
-        if sender.window?.currentEvent?.type == NSEvent.EventType.leftMouseUp {
-            self.ignoreReceivedVolumeUpdates = false
+        DispatchQueue.global(qos: .userInitiated).async {
+            // avoid sending redundant updates when dragging/swiping
+            if self.lastVolumeLevel != volume {
+                self.lastVolumeLevel = volume
 
-            // close the dropdown menu
-            self.statusMenu.cancelTracking()
-        }
+                // prevent the slider from being wobbly when dragging/swiping
+                self.ignoreReceivedVolumeUpdates = true
 
-        if self.lastVolumeLevel != sender.integerValue {
-            self.lastVolumeLevel = sender.integerValue
-            self.sendVolumeUpdate(vol: sender.integerValue)
+                debounce(seconds: 1) {
+                    // when the slider is no longer moving
+                    self.ignoreReceivedVolumeUpdates = false
+                }
+
+                sendVolumeUpdate(vol: volume)
+            }
+
+            if eventType == NSEvent.EventType.leftMouseUp {
+                self.ignoreReceivedVolumeUpdates = false
+
+                // close the menu
+                self.statusMenu.cancelTracking()
+            }
         }
     }
 
