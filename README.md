@@ -42,6 +42,9 @@ $ defaults write $bundleid hotkeys.enabled true
 ```
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
+Finally, disconnect <kbd>F11</kbd> and <kbd>F12</kbd> from Mission Control: https://apple.stackexchange.com/a/110528
+
+
 ## Optional configuration
 ```
 $ bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
