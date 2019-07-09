@@ -30,6 +30,10 @@ class StatusMenuController: NSObject {
         volumeLevelMenuItem.view = volumeLevelView
 
         discoverDevices()
+
+        if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
+            setupHotkeys()
+        }
     }
 
     private func discoverDevices() {
@@ -88,6 +92,54 @@ class StatusMenuController: NSObject {
         }
     }
 
+    private func sendVolumeUpdate(vol: Int) {
+        self.remoteControl.setVolume(volume: vol)
+        NSLog("send: \(vol)")
+    }
+
+    private func setupHotkeys() {
+        let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
+        let isTrusted = AXIsProcessTrustedWithOptions(options)
+
+        if !isTrusted {
+            NSLog("hotkeys setup failed:  required permission to 'control this computer using accessibility features' is missing")
+        } else {
+            NSLog("hotkeys setup")
+
+            let F11 = "103"
+            let F12 = "111"
+            let defaultStep = 4
+
+            let volumedownKey = UInt16(UserDefaults.standard.string(forKey: "hotkeys.volumedownKey") ?? F11, radix: 10)
+            let volumeupKey   = UInt16(UserDefaults.standard.string(forKey: "hotkeys.volumeupKey")   ?? F12, radix: 10)
+            let step: Int = UserDefaults.standard.integer(forKey: "hotkeys.step") > 0 ?
+                            UserDefaults.standard.integer(forKey: "hotkeys.step") : defaultStep
+
+            NSLog("volumedownKey: \(volumedownKey!), volumeupKey: \(volumeupKey!), step: \(step)")
+
+            func adjust(_ volume: Int) {
+                NSLog("hotkey: adjusting volume")
+                self.volumeLevelSlider.integerValue = volume
+                self.sendVolumeUpdate(vol: volume)
+            }
+
+            NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
+                let volume = self.volumeLevelSlider.integerValue
+
+                switch(event.keyCode) {
+                case volumedownKey:
+                    adjust(volume - step)
+                    break
+                case volumeupKey:
+                    adjust(volume + step)
+                    break
+                default:
+                    break
+                }
+            }
+        }
+    }
+
     @IBAction func sliderMoved(_ sender: NSSlider) {
         // https://stackoverflow.com/a/50451240/936466
         func debounce(seconds: TimeInterval, function: @escaping () -> ()) {
@@ -95,11 +147,6 @@ class StatusMenuController: NSObject {
             timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false, block: { _ in
                 function()
             })
-        }
-
-        func sendVolumeUpdate(vol: Int) {
-            self.remoteControl.setVolume(volume: vol)
-            NSLog("send: \(vol)")
         }
 
         let eventType = sender.window?.currentEvent?.type
@@ -118,7 +165,7 @@ class StatusMenuController: NSObject {
                     self.ignoreReceivedVolumeUpdates = false
                 }
 
-                sendVolumeUpdate(vol: volume)
+                self.sendVolumeUpdate(vol: volume)
             }
 
             if eventType == NSEvent.EventType.leftMouseUp {
