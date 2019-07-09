@@ -10,12 +10,12 @@ The menu bar has basic support for play/pause and forward/backward. The volume l
 
 
 ## Hotkeys / keyboard shortcuts
-Apple keyboards features <button>volume-down</button> and <button>volume-up</button> keys to control the volume of the local device. When the same physical keys function as <button>F11</button> and <button>F12</button> keys they control the volume of the remote speakers.
+Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to control the volume of the local device. When the same physical keys function as <kbd>F11</kbd> and <kbd>F12</kbd> keys they control the volume of the remote speakers.
 
-| Local device                 | Remote speakers                                    |
-| ---------------------------- | -------------------------------------------------- |
-| <button>volume-down</button> | <button>fn</button> + <button>volume-down</button> |
-| <button>volume-up</button>   | <button>fn</button> + <button>volume-up</button>   |
+| Local device           | Remote speakers                        |
+| ---------------------- | -------------------------------------- |
+| <kbd>volume-down</kbd> | <kbd>fn</kbd> + <kbd>volume-down</kbd> |
+| <kbd>volume-up</kbd>   | <kbd>fn</kbd> + <kbd>volume-up</kbd>   |
 
 
 ## Command line
