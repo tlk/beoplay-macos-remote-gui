@@ -20,7 +20,7 @@ class StatusMenuController: NSObject {
     private var remoteControl = RemoteControl()
     private var lastVolumeLevel: Int = 0
     private var ignoreReceivedVolumeUpdates = false
-    private var timer: Timer? = nil
+    private var debouncer: DispatchWorkItem? = nil
 
     override func awakeFromNib() {
         statusItem.button?.title = "BeoplayRemote"
@@ -141,27 +141,26 @@ class StatusMenuController: NSObject {
     }
 
     @IBAction func sliderMoved(_ sender: NSSlider) {
-        // https://stackoverflow.com/a/50451240/936466
         func debounce(seconds: TimeInterval, function: @escaping () -> ()) {
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false, block: { _ in
+            self.debouncer?.cancel()
+            self.debouncer = DispatchWorkItem {
                 function()
-            })
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: self.debouncer!)
         }
 
         let eventType = sender.window?.currentEvent?.type
         let volume = sender.integerValue
 
         DispatchQueue.global(qos: .userInitiated).async {
-            // avoid sending redundant updates when dragging/swiping
             if self.lastVolumeLevel != volume {
                 self.lastVolumeLevel = volume
 
-                // prevent the slider from being wobbly when dragging/swiping
+                NSLog("user is moving the slider (preventing slider wobbliness)")
                 self.ignoreReceivedVolumeUpdates = true
 
                 debounce(seconds: 1) {
-                    // when the slider is no longer moving
+                    NSLog("user is no longer moving the slider")
                     self.ignoreReceivedVolumeUpdates = false
                 }
 
