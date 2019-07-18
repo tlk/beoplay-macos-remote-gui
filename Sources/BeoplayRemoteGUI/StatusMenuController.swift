@@ -34,6 +34,11 @@ class StatusMenuController: NSObject {
         if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
             setupHotkeys()
         }
+
+        if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
+            setupTuneIn()
+        }
+
     }
 
     private func discoverDevices() {
@@ -138,6 +143,32 @@ class StatusMenuController: NSObject {
                 }
             }
         }
+    }
+
+    private func setupTuneIn() {
+        let menuItem = statusMenu.item(withTitle: "TuneIn Radio")!
+        let separator = statusMenu.item(at: statusMenu.index(of: menuItem) + 1)!
+        let order = UserDefaults.standard.array(forKey: "tuneIn.order")!
+        let stations = UserDefaults.standard.dictionary(forKey: "tuneIn.stations")!
+
+        menuItem.isHidden = false
+        separator.isHidden = false
+
+        for id in order {
+            let name = stations[id as! String] as! String
+            let item = NSMenuItem(title: name, action: #selector(tuneIn(_:)), keyEquivalent: "")
+            item.representedObject = id
+            item.target = self
+            item.isEnabled = true
+            menuItem.submenu?.addItem(item)
+            NSLog("tuneIn radio station id: \(id), station name: \(name)")
+        }
+    }
+
+    @IBAction func tuneIn(_ sender: NSMenuItem) {
+        let id = sender.representedObject as! String
+        self.remoteControl.tuneIn(id: id)
+        NSLog("tuneIn: \(id)")
     }
 
     @IBAction func sliderMoved(_ sender: NSSlider) {

@@ -37,8 +37,8 @@ $
 
 ## Enable hotkeys
 ```
-$ bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-$ defaults write $bundleid hotkeys.enabled true
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults write $bundleid hotkeys.enabled true
 ```
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
@@ -47,9 +47,18 @@ Finally, disconnect <kbd>F11</kbd> and <kbd>F12</kbd> from Mission Control: http
 
 ## Optional configuration
 ```
-$ bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-$ defaults write $bundleid hotkeys.enabled true
-$ defaults write $bundleid hotkeys.volumedownKey 103
-$ defaults write $bundleid hotkeys.volumeupKey 111
-$ defaults write $bundleid hotkeys.step 4
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults write $bundleid hotkeys.enabled true
+defaults write $bundleid hotkeys.volumedownKey 103
+defaults write $bundleid hotkeys.volumeupKey 111
+defaults write $bundleid hotkeys.step 4
+
+defaults write $bundleid tuneIn.enabled true
+defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
+defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
+defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
+defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
+defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
+defaults write $bundleid tuneIn.stations -dict-add s148845 "Radio24syv"
+defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056 s148845
 ```

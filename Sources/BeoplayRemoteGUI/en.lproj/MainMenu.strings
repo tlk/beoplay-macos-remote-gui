@@ -1,0 +1,27 @@
+
+/* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
+"5Jz-9g-qZA.title" = "Quit";
+
+/* Class = "NSMenuItem"; title = "deviceSeparator"; ObjectID = "GZI-74-Bbh"; */
+"GZI-74-Bbh.title" = "deviceSeparator";
+
+/* Class = "NSMenuItem"; title = "Forward"; ObjectID = "KeU-58-sE1"; */
+"KeU-58-sE1.title" = "Forward";
+
+/* Class = "NSMenuItem"; title = "Volume: "; ObjectID = "OHD-zl-J7n"; */
+"OHD-zl-J7n.title" = "Volume: ";
+
+/* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
+"S5r-Ym-sNj.title" = "Backward";
+
+/* Class = "NSMenuItem"; title = "Pause"; ObjectID = "VFe-4y-61o"; */
+"VFe-4y-61o.title" = "Pause";
+
+/* Class = "NSMenuItem"; title = "Device:"; ObjectID = "jiP-To-6zk"; */
+"jiP-To-6zk.title" = "Device:";
+
+/* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
+"p6f-gd-ldN.title" = "Play";
+
+/* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
+"vNB-tl-eiA.title" = "VolumeSlider";

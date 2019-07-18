@@ -34,6 +34,11 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" title="deviceSeparator" identifier="deviceSeparator" id="GZI-74-Bbh"/>
+                <menuItem title="TuneIn Radio" hidden="YES" id="kgn-98-8ke">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="TuneIn Radio" id="jdX-PL-kHj"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" hidden="YES" id="xH5-41-cNT"/>
                 <menuItem title="Play" id="p6f-gd-ldN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
