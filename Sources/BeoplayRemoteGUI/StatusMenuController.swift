@@ -183,27 +183,27 @@ class StatusMenuController: NSObject {
         let eventType = sender.window?.currentEvent?.type
         let volume = sender.integerValue
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            if self.lastVolumeLevel != volume {
-                self.lastVolumeLevel = volume
+        if self.lastVolumeLevel != volume {
+            self.lastVolumeLevel = volume
 
+            if !self.ignoreReceivedVolumeUpdates {
                 NSLog("user is moving the slider (preventing slider wobbliness)")
                 self.ignoreReceivedVolumeUpdates = true
-
-                debounce(seconds: 1) {
-                    NSLog("user is no longer moving the slider")
-                    self.ignoreReceivedVolumeUpdates = false
-                }
-
-                self.sendVolumeUpdate(vol: volume)
             }
 
-            if eventType == NSEvent.EventType.leftMouseUp {
+            self.sendVolumeUpdate(vol: volume)
+
+            debounce(seconds: 1) {
+                NSLog("user is no longer moving the slider")
                 self.ignoreReceivedVolumeUpdates = false
-
-                // close the menu
-                self.statusMenu.cancelTracking()
             }
+        }
+
+        if eventType == NSEvent.EventType.leftMouseUp {
+            self.ignoreReceivedVolumeUpdates = false
+
+            // close the menu
+            self.statusMenu.cancelTracking()
         }
     }
 
