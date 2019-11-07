@@ -62,3 +62,7 @@ defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
 defaults write $bundleid tuneIn.stations -dict-add s148845 "Radio24syv"
 defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056 s148845
 ```
+
+# Read more
+* [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
+* [Beoplay Remote for macOS (PoC)](https://forum.beoworld.org/forums/t/37724.aspx) (BeoWorld)
