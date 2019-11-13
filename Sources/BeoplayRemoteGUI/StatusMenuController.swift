@@ -12,6 +12,9 @@ class StatusMenuController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var volumeLevelView: VolumeLevelView!
     @IBOutlet weak var volumeLevelSlider: NSSlider!
+    @IBOutlet weak var sourcesMenuItem: NSMenuItem!
+    @IBOutlet weak var tuneinMenuItem: NSMenuItem!
+    @IBOutlet weak var separatorMenuItem: NSMenuItem!
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var volumeLevelMenuItem: NSMenuItem!
@@ -150,13 +153,11 @@ class StatusMenuController: NSObject {
     }
 
     private func setupSources() {
-        let menuItem = statusMenu.item(withTitle: "Sources")!
-        let separator = statusMenu.item(at: statusMenu.index(of: menuItem) + 1)!
         var types: [String] = []
         var categories: [String] = []
 
-        menuItem.isHidden = false
-        separator.isHidden = false
+        self.sourcesMenuItem.isHidden = false
+        self.separatorMenuItem.isHidden = false
 
         if let tmp = UserDefaults.standard.array(forKey: "sources.types") {
             types = tmp.map { ($0 as! String).lowercased() }
@@ -197,7 +198,7 @@ class StatusMenuController: NSObject {
                 item.representedObject = id
                 item.target = self
                 item.isEnabled = true
-                menuItem.submenu?.addItem(item)
+                self.sourcesMenuItem.submenu?.addItem(item)
                 NSLog("source id: \(id), source name: \(name)")
             }
         }
@@ -206,13 +207,11 @@ class StatusMenuController: NSObject {
     }
 
     private func setupTuneIn() {
-        let menuItem = statusMenu.item(withTitle: "TuneIn Radio")!
-        let separator = statusMenu.item(at: statusMenu.index(of: menuItem) + 1)!
         let order = UserDefaults.standard.array(forKey: "tuneIn.order")!
         let stations = UserDefaults.standard.dictionary(forKey: "tuneIn.stations")!
 
-        menuItem.isHidden = false
-        separator.isHidden = false
+        self.tuneinMenuItem.isHidden = false
+        self.separatorMenuItem.isHidden = false
 
         for id in order {
             let name = stations[id as! String] as! String
@@ -220,7 +219,7 @@ class StatusMenuController: NSObject {
             item.representedObject = id
             item.target = self
             item.isEnabled = true
-            menuItem.submenu?.addItem(item)
+            self.tuneinMenuItem.submenu?.addItem(item)
             NSLog("tuneIn radio station id: \(id), station name: \(name)")
         }
     }

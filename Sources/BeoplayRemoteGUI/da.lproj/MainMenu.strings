@@ -1,5 +1,12 @@
+
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
-"5Jz-9g-qZA.title" = "Luk";
+"5Jz-9g-qZA.title" = "Afslut";
+
+/* Class = "NSMenu"; title = "TuneIn Radio"; ObjectID = "5LN-aQ-QEd"; */
+"5LN-aQ-QEd.title" = "TuneIn Radio";
+
+/* Class = "NSMenuItem"; title = "deviceSeparator"; ObjectID = "GZI-74-Bbh"; */
+"GZI-74-Bbh.title" = "deviceSeparator";
 
 /* Class = "NSMenuItem"; title = "Forward"; ObjectID = "KeU-58-sE1"; */
 "KeU-58-sE1.title" = "Frem";
@@ -7,18 +14,26 @@
 /* Class = "NSMenuItem"; title = "Volume: "; ObjectID = "OHD-zl-J7n"; */
 "OHD-zl-J7n.title" = "Lydstyrke: ";
 
-/* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
-"p6f-gd-ldN.title" = "Afspil";
-
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
 "S5r-Ym-sNj.title" = "Tilbage";
+
+/* Class = "NSMenuItem"; title = "TuneIn Radio"; ObjectID = "TnM-U3-Th3"; */
+"TnM-U3-Th3.title" = "TuneIn Radio";
 
 /* Class = "NSMenuItem"; title = "Pause"; ObjectID = "VFe-4y-61o"; */
 "VFe-4y-61o.title" = "Pause";
 
-/* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
-"vNB-tl-eiA.title" = "VolumeSlider";
+/* Class = "NSMenu"; title = "Sources"; ObjectID = "jdX-PL-kHj"; */
+"jdX-PL-kHj.title" = "Kilder";
 
 /* Class = "NSMenuItem"; title = "Device:"; ObjectID = "jiP-To-6zk"; */
 "jiP-To-6zk.title" = "Lydenhed:";
 
+/* Class = "NSMenuItem"; title = "Sources"; ObjectID = "kgn-98-8ke"; */
+"kgn-98-8ke.title" = "Kilder";
+
+/* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
+"p6f-gd-ldN.title" = "Afspil";
+
+/* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
+"vNB-tl-eiA.title" = "VolumeSlider";

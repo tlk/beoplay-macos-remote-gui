@@ -2,6 +2,9 @@
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
 "5Jz-9g-qZA.title" = "Quit";
 
+/* Class = "NSMenu"; title = "TuneIn Radio"; ObjectID = "5LN-aQ-QEd"; */
+"5LN-aQ-QEd.title" = "TuneIn Radio";
+
 /* Class = "NSMenuItem"; title = "deviceSeparator"; ObjectID = "GZI-74-Bbh"; */
 "GZI-74-Bbh.title" = "deviceSeparator";
 
@@ -14,11 +17,20 @@
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
 "S5r-Ym-sNj.title" = "Backward";
 
+/* Class = "NSMenuItem"; title = "TuneIn Radio"; ObjectID = "TnM-U3-Th3"; */
+"TnM-U3-Th3.title" = "TuneIn Radio";
+
 /* Class = "NSMenuItem"; title = "Pause"; ObjectID = "VFe-4y-61o"; */
 "VFe-4y-61o.title" = "Pause";
 
+/* Class = "NSMenu"; title = "Sources"; ObjectID = "jdX-PL-kHj"; */
+"jdX-PL-kHj.title" = "Sources";
+
 /* Class = "NSMenuItem"; title = "Device:"; ObjectID = "jiP-To-6zk"; */
 "jiP-To-6zk.title" = "Device:";
+
+/* Class = "NSMenuItem"; title = "Sources"; ObjectID = "kgn-98-8ke"; */
+"kgn-98-8ke.title" = "Sources";
 
 /* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
 "p6f-gd-ldN.title" = "Play";
