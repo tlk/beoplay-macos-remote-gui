@@ -10,4 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: make release
+      run: |
+        security find-identity -p codesigning
+        make release
