@@ -31,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
-		5A41B2AD22A543B800D06281 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		5A513B9522A4E13D00BE2687 /* BeoplayRemoteGUI.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BeoplayRemoteGUI.entitlements; sourceTree = "<group>"; };
 		5A513B9622A4E13D00BE2687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
@@ -40,7 +39,8 @@
 		5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A513B9D22A4E13D00BE2687 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A56912C22A49696006B4718 /* BeoplayRemoteGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeoplayRemoteGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AE4413422E09C8A00BED1E3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		5AAE214F237C5F940047B567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		5AAE2151237C5F970047B567 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,8 +188,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5A513B9922A4E13D00BE2687 /* Base */,
-				5A41B2AD22A543B800D06281 /* da */,
-				5AE4413422E09C8A00BED1E3 /* en */,
+				5AAE214F237C5F940047B567 /* en */,
+				5AAE2151237C5F970047B567 /* da */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -465,7 +465,7 @@
 			repositoryURL = "https://github.com/tlk/beoplay-macos-remote-cli";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.8;
+				minimumVersion = 0.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

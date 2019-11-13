@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,9 +34,13 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" title="deviceSeparator" identifier="deviceSeparator" id="GZI-74-Bbh"/>
-                <menuItem title="TuneIn Radio" hidden="YES" id="kgn-98-8ke">
+                <menuItem title="Sources" hidden="YES" id="kgn-98-8ke">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="TuneIn Radio" id="jdX-PL-kHj"/>
+                    <menu key="submenu" title="Sources" id="jdX-PL-kHj"/>
+                </menuItem>
+                <menuItem title="TuneIn Radio" hidden="YES" id="TnM-U3-Th3">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="TuneIn Radio" id="5LN-aQ-QEd"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" hidden="YES" id="xH5-41-cNT"/>
                 <menuItem title="Play" id="p6f-gd-ldN">

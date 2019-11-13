@@ -53,14 +53,18 @@ defaults write $bundleid hotkeys.volumedownKey 103
 defaults write $bundleid hotkeys.volumeupKey 111
 defaults write $bundleid hotkeys.step 4
 
+defaults write $bundleid sources.enabled true
+defaults write $bundleid sources.types -array tunein spotify
+#defaults write $bundleid sources.types -array tunein spotify deezer bluetooth toslink airplay
+#defaults write $bundleid sources.categories -array radio music
+
 defaults write $bundleid tuneIn.enabled true
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
 defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
 defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
 defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
 defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
-defaults write $bundleid tuneIn.stations -dict-add s148845 "Radio24syv"
-defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056 s148845
+defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056
 ```
 
 # Read more

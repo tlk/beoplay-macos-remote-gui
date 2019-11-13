@@ -29,8 +29,6 @@ class StatusMenuController: NSObject {
         volumeLevelMenuItem = statusMenu.item(withTitle: "VolumeSlider")
         volumeLevelMenuItem.view = volumeLevelView
 
-        discoverDevices()
-
         if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
             setupHotkeys()
         }
@@ -39,9 +37,14 @@ class StatusMenuController: NSObject {
             setupTuneIn()
         }
 
+        discoverDevices {
+            if UserDefaults.standard.bool(forKey: "sources.enabled") {
+                self.setupSources()
+            }
+        }
     }
 
-    private func discoverDevices() {
+    private func discoverDevices(_ onComplete: @escaping () -> ()) {
         var first = true
 
         func foundDevice(_ device: NetService) {
@@ -52,6 +55,7 @@ class StatusMenuController: NSObject {
                 item.state = NSControl.StateValue.on
                 self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
                 setupVolumeUpdateReceiver()
+                onComplete()
             }
         }
 
@@ -145,6 +149,62 @@ class StatusMenuController: NSObject {
         }
     }
 
+    private func setupSources() {
+        let menuItem = statusMenu.item(withTitle: "Sources")!
+        let separator = statusMenu.item(at: statusMenu.index(of: menuItem) + 1)!
+        var types: [String] = []
+        var categories: [String] = []
+
+        menuItem.isHidden = false
+        separator.isHidden = false
+
+        if let tmp = UserDefaults.standard.array(forKey: "sources.types") {
+            types = tmp.map { ($0 as! String).lowercased() }
+        }
+        
+        if let tmp = UserDefaults.standard.array(forKey: "sources.categories") {
+            categories = tmp.map { ($0 as! String).lowercased() }
+        }
+
+        func skip(type: String, category: String) -> Bool {
+            if types.isEmpty && categories.isEmpty {
+                return false
+            }
+            
+            if types.contains(type.lowercased()) {
+                return false
+            }
+            
+            if categories.contains(category.lowercased()) {
+                return false
+            }
+
+            return true
+        }
+
+        func addSources(sources: [[String]]) {
+            for source in sources {
+                let id = source[0]
+                let type = source[1]
+                let category = source[2]
+                let name = source[3]
+                
+                if skip(type: type, category: category) {
+                    continue
+                }
+
+                let item = NSMenuItem(title: name, action: #selector(setSource(_:)), keyEquivalent: "")
+                item.representedObject = id
+                item.target = self
+                item.isEnabled = true
+                menuItem.submenu?.addItem(item)
+                NSLog("source id: \(id), source name: \(name)")
+            }
+        }
+        
+        self.remoteControl.getSources(addSources)
+    }
+
     private func setupTuneIn() {
         let menuItem = statusMenu.item(withTitle: "TuneIn Radio")!
         let separator = statusMenu.item(at: statusMenu.index(of: menuItem) + 1)!
@@ -163,6 +223,12 @@ class StatusMenuController: NSObject {
             menuItem.submenu?.addItem(item)
             NSLog("tuneIn radio station id: \(id), station name: \(name)")
         }
+    }
+
+    @IBAction func setSource(_ sender: NSMenuItem) {
+        let id = sender.representedObject as! String
+        self.remoteControl.setSource(id: id)
+        NSLog("setSource: \(id)")
     }
 
     @IBAction func tuneIn(_ sender: NSMenuItem) {
