@@ -1,6 +1,8 @@
 Release.xcarchive:
 	xcodebuild -workspace BeoplayRemoteGUI.xcodeproj/project.xcworkspace -scheme BeoplayRemoteGUI clean archive -configuration Release -archivePath Release.xcarchive
 release: Release.xcarchive
+buildserver:
+	xcodebuild -workspace BeoplayRemoteGUI.xcodeproj/project.xcworkspace -scheme BeoplayRemoteGUI clean archive -configuration Release -archivePath Release.xcarchive DEVELOPMENT_TEAM="" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 clean:
 	rm -rf Release.xcarchive
 uninstall:
