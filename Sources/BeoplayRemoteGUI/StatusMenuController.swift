@@ -40,14 +40,10 @@ class StatusMenuController: NSObject {
             setupTuneIn()
         }
 
-        discoverDevices {
-            if UserDefaults.standard.bool(forKey: "sources.enabled") {
-                self.setupSources()
-            }
-        }
+        discoverDevices()
     }
 
-    private func discoverDevices(_ onComplete: @escaping () -> ()) {
+    private func discoverDevices() {
         var first = true
 
         func foundDevice(_ device: NetService) {
@@ -55,10 +51,7 @@ class StatusMenuController: NSObject {
             self.deviceMenuItems.append(item)
             if first {
                 first = false
-                item.state = NSControl.StateValue.on
-                self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
-                setupVolumeUpdateReceiver()
-                onComplete()
+                self.deviceClicked(item)
             }
         }
 
@@ -152,57 +145,49 @@ class StatusMenuController: NSObject {
         }
     }
 
-    private func setupSources() {
-        var types: [String] = []
-        var categories: [String] = []
+    private func refreshSources() {
+        var hideTypes: [String] = []
 
         self.sourcesMenuItem.isHidden = false
         self.separatorMenuItem.isHidden = false
 
-        if let tmp = UserDefaults.standard.array(forKey: "sources.types") {
-            types = tmp.map { ($0 as! String).lowercased() }
-        }
-        
-        if let tmp = UserDefaults.standard.array(forKey: "sources.categories") {
-            categories = tmp.map { ($0 as! String).lowercased() }
+        if let tmp = UserDefaults.standard.array(forKey: "sources.hideTypes") {
+            hideTypes = tmp.map { ($0 as! String).lowercased() }
         }
 
-        func skip(type: String, category: String) -> Bool {
-            if types.isEmpty && categories.isEmpty {
-                return false
-            }
+        func addSources(sources: [BeoplaySource]) {
+            var hasTuneIn = false
             
-            if types.contains(type.lowercased()) {
-                return false
-            }
-            
-            if categories.contains(category.lowercased()) {
-                return false
-            }
-
-            return true
-        }
-
-        func addSources(sources: [[String]]) {
             for source in sources {
-                let id = source[0]
-                let type = source[1]
-                let category = source[2]
-                let name = source[3]
-                
-                if skip(type: type, category: category) {
+                if hideTypes.contains(source.sourceType.lowercased()) {
                     continue
                 }
 
+                if source.sourceType == "TUNEIN" {
+                    hasTuneIn = true
+                }
+
+                var name: String
+                if source.productBorrowed {
+                    name = "\(source.friendlyName) (\(source.productFriendlyName))"
+                } else {
+                    name = source.friendlyName
+                }
+
                 let item = NSMenuItem(title: name, action: #selector(setSource(_:)), keyEquivalent: "")
-                item.representedObject = id
+                item.representedObject = source.id
                 item.target = self
                 item.isEnabled = true
                 self.sourcesMenuItem.submenu?.addItem(item)
-                NSLog("source id: \(id), source name: \(name)")
+                NSLog("source id: \(source.id), source name: \(name)")
+            }
+
+            if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
+                self.tuneinMenuItem.isHidden = !hasTuneIn
             }
         }
         
+        self.sourcesMenuItem.submenu?.removeAllItems()
         self.remoteControl.getSources(addSources)
     }
 
@@ -287,6 +272,10 @@ class StatusMenuController: NSObject {
             }
 
             sender.state = NSControl.StateValue.on
+
+            if UserDefaults.standard.bool(forKey: "sources.enabled") {
+                self.refreshSources()
+            }
         }
     }
 

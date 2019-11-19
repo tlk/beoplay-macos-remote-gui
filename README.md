@@ -54,10 +54,8 @@ defaults write $bundleid hotkeys.volumeupKey 111
 defaults write $bundleid hotkeys.step 4
 
 defaults write $bundleid sources.enabled true
-defaults write $bundleid sources.types -array tunein spotify
-# defaults write $bundleid sources.types -array tunein spotify deezer bluetooth toslink airplay
-# defaults write $bundleid sources.categories -array radio music
-# defaults delete $bundleid sources.categories
+defaults write $bundleid sources.hideTypes -array MUSIC QPLAY BLUETOOTH TOSLINK "LINE IN" AIRPLAY GC4A DLNA_DMR ALARM
+# defaults delete $bundleid sources.hideTypes
 
 defaults write $bundleid tuneIn.enabled true
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"

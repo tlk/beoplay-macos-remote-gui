@@ -6,8 +6,62 @@
         "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli",
         "state": {
           "branch": null,
-          "revision": "05c1f0debe025b1cb474d31504d34f0c2862ee1a",
-          "version": "0.0.9"
+          "revision": "0d00ee622e8a10e9cedb05a4adddbc87fcf0a767",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "Socket",
+        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
+        "state": {
+          "branch": null,
+          "revision": "f82e1401f04f62b2e8ce4670456d104466957810",
+          "version": "1.0.50"
+        }
+      },
+      {
+        "package": "SSLService",
+        "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
+        "state": {
+          "branch": null,
+          "revision": "d6616def31a12088034f0a63ed4646772eff5bce",
+          "version": "1.0.50"
+        }
+      },
+      {
+        "package": "Kitura",
+        "repositoryURL": "https://github.com/IBM-Swift/Kitura",
+        "state": {
+          "branch": null,
+          "revision": "bbb7462ac3d422cad4480a57ddbd33263c381a7b",
+          "version": "2.9.1"
+        }
+      },
+      {
+        "package": "Kitura-net",
+        "repositoryURL": "https://github.com/IBM-Swift/Kitura-net.git",
+        "state": {
+          "branch": null,
+          "revision": "00985729329b73f3e20e40ec43071e4c294dfea3",
+          "version": "2.4.0"
+        }
+      },
+      {
+        "package": "Kitura-TemplateEngine",
+        "repositoryURL": "https://github.com/IBM-Swift/Kitura-TemplateEngine.git",
+        "state": {
+          "branch": null,
+          "revision": "d62d74bca48c6fb76f9fc1f48eeb2d7af415e80b",
+          "version": "2.0.1"
+        }
+      },
+      {
+        "package": "KituraContracts",
+        "repositoryURL": "https://github.com/IBM-Swift/KituraContracts.git",
+        "state": {
+          "branch": null,
+          "revision": "a30e2fb79e926672776a05ec6b919c239870a221",
+          "version": "1.2.1"
         }
       },
       {
@@ -20,6 +74,15 @@
         }
       },
       {
+        "package": "LoggerAPI",
+        "repositoryURL": "https://github.com/IBM-Swift/LoggerAPI.git",
+        "state": {
+          "branch": null,
+          "revision": "3357dd9526cdf9436fa63bb792b669e6efdc43da",
+          "version": "1.9.0"
+        }
+      },
+      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
@@ -29,12 +92,30 @@
         }
       },
       {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "74d7b91ceebc85daf387ebb206003f78813f71aa",
+          "version": "1.2.0"
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {
           "branch": null,
           "revision": "2b6054efa051565954e1d2b9da831680026cd768",
           "version": "4.3.0"
+        }
+      },
+      {
+        "package": "TypeDecoder",
+        "repositoryURL": "https://github.com/IBM-Swift/TypeDecoder.git",
+        "state": {
+          "branch": null,
+          "revision": "a5978582981f7151594bdaf5fe0d3cd9b1d2d0c0",
+          "version": "1.3.4"
         }
       }
     ]
