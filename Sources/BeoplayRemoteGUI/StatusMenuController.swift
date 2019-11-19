@@ -168,7 +168,7 @@ class StatusMenuController: NSObject {
                 }
 
                 var name: String
-                if source.productBorrowed {
+                if source.borrowed {
                     name = "\(source.friendlyName) (\(source.productFriendlyName))"
                 } else {
                     name = source.friendlyName
