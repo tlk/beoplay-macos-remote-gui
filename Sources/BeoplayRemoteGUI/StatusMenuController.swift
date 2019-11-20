@@ -188,7 +188,7 @@ class StatusMenuController: NSObject {
         }
         
         self.sourcesMenuItem.submenu?.removeAllItems()
-        self.remoteControl.getSources(addSources)
+        self.remoteControl.getEnabledSources(addSources)
     }
 
     private func setupTuneIn() {
