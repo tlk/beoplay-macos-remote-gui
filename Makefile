@@ -6,7 +6,7 @@ release-unsigned-zip:
 	mv Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app .
 	zip -r BeoplayRemoteGUI BeoplayRemoteGUI.app
 clean:
-	rm -rf Release.xcarchive
+	rm -rf Release.xcarchive BeoplayRemoteGUI.zip BeoplayRemoteGUI.app
 uninstall:
 	rm -rf /Applications/BeoplayRemoteGUI.app
 install: uninstall release
