@@ -54,7 +54,7 @@ defaults write $bundleid hotkeys.volumeupKey 111
 defaults write $bundleid hotkeys.step 4
 
 defaults write $bundleid sources.enabled true
-defaults write $bundleid sources.hideTypes -array MUSIC QPLAY BLUETOOTH TOSLINK "LINE IN" AIRPLAY GC4A DLNA_DMR ALARM
+defaults write $bundleid sources.hideTypes -array QPLAY DEEZER GC4A DLNA_DMR ALARM
 # defaults delete $bundleid sources.hideTypes
 
 defaults write $bundleid tuneIn.enabled true
