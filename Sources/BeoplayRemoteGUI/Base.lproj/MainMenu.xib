@@ -17,10 +17,12 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="alx-iL-ssJ" customClass="StatusMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
             <connections>
+                <outlet property="deviceSeparatorMenuItem" destination="GZI-74-Bbh" id="S1t-Jt-YHQ"/>
                 <outlet property="separatorMenuItem" destination="xH5-41-cNT" id="k2V-Hb-N1U"/>
                 <outlet property="sourcesMenuItem" destination="kgn-98-8ke" id="PId-kJ-w1k"/>
                 <outlet property="statusMenu" destination="1Xh-Lf-Elu" id="kDo-2h-EvE"/>
                 <outlet property="tuneinMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
+                <outlet property="volumeLevelMenuItem" destination="vNB-tl-eiA" id="dQg-lc-9Vc"/>
                 <outlet property="volumeLevelSlider" destination="lMI-Wr-2xK" id="AOd-CA-EV2"/>
                 <outlet property="volumeLevelView" destination="Qyl-Dg-uny" id="9Sj-DX-kvy"/>
             </connections>

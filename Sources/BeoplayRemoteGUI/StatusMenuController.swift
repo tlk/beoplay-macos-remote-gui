@@ -12,12 +12,13 @@ class StatusMenuController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var volumeLevelView: VolumeLevelView!
     @IBOutlet weak var volumeLevelSlider: NSSlider!
+    @IBOutlet weak var volumeLevelMenuItem: NSMenuItem!
     @IBOutlet weak var sourcesMenuItem: NSMenuItem!
     @IBOutlet weak var tuneinMenuItem: NSMenuItem!
+    @IBOutlet weak var deviceSeparatorMenuItem: NSMenuItem!
     @IBOutlet weak var separatorMenuItem: NSMenuItem!
-    
+
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private var volumeLevelMenuItem: NSMenuItem!
     private var deviceMenuItems: [NSMenuItem] = []
 
     private var remoteControl = RemoteControl()
@@ -28,8 +29,6 @@ class StatusMenuController: NSObject {
     override func awakeFromNib() {
         statusItem.button?.title = "BeoplayRemote"
         statusItem.menu = statusMenu
-
-        volumeLevelMenuItem = statusMenu.item(withTitle: "VolumeSlider")
         volumeLevelMenuItem.view = volumeLevelView
 
         if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
@@ -56,7 +55,7 @@ class StatusMenuController: NSObject {
         }
 
         func addDeviceMenuItem(_ service: NetService) -> NSMenuItem {
-            let location = statusMenu.indexOfItem(withTitle: "deviceSeparator")
+            let location = statusMenu.index(of: deviceSeparatorMenuItem)
             let item = NSMenuItem(title: service.name, action: #selector(deviceClicked(_:)), keyEquivalent: "")
             item.representedObject = service
             item.target = self
