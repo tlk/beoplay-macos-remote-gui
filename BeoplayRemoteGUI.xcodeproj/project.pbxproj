@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		5A1E011D22B447AB00AEC342 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */; };
+		5A2473E2238B96DE002EA487 /* DeviceMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2473E1238B96DE002EA487 /* DeviceMenuController.swift */; };
 		5A3352AF22B4019300E926BD /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A3352AE22B4019300E926BD /* BeoplayRemoteCore */; };
 		5A513B9E22A4E13D00BE2687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9622A4E13D00BE2687 /* Assets.xcassets */; };
 		5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */; };
 		5A513BA022A4E13D00BE2687 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9822A4E13D00BE2687 /* MainMenu.xib */; };
 		5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */; };
 		5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */; };
+		5A84AF0A2389BB7D00DD8FD0 /* DeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A84AF092389BB7D00DD8FD0 /* DeviceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
+		5A2473E1238B96DE002EA487 /* DeviceMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMenuController.swift; sourceTree = "<group>"; };
 		5A513B9522A4E13D00BE2687 /* BeoplayRemoteGUI.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BeoplayRemoteGUI.entitlements; sourceTree = "<group>"; };
 		5A513B9622A4E13D00BE2687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
@@ -39,6 +42,7 @@
 		5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A513B9D22A4E13D00BE2687 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A56912C22A49696006B4718 /* BeoplayRemoteGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeoplayRemoteGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A84AF092389BB7D00DD8FD0 /* DeviceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceController.swift; sourceTree = "<group>"; };
 		5AAE214F237C5F940047B567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		5AAE2151237C5F970047B567 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +67,8 @@
 				5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */,
 				5A513B9822A4E13D00BE2687 /* MainMenu.xib */,
 				5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */,
+				5A84AF092389BB7D00DD8FD0 /* DeviceController.swift */,
+				5A2473E1238B96DE002EA487 /* DeviceMenuController.swift */,
 				5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */,
 				5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */,
 				5A513B9D22A4E13D00BE2687 /* Info.plist */,
@@ -176,8 +182,10 @@
 			files = (
 				5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */,
 				5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */,
+				5A84AF0A2389BB7D00DD8FD0 /* DeviceController.swift in Sources */,
 				5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */,
 				5A1E011D22B447AB00AEC342 /* ScrollableSlider.swift in Sources */,
+				5A2473E2238B96DE002EA487 /* DeviceMenuController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +473,7 @@
 			repositoryURL = "https://github.com/tlk/beoplay-macos-remote-cli";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.2;
+				minimumVersion = 0.2.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

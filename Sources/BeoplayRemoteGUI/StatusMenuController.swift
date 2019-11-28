@@ -19,8 +19,7 @@ class StatusMenuController: NSObject {
     @IBOutlet weak var separatorMenuItem: NSMenuItem!
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private var deviceMenuItems: [NSMenuItem] = []
-
+    private var deviceController = DeviceController()
     private var remoteControl = RemoteControl()
     private var lastVolumeLevel: Int = 0
     private var ignoreReceivedVolumeUpdates = false
@@ -39,32 +38,8 @@ class StatusMenuController: NSObject {
             setupTuneIn()
         }
 
-        discoverDevices()
-    }
-
-    private func discoverDevices() {
-        var first = true
-
-        func foundDevice(_ device: NetService) {
-            let item = addDeviceMenuItem(device)
-            self.deviceMenuItems.append(item)
-            if first {
-                first = false
-                self.deviceClicked(item)
-            }
-        }
-
-        func addDeviceMenuItem(_ service: NetService) -> NSMenuItem {
-            let location = statusMenu.index(of: deviceSeparatorMenuItem)
-            let item = NSMenuItem(title: service.name, action: #selector(deviceClicked(_:)), keyEquivalent: "")
-            item.representedObject = service
-            item.target = self
-            item.isEnabled = true
-            statusMenu.insertItem(item, at: location)
-            return item
-        }
-
-        self.remoteControl.discover({}, callback: foundDevice)
+        deviceController.menuController = DeviceMenuController(self)
+        remoteControl.startDiscovery(delegate: deviceController)
     }
 
     private func setupVolumeUpdateReceiver() {
@@ -145,16 +120,19 @@ class StatusMenuController: NSObject {
     }
 
     private func refreshSources() {
-        var hideTypes: [String] = []
+        NSLog("refresh sources")
 
-        self.sourcesMenuItem.isHidden = false
-        self.separatorMenuItem.isHidden = false
+        self.remoteControl.getEnabledSources { (sources: [BeoplaySource]) in
+            var hideTypes: [String] = []
 
-        if let tmp = UserDefaults.standard.array(forKey: "sources.hideTypes") {
-            hideTypes = tmp.map { ($0 as! String).lowercased() }
-        }
+            if let tmp = UserDefaults.standard.array(forKey: "sources.hideTypes") {
+                hideTypes = tmp.map { ($0 as! String).lowercased() }
+            }
 
-        func addSources(sources: [BeoplaySource]) {
+            self.sourcesMenuItem.submenu?.removeAllItems()
+            self.sourcesMenuItem.isHidden = false
+            self.separatorMenuItem.isHidden = false
+
             var hasTuneIn = false
             
             for source in sources {
@@ -173,7 +151,7 @@ class StatusMenuController: NSObject {
                     name = source.friendlyName
                 }
 
-                let item = NSMenuItem(title: name, action: #selector(setSource(_:)), keyEquivalent: "")
+                let item = NSMenuItem(title: name, action: #selector(self.setSource(_:)), keyEquivalent: "")
                 item.representedObject = source.id
                 item.target = self
                 item.isEnabled = true
@@ -185,9 +163,6 @@ class StatusMenuController: NSObject {
                 self.tuneinMenuItem.isHidden = !hasTuneIn
             }
         }
-        
-        self.sourcesMenuItem.submenu?.removeAllItems()
-        self.remoteControl.getEnabledSources(addSources)
     }
 
     private func setupTuneIn() {
@@ -256,25 +231,29 @@ class StatusMenuController: NSObject {
         }
     }
 
+    func connectDevice(_ sender: NSMenuItem) {
+        guard let device = sender.representedObject as? NetService else {
+            return
+        }
+
+        NSLog("connectDevice \"\(device.name)\", \(device.hostName!):\(device.port)")
+
+        self.remoteControl.stopVolumeNotifications()
+        self.remoteControl = RemoteControl()
+        self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
+        self.setupVolumeUpdateReceiver()
+
+        self.deviceController.menuController?.selectDeviceMenuItem(sender)
+
+        if UserDefaults.standard.bool(forKey: "sources.enabled") {
+            self.refreshSources()
+        }
+    }
+
     @IBAction func deviceClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let device = sender.representedObject as! NetService
-            NSLog("deviceClicked, \"\(device.name)\", \(device.hostName!):\(device.port)")
-
-            self.remoteControl.stopVolumeNotifications()
-            self.remoteControl = RemoteControl()
-            self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
-            self.setupVolumeUpdateReceiver()
-
-            for item in self.deviceMenuItems {
-                item.state = NSControl.StateValue.off
-            }
-
-            sender.state = NSControl.StateValue.on
-
-            if UserDefaults.standard.bool(forKey: "sources.enabled") {
-                self.refreshSources()
-            }
+            self.connectDevice(sender)
+            NSLog("device")
         }
     }
 
