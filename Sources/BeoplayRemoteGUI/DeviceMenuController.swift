@@ -55,9 +55,16 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         case 0:
             NSLog("no devices available")
         default:
+            guard let defaultDevice = UserDefaults.standard.string(forKey: "devices.default") else {
+                return
+            }
+            
             if self.getSelected(menuItems).count == 0 {
-                NSLog("no devices selected - picking one")
-                self.statusMenuController.connectDevice(menuItems.first!)
+                if let item = menuItems.filter({ $0.title == defaultDevice }).first {
+                    NSLog("connecting to default device")
+                    self.statusMenuController.connectDevice(item)
+
+                }
             }
         }
     }
