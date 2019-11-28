@@ -43,13 +43,13 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Sources" id="jdX-PL-kHj">
                         <items>
-                            <menuItem title="Touch to join" id="zaJ-t8-6dj">
+                            <menuItem title="Join Multiroom" id="zaJ-t8-6dj">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="joinClicked:" target="alx-iL-ssJ" id="e04-3P-lie"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Leave" id="YbL-n3-TK6">
+                            <menuItem title="Leave Multiroom" id="YbL-n3-TK6">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="leaveClicked:" target="alx-iL-ssJ" id="8Lf-w2-UC6"/>
