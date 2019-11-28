@@ -48,6 +48,9 @@ Finally, disconnect <kbd>F11</kbd> and <kbd>F12</kbd> from Mission Control: http
 ## Optional configuration
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+
+defaults write $bundleid app.title "BeoplayRemote"
+
 defaults write $bundleid hotkeys.enabled true
 defaults write $bundleid hotkeys.volumedownKey 103
 defaults write $bundleid hotkeys.volumeupKey 111

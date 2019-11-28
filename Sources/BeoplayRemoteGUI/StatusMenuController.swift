@@ -26,7 +26,7 @@ class StatusMenuController: NSObject {
     private var debouncer: DispatchWorkItem? = nil
 
     override func awakeFromNib() {
-        statusItem.button?.title = "BeoplayRemote"
+        statusItem.button?.title = UserDefaults.standard.string(forKey: "app.title") ?? "BeoplayRemote"
         statusItem.menu = statusMenu
         volumeLevelMenuItem.view = volumeLevelView
 
