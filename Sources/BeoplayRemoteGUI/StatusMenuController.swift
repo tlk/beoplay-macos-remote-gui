@@ -191,7 +191,7 @@ class StatusMenuController: NSObject {
 
     @IBAction func tuneIn(_ sender: NSMenuItem) {
         let id = sender.representedObject as! String
-        self.remoteControl.tuneIn(id: id)
+        self.remoteControl.tuneIn(id: id, name: sender.title)
         NSLog("tuneIn: \(id)")
     }
 
