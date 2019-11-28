@@ -129,7 +129,11 @@ class StatusMenuController: NSObject {
                 hideTypes = tmp.map { ($0 as! String).lowercased() }
             }
 
-            self.sourcesMenuItem.submenu?.removeAllItems()
+            self.sourcesMenuItem.submenu?
+                .items
+                .filter { $0.representedObject != nil }
+                .forEach { self.sourcesMenuItem.submenu!.removeItem($0) }
+            
             self.sourcesMenuItem.isHidden = false
             self.separatorMenuItem.isHidden = false
 
@@ -254,6 +258,20 @@ class StatusMenuController: NSObject {
         DispatchQueue.global(qos: .userInitiated).async {
             self.connectDevice(sender)
             NSLog("device")
+        }
+    }
+
+    @IBAction func joinClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.remoteControl.join()
+            NSLog("join")
+        }
+    }
+
+    @IBAction func leaveClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.remoteControl.leave()
+            NSLog("leave")
         }
     }
 

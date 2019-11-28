@@ -473,7 +473,7 @@
 			repositoryURL = "https://github.com/tlk/beoplay-macos-remote-cli";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.3;
+				minimumVersion = 0.2.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

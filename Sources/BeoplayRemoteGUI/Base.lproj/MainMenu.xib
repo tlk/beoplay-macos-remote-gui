@@ -41,7 +41,22 @@
                 <menuItem isSeparatorItem="YES" title="deviceSeparator" identifier="deviceSeparator" id="GZI-74-Bbh"/>
                 <menuItem title="Sources" hidden="YES" id="kgn-98-8ke">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Sources" id="jdX-PL-kHj"/>
+                    <menu key="submenu" title="Sources" id="jdX-PL-kHj">
+                        <items>
+                            <menuItem title="Touch to join" id="zaJ-t8-6dj">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="joinClicked:" target="alx-iL-ssJ" id="e04-3P-lie"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Leave" id="YbL-n3-TK6">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="leaveClicked:" target="alx-iL-ssJ" id="8Lf-w2-UC6"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
                 <menuItem title="TuneIn Radio" hidden="YES" id="TnM-U3-Th3">
                     <modifierMask key="keyEquivalentModifierMask"/>
