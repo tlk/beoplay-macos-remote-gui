@@ -37,9 +37,15 @@ class StatusMenuController: NSObject {
         if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
             setupTuneIn()
         }
+    
+        setupDeviceDiscovery()
+    }
 
-        deviceController.menuController = DeviceMenuController(self)
-        remoteControl.startDiscovery(delegate: deviceController)
+    private func setupDeviceDiscovery() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.deviceController.menuController = DeviceMenuController(self)
+            self.remoteControl.startDiscovery(delegate: self.deviceController)
+        }
     }
 
     private func setupVolumeUpdateReceiver() {
