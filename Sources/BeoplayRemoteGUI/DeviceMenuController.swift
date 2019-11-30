@@ -8,7 +8,7 @@
 import Cocoa
 
 class DeviceMenuController : NSObject, NetServiceDelegate {
-    private let q = DispatchQueue(label: "beoplay-device-menu-ui-manager")
+    private let q = DispatchQueue.main
     private let statusMenuController: StatusMenuController
     private let statusMenu: NSMenu
 
@@ -73,10 +73,8 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         NSLog("removeDevice: \(device.name)")
         
         if let item = self.getMenuItem(device) {
-            DispatchQueue.main.async {
-                self.statusMenu.removeItem(item)
-                self.didUpdateDevices()
-            }
+            self.statusMenu.removeItem(item)
+            self.didUpdateDevices()
         }
     }
 
@@ -89,9 +87,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         item.target = target
         item.isEnabled = false
         
-        DispatchQueue.main.async {
-            self.statusMenu.insertItem(item, at: self.getLocationForNew(item))
-        }
+        self.statusMenu.insertItem(item, at: self.getLocationForNew(item))
 
         // The menu item is enabled by the delegate when the service address has been resolved
         device.delegate = self
@@ -103,10 +99,8 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         
         let menuItem = self.getMenuItem(service)
         
-        DispatchQueue.main.async {
-            menuItem?.isEnabled = true
-            self.didUpdateDevices()
-        }
+        menuItem?.isEnabled = true
+        self.didUpdateDevices()
     }
 
     private func getLocationForNew(_ newItem: NSMenuItem) -> Int {
