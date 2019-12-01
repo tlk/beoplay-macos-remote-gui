@@ -15,7 +15,7 @@
 		5A276F0A2393E96700FF1F7A /* SourcesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A276F092393E96700FF1F7A /* SourcesMenuController.swift */; };
 		5A3352AF22B4019300E926BD /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A3352AE22B4019300E926BD /* BeoplayRemoteCore */; };
 		5A513B9E22A4E13D00BE2687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9622A4E13D00BE2687 /* Assets.xcassets */; };
-		5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */; };
+		5A513B9F22A4E13D00BE2687 /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9722A4E13D00BE2687 /* MainMenuController.swift */; };
 		5A513BA022A4E13D00BE2687 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9822A4E13D00BE2687 /* MainMenu.xib */; };
 		5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */; };
 		5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */; };
@@ -44,7 +44,7 @@
 		5A276F092393E96700FF1F7A /* SourcesMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesMenuController.swift; sourceTree = "<group>"; };
 		5A513B9522A4E13D00BE2687 /* BeoplayRemoteGUI.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BeoplayRemoteGUI.entitlements; sourceTree = "<group>"; };
 		5A513B9622A4E13D00BE2687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		5A513B9722A4E13D00BE2687 /* MainMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
 		5A513B9922A4E13D00BE2687 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeLevelView.swift; sourceTree = "<group>"; };
 		5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,9 +78,9 @@
 				5A276F032393D2AC00FF1F7A /* HotkeysController.swift */,
 				5A513B9D22A4E13D00BE2687 /* Info.plist */,
 				5A513B9822A4E13D00BE2687 /* MainMenu.xib */,
+				5A513B9722A4E13D00BE2687 /* MainMenuController.swift */,
 				5A1E011C22B447AB00AEC342 /* ScrollableSlider.swift */,
 				5A276F092393E96700FF1F7A /* SourcesMenuController.swift */,
-				5A513B9722A4E13D00BE2687 /* StatusMenuController.swift */,
 				5A276F072393E65500FF1F7A /* TuneInMenuController.swift */,
 				5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */,
 				5A276F052393D97B00FF1F7A /* VolumeLevelViewController.swift */,
@@ -197,7 +197,7 @@
 				5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */,
 				5A276F0A2393E96700FF1F7A /* SourcesMenuController.swift in Sources */,
 				5A276F082393E65500FF1F7A /* TuneInMenuController.swift in Sources */,
-				5A513B9F22A4E13D00BE2687 /* StatusMenuController.swift in Sources */,
+				5A513B9F22A4E13D00BE2687 /* MainMenuController.swift in Sources */,
 				5A84AF0A2389BB7D00DD8FD0 /* DeviceController.swift in Sources */,
 				5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */,
 				5A1E011D22B447AB00AEC342 /* ScrollableSlider.swift in Sources */,

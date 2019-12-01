@@ -8,7 +8,7 @@
 import Cocoa
 import RemoteCore
 
-class StatusMenuController: NSObject {
+class MainMenuController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
 
     @IBOutlet weak var volumeLevelMenuItem: NSMenuItem!
