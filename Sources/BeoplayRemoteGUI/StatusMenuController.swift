@@ -51,13 +51,7 @@ class StatusMenuController: NSObject {
     private func setupVolumeUpdateReceiver() {
         // read the current volume level and receive updates on future volume levels
         DispatchQueue.global(qos: .userInitiated).async {
-            self.remoteControl.receiveVolumeNotifications(volumeUpdate: self.receiveVolumeUpdate) { (state, message) in
-                if message == nil {
-                    NSLog("connection state: \(state)")
-                } else {
-                    NSLog("connection state: \(state): \(message!)")
-                }
-            }
+            self.remoteControl.receiveVolumeNotifications(volumeUpdate: self.receiveVolumeUpdate, connectionUpdate: self.deviceController.menuController!.connectionUpdate(state:message:))
         }
     }
 
@@ -146,7 +140,6 @@ class StatusMenuController: NSObject {
             }
 
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
-                NSLog("key: \(event.keyCode)")
                 guard let command = hotkeyMap[event.keyCode] else {
                     return
                 }

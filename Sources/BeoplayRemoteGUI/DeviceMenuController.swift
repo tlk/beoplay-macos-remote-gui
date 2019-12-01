@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import RemoteCore
 
 class DeviceMenuController : NSObject, NetServiceDelegate {
     private let q = DispatchQueue.main
@@ -20,7 +21,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
     public func selectDeviceMenuItem(_ selectedItem: NSMenuItem) {
         self.q.async {
             let items = self.getDeviceMenuItems()
-            for item in self.getSelected(items) {
+            for item in items {
                 item.state = NSControl.StateValue.off
             }
 
@@ -43,6 +44,22 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                     self.removeDevice(update.device)
                 }
             }
+        }
+    }
+    
+    public func connectionUpdate(state: RemoteNotificationsSession.ConnectionState, message: String?) {
+        self.q.async {
+            let item = self.getDeviceMenuItems().filter({ $0.isEnabled && $0.state != NSControl.StateValue.off}).first
+            item?.state =
+                state == RemoteNotificationsSession.ConnectionState.online
+                    ? NSControl.StateValue.on
+                    : NSControl.StateValue.mixed
+        }
+        
+        if message == nil {
+            NSLog("connection state: \(state)")
+        } else {
+            NSLog("connection state: \(state): \(message!)")
         }
     }
     
