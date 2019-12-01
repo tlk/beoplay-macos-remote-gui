@@ -44,7 +44,7 @@
 		5A56912C22A49696006B4718 /* BeoplayRemoteGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeoplayRemoteGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A84AF092389BB7D00DD8FD0 /* DeviceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceController.swift; sourceTree = "<group>"; };
 		5AAE214F237C5F940047B567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		5AAE2151237C5F970047B567 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		5AFE24342390191F007500BC /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +197,7 @@
 			children = (
 				5A513B9922A4E13D00BE2687 /* Base */,
 				5AAE214F237C5F940047B567 /* en */,
-				5AAE2151237C5F970047B567 /* da */,
+				5AFE24342390191F007500BC /* da */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

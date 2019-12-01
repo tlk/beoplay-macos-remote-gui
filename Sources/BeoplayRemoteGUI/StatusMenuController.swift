@@ -91,34 +91,102 @@ class StatusMenuController: NSObject {
         } else {
             NSLog("hotkeys setup")
 
-            let F11 = "103"
-            let F12 = "111"
-            let defaultStep = 4
+            let defaultVolumeStep = 4
+            let step: Int = UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") > 0 ?
+                            UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") : defaultVolumeStep
+            NSLog("hotkeys.VolumeStep: \(step)")
 
-            let volumedownKey = UInt16(UserDefaults.standard.string(forKey: "hotkeys.volumedownKey") ?? F11, radix: 10)
-            let volumeupKey   = UInt16(UserDefaults.standard.string(forKey: "hotkeys.volumeupKey")   ?? F12, radix: 10)
-            let step: Int = UserDefaults.standard.integer(forKey: "hotkeys.step") > 0 ?
-                            UserDefaults.standard.integer(forKey: "hotkeys.step") : defaultStep
+            enum Command : String {
+                case Leave, Join, PrevSource, NextSource, Back, TogglePlayPause, Next, Mute, VolumeDown, VolumeUp
+            }
 
-            NSLog("volumedownKey: \(volumedownKey!), volumeupKey: \(volumeupKey!), step: \(step)")
+            enum Hotkey : String {
+                case F1  = "122"
+                case F2  = "120"
+                case F3  =  "99"
+                case F4  = "118"
+                case F5  =  "96"
+                case F6  =  "97"
+                case F7  =  "98"
+                case F8  = "100"
+                case F9  = "101"
+                case F10 = "109"
+                case F11 = "103"
+                case F12 = "111"
+            }
+
+            let defaultConfiguration = [
+                Hotkey.F1  : Command.Leave,
+                Hotkey.F2  : Command.Join,
+                Hotkey.F5  : Command.PrevSource,
+                Hotkey.F6  : Command.NextSource,
+                Hotkey.F7  : Command.Back,
+                Hotkey.F8  : Command.TogglePlayPause,
+                Hotkey.F9  : Command.Next,
+                Hotkey.F10 : Command.Mute,
+                Hotkey.F11 : Command.VolumeDown,
+                Hotkey.F12 : Command.VolumeUp
+            ]
+
+            let hotkeyMap = Dictionary(uniqueKeysWithValues:
+                defaultConfiguration.compactMap() { hotkey, command -> (UInt16, Command)? in
+                    let strKeycode = UserDefaults.standard.string(forKey: "hotkeys.\(command)") ?? hotkey.rawValue
+                    if let keycode = UInt16(strKeycode, radix: 10) {
+                        NSLog("hotkeys.\(command): \(strKeycode)")
+                        return (keycode, command)
+                    } else {
+                        return nil
+                    }
+                }
+            )
 
             func adjust(_ volume: Int) {
-                NSLog("hotkey: adjusting volume")
                 self.volumeLevelSlider.integerValue = volume
                 self.sendVolumeUpdate(vol: volume)
             }
 
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
-                let volume = self.volumeLevelSlider.integerValue
+                NSLog("key: \(event.keyCode)")
+                guard let command = hotkeyMap[event.keyCode] else {
+                    return
+                }
 
-                switch(event.keyCode) {
-                case volumedownKey:
+                NSLog("hotkey command: \(command)")
+
+                switch(command) {
+                case Command.Leave:
+                    self.remoteControl.leave()
+                    break
+                case Command.Join:
+                    self.remoteControl.join()
+                    break
+                case Command.PrevSource:
+                    NSLog("Not implemented")
+//                    self.setSource(self.sourcesMenuItem!.submenu!.item(at: 2) as! NSMenuItem)
+                    break
+                case Command.NextSource:
+                    NSLog("Not implemented")
+//                    self.setSource(self.sourcesMenuItem!.submenu!.item(at: 3) as! NSMenuItem)
+                    break
+                case Command.Back:
+                    self.remoteControl.backward()
+                    break
+                case Command.TogglePlayPause:
+                    NSLog("Not implemented")
+                    break
+                case Command.Next:
+                    self.remoteControl.forward()
+                    break
+                case Command.Mute:
+                    NSLog("Not implemented")
+                    break
+                case Command.VolumeDown:
+                    let volume = self.volumeLevelSlider.integerValue
                     adjust(volume - step)
                     break
-                case volumeupKey:
+                case Command.VolumeUp:
+                    let volume = self.volumeLevelSlider.integerValue
                     adjust(volume + step)
-                    break
-                default:
                     break
                 }
             }
