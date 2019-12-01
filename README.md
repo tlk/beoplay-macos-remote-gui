@@ -38,6 +38,7 @@ defaults write $bundleid hotkeys.enabled true
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
 Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this:
+
 | Hotkey          | Application                                                             |
 | --------------- | ----------------------------------------------------------------------- |
 | <kbd>F11</kbd>  | [Mission Control](https://apple.stackexchange.com/a/110528)             |
