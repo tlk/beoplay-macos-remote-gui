@@ -10,6 +10,39 @@ import RemoteCore
 
 public class HotkeysController {
     private let remoteControl: RemoteControl
+    private var eventMonitor: Any?
+
+    private enum Command : String {
+        case Leave, Join, PrevSource, NextSource, Back, TogglePlayPause, Next, Mute, VolumeDown, VolumeUp
+    }
+
+    private enum Hotkey : String {
+        case F1  = "122"
+        case F2  = "120"
+        case F3  =  "99"
+        case F4  = "118"
+        case F5  =  "96"
+        case F6  =  "97"
+        case F7  =  "98"
+        case F8  = "100"
+        case F9  = "101"
+        case F10 = "109"
+        case F11 = "103"
+        case F12 = "111"
+    }
+
+    private let defaultConfiguration = [
+        Hotkey.F1  : Command.Leave,
+        Hotkey.F2  : Command.Join,
+        Hotkey.F5  : Command.PrevSource,
+        Hotkey.F6  : Command.NextSource,
+        Hotkey.F7  : Command.Back,
+        Hotkey.F8  : Command.TogglePlayPause,
+        Hotkey.F9  : Command.Next,
+        Hotkey.F10 : Command.Mute,
+        Hotkey.F11 : Command.VolumeDown,
+        Hotkey.F12 : Command.VolumeUp
+    ]
 
     public init(remoteControl: RemoteControl) {
         self.remoteControl = remoteControl
@@ -26,41 +59,9 @@ public class HotkeysController {
 
         let defaultVolumeStep = 4
         let volumeStep: Int = UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") > 0 ?
-                        UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") : defaultVolumeStep
+                              UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") : defaultVolumeStep
 
         NSLog("hotkeys.VolumeStep: \(volumeStep)")
-
-        enum Command : String {
-            case Leave, Join, PrevSource, NextSource, Back, TogglePlayPause, Next, Mute, VolumeDown, VolumeUp
-        }
-
-        enum Hotkey : String {
-            case F1  = "122"
-            case F2  = "120"
-            case F3  =  "99"
-            case F4  = "118"
-            case F5  =  "96"
-            case F6  =  "97"
-            case F7  =  "98"
-            case F8  = "100"
-            case F9  = "101"
-            case F10 = "109"
-            case F11 = "103"
-            case F12 = "111"
-        }
-
-        let defaultConfiguration = [
-            Hotkey.F1  : Command.Leave,
-            Hotkey.F2  : Command.Join,
-            Hotkey.F5  : Command.PrevSource,
-            Hotkey.F6  : Command.NextSource,
-            Hotkey.F7  : Command.Back,
-            Hotkey.F8  : Command.TogglePlayPause,
-            Hotkey.F9  : Command.Next,
-            Hotkey.F10 : Command.Mute,
-            Hotkey.F11 : Command.VolumeDown,
-            Hotkey.F12 : Command.VolumeUp
-        ]
 
         let hotkeyMap = Dictionary(uniqueKeysWithValues:
             defaultConfiguration.compactMap() { hotkey, command -> (UInt16, Command)? in
@@ -74,6 +75,11 @@ public class HotkeysController {
             }
         )
 
+        eventMonitor = addGlobalMonitor(hotkeyMap, volumeStep)
+    }
+
+
+    private func addGlobalMonitor(_ hotkeyMap: [UInt16 : HotkeysController.Command], _ volumeStep: Int) -> Any? {
         NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
             guard let command = hotkeyMap[event.keyCode] else {
                 return
@@ -90,11 +96,11 @@ public class HotkeysController {
                 break
             case Command.PrevSource:
                 NSLog("Not implemented")
-//                    self.setSource(self.sourcesMenuItem!.submenu!.item(at: 2) as! NSMenuItem)
+//                self.setSource(self.sourcesMenuItem!.submenu!.item(at: 2) as! NSMenuItem)
                 break
             case Command.NextSource:
                 NSLog("Not implemented")
-//                    self.setSource(self.sourcesMenuItem!.submenu!.item(at: 3) as! NSMenuItem)
+//                self.setSource(self.sourcesMenuItem!.submenu!.item(at: 3) as! NSMenuItem)
                 break
             case Command.Back:
                 self.remoteControl.backward()
