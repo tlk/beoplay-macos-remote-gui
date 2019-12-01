@@ -7,5 +7,5 @@
 
 import Cocoa
 
-class VolumeLevelView: NSView {
+public class VolumeLevelView: NSView {
 }

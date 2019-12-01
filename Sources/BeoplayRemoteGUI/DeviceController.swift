@@ -1,3 +1,10 @@
+//
+//  DeviceController.swift
+//  BeoplayRemoteGUI
+//
+//  Created by Thomas L. Kjeldsen on 25/11/2019.
+//
+
 import Cocoa
 
 enum DeviceAction {
