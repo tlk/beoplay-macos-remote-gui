@@ -134,11 +134,6 @@ class StatusMenuController: NSObject {
                 }
             )
 
-            func adjust(_ volume: Int) {
-                self.volumeLevelSlider.integerValue = volume
-                self.sendVolumeUpdate(vol: volume)
-            }
-
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
                 guard let command = hotkeyMap[event.keyCode] else {
                     return
@@ -174,12 +169,10 @@ class StatusMenuController: NSObject {
                     NSLog("Not implemented")
                     break
                 case Command.VolumeDown:
-                    let volume = self.volumeLevelSlider.integerValue
-                    adjust(volume - step)
+                    self.remoteControl.adjustVolume(delta: -step)
                     break
                 case Command.VolumeUp:
-                    let volume = self.volumeLevelSlider.integerValue
-                    adjust(volume + step)
+                    self.remoteControl.adjustVolume(delta: step)
                     break
                 }
             }
