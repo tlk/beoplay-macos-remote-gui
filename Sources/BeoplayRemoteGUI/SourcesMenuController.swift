@@ -31,9 +31,6 @@ public class SourcesMenuController {
         NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
             if let data = notification.userInfo?["data"] as? RemoteCore.Source {
                 DispatchQueue.main.async {
-                    if self.currentSourceId == data.id {
-                        return
-                    }
                     self.currentSourceId = data.id
 
                     for item in self.sourcesMenuItem.submenu!.items[2...] {

@@ -74,48 +74,48 @@ class MainMenuController: NSObject {
     
     @IBAction func joinClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("joinClicked")
             self.remoteControl.join()
-            NSLog("join")
         }
     }
 
     @IBAction func leaveClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("leaveClicked")
             self.remoteControl.leave()
-            NSLog("leave")
         }
     }
 
     @IBAction func playClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("playClicked")
             self.remoteControl.play()
-            NSLog("play")
         }
     }
 
     @IBAction func pauseClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("pauseClicked")
             self.remoteControl.pause()
-            NSLog("pause")
         }
     }
 
     @IBAction func nextClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("nextClicked")
             self.remoteControl.next()
-            NSLog("next")
         }
     }
 
     @IBAction func backClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("backClicked")
             self.remoteControl.back()
-            NSLog("back")
         }
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
+        NSLog("quitClicked")
         NSApplication.shared.terminate(self)
-        NSLog("quit")
     }
 }

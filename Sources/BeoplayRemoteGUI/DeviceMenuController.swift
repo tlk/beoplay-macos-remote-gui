@@ -51,7 +51,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                 item.state = NSControl.StateValue.off
             }
 
-            selectedItem.state = NSControl.StateValue.on
+            selectedItem.state = NSControl.StateValue.mixed
         }
     }
 
@@ -161,9 +161,12 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         NSLog("connectDevice \"\(device.name)\", \(device.hostName!):\(device.port)")
 
         self.remoteControl.stopNotifications()
+
+        self.sourcesMenuController.noDevicesAvailable()
+        self.selectDeviceMenuItem(sender)
+
         self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
         self.remoteControl.startNotifications()
-        self.selectDeviceMenuItem(sender)
 
         if UserDefaults.standard.bool(forKey: "sources.enabled") {
             self.sourcesMenuController.reload()
@@ -172,8 +175,8 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
     @IBAction func deviceClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
+            NSLog("deviceClicked")
             self.connectDevice(sender)
-            NSLog("device")
         }
     }
 }
