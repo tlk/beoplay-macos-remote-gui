@@ -75,16 +75,16 @@
                         <action selector="pauseClicked:" target="alx-iL-ssJ" id="REm-Bw-lOL"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Forward" id="KeU-58-sE1">
+                <menuItem title="Next" id="KeU-58-sE1">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="forwardClicked:" target="alx-iL-ssJ" id="yn1-oQ-tSy"/>
+                        <action selector="nextClicked:" target="alx-iL-ssJ" id="Eqi-35-UEy"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Backward" id="S5r-Ym-sNj">
+                <menuItem title="Back" id="S5r-Ym-sNj">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="backwardClicked:" target="alx-iL-ssJ" id="9gc-ON-Pm7"/>
+                        <action selector="backClicked:" target="alx-iL-ssJ" id="6wR-eE-aRi"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="qEB-Ww-KcO"/>

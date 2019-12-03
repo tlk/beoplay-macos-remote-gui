@@ -103,13 +103,13 @@ public class HotkeysController {
 //                self.setSource(self.sourcesMenuItem!.submenu!.item(at: 3) as! NSMenuItem)
                 break
             case Command.Back:
-                self.remoteControl.backward()
+                self.remoteControl.back()
                 break
             case Command.TogglePlayPause:
                 NSLog("Not implemented")
                 break
             case Command.Next:
-                self.remoteControl.forward()
+                self.remoteControl.next()
                 break
             case Command.Mute:
                 NSLog("Not implemented")

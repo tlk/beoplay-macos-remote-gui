@@ -28,7 +28,6 @@ class MainMenuController: NSObject {
     private var sourcesMenuController: SourcesMenuController?
     private var tuneInMenuController: TuneInMenuController?
 
-
     override func awakeFromNib() {
         menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title") ?? "BeoplayRemote"
         menuBar.menu = statusMenu
@@ -61,7 +60,11 @@ class MainMenuController: NSObject {
             deviceSeparatorMenuItem: deviceSeparatorMenuItem,
             volumeLevelViewController: volumeLevelViewController!,
             sourcesMenuController: sourcesMenuController!)
-    
+
+        volumeLevelViewController?.addObserver()
+        sourcesMenuController?.addObserver()
+        deviceController.menuController?.addObserver()
+
         remoteControl.startDiscovery(delegate: deviceController)
     }
 
@@ -97,17 +100,17 @@ class MainMenuController: NSObject {
         }
     }
 
-    @IBAction func forwardClicked(_ sender: NSMenuItem) {
+    @IBAction func nextClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.remoteControl.forward()
-            NSLog("forward")
+            self.remoteControl.next()
+            NSLog("next")
         }
     }
 
-    @IBAction func backwardClicked(_ sender: NSMenuItem) {
+    @IBAction func backClicked(_ sender: NSMenuItem) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.remoteControl.backward()
-            NSLog("backward")
+            self.remoteControl.back()
+            NSLog("back")
         }
     }
 

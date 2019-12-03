@@ -14,6 +14,7 @@ public class SourcesMenuController {
     private let tuneInMenuController: TuneInMenuController?
     private let separatorMenuItem: NSMenuItem
     private var hideTypes: [String] = []
+    private var currentSourceId = ""
 
     public init(remoteControl: RemoteControl, tuneInMenuController: TuneInMenuController?, sourcesMenuItem: NSMenuItem, separatorMenuItem: NSMenuItem) {
         self.remoteControl = remoteControl
@@ -23,6 +24,28 @@ public class SourcesMenuController {
 
         if let tmp = UserDefaults.standard.array(forKey: "sources.hideTypes") {
             hideTypes = tmp.map { ($0 as! String).lowercased() }
+        }
+    }
+
+    public func addObserver() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? RemoteCore.Source {
+                DispatchQueue.main.async {
+                    if self.currentSourceId == data.id {
+                        return
+                    }
+                    self.currentSourceId = data.id
+
+                    for item in self.sourcesMenuItem.submenu!.items[2...] {
+                        if let x = item.representedObject as? String, x == data.id {
+                            item.state = NSControl.StateValue.on
+                        } else {
+                            item.state = NSControl.StateValue.off
+                        }
+                    }
+                    NSLog("source: \(data.id)")
+                }
+            }
         }
     }
 
@@ -58,6 +81,7 @@ public class SourcesMenuController {
                     item.representedObject = source.id
                     item.target = self
                     item.isEnabled = true
+                    item.state = source.id == self.currentSourceId ? NSControl.StateValue.on : NSControl.StateValue.off
                     self.sourcesMenuItem.submenu?.addItem(item)
                     NSLog("source id: \(source.id), source name: \(name)")
                 }

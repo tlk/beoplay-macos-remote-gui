@@ -9,13 +9,13 @@
 "GZI-74-Bbh.title" = "deviceSeparator";
 
 /* Class = "NSMenuItem"; title = "Forward"; ObjectID = "KeU-58-sE1"; */
-"KeU-58-sE1.title" = "Forward";
+"KeU-58-sE1.title" = "Next";
 
 /* Class = "NSMenuItem"; title = "Volume: "; ObjectID = "OHD-zl-J7n"; */
 "OHD-zl-J7n.title" = "Volume: ";
 
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
-"S5r-Ym-sNj.title" = "Backward";
+"S5r-Ym-sNj.title" = "Back";
 
 /* Class = "NSMenuItem"; title = "TuneIn Radio"; ObjectID = "TnM-U3-Th3"; */
 "TnM-U3-Th3.title" = "TuneIn Radio";
