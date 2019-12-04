@@ -16,9 +16,7 @@ public class TuneInMenuController {
     public init(remoteControl: RemoteControl, tuneInMenuItem: NSMenuItem) {
         self.remoteControl = remoteControl
         self.tuneInMenuItem = tuneInMenuItem
-    }
 
-    public func setup() {
         let order = UserDefaults.standard.array(forKey: "tuneIn.order")!
         let stations = UserDefaults.standard.dictionary(forKey: "tuneIn.stations")!
 
@@ -34,49 +32,42 @@ public class TuneInMenuController {
                 NSLog("tuneIn radio station id: \(id), station name: \(name)")
             }
 
-            self.tuneInMenuItem.isHidden = false
             self.addObserver()
         }
     }
 
     public func addObserver() {
         NotificationCenter.default.addObserver(forName: Notification.Name.onNowPlayingRadio, object: nil, queue: nil) { (notification: Notification) -> Void in
-            if let data = notification.userInfo?["data"] as? RemoteCore.NowPlayingRadio {
-                DispatchQueue.main.async {
-                    NSLog("tuneIn: now playing radio id: \(data.stationId), station name: \(data.name)")
-
-                    for item in self.tuneInMenuItem.submenu!.items {
-                        if item.representedObject as! String == data.stationId {
-                            item.state = NSControl.StateValue.on
-                        } else {
-                            item.state = NSControl.StateValue.off
-                        }
-                    }
-                }
+            guard let data = notification.userInfo?["data"] as? RemoteCore.NowPlayingRadio else {
+                return
             }
-        }
 
-        NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            if let data = notification.userInfo?["data"] as? RemoteCore.Source {
-                DispatchQueue.main.async {
-                    if data.type != "TUNEIN" {
-                        NSLog("tuneIn: no longer playing radio")
-                        for item in self.tuneInMenuItem.submenu!.items {
-                            item.state = NSControl.StateValue.off
-                        }
+            DispatchQueue.main.async {
+                NSLog("tuneIn: now playing radio id: \(data.stationId), station name: \(data.name)")
+
+                for item in self.tuneInMenuItem.submenu!.items {
+                    if item.representedObject as! String == data.stationId {
+                        item.state = NSControl.StateValue.on
+                    } else {
+                        item.state = NSControl.StateValue.off
                     }
                 }
             }
         }
     }
 
-    public func deviceHasTuneInSource(_ hasSource: Bool) {
-        self.tuneInMenuItem.isHidden = !hasSource || !self.hasAnyStations
+    public func enable() {
+        self.tuneInMenuItem.isHidden = false
+    }
 
-        if !hasSource && self.hasAnyStations {
-            for item in self.tuneInMenuItem.submenu!.items {
-                item.state = NSControl.StateValue.off
-            }
+    public func disable() {
+        self.tuneInMenuItem.isHidden = true
+        self.clear()
+    }
+
+    public func clear() {
+        for item in self.tuneInMenuItem.submenu!.items {
+            item.state = NSControl.StateValue.off
         }
     }
 

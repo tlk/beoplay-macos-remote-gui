@@ -10,11 +10,11 @@ import RemoteCore
 
 public class SourcesMenuController {
     private let remoteControl: RemoteControl
-    private let sourcesMenuItem: NSMenuItem
     private let tuneInMenuController: TuneInMenuController?
+    private let sourcesMenuItem: NSMenuItem
     private let separatorMenuItem: NSMenuItem
     private var hideTypes: [String] = []
-    private var currentSourceId = ""
+    private var lastKnownSourceId: String? = nil
 
     public init(remoteControl: RemoteControl, tuneInMenuController: TuneInMenuController?, sourcesMenuItem: NSMenuItem, separatorMenuItem: NSMenuItem) {
         self.remoteControl = remoteControl
@@ -29,42 +29,68 @@ public class SourcesMenuController {
 
     public func addObserver() {
         NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            if let data = notification.userInfo?["data"] as? RemoteCore.Source {
-                DispatchQueue.main.async {
-                    self.currentSourceId = data.id
+            guard let data = notification.userInfo?["data"] as? RemoteCore.Source else {
+                return
+            }
 
-                    for item in self.sourcesMenuItem.submenu!.items[2...] {
-                        if let x = item.representedObject as? String, x == data.id {
-                            item.state = NSControl.StateValue.on
-                        } else {
-                            item.state = NSControl.StateValue.off
-                        }
+            DispatchQueue.main.async {
+                NSLog("source changed: \(data.id)")
+
+                var sourceId = data.id
+
+                let musicAliases = ["DEEZER", "QPLAY"]
+                if musicAliases.contains(data.type) {
+                    sourceId = data.id
+                        .replacingOccurrences(of: "deezer:", with: "music:")
+                        .replacingOccurrences(of: "qplay:", with: "music:")
+                    NSLog("source id modified to match with enabled sources: \(data.id) -> \(sourceId)")
+                }
+
+                self.lastKnownSourceId = sourceId
+
+                for item in self.sourcesMenuItem.submenu!.items[2...] {
+                    if let x = item.representedObject as? String, x == sourceId {
+                        item.state = NSControl.StateValue.on
+                    } else {
+                        item.state = NSControl.StateValue.off
                     }
-                    NSLog("source: \(data.id)")
+                }
+
+                if data.type != "TUNEIN" {
+                    self.tuneInMenuController?.clear()
                 }
             }
         }
     }
 
-    public func reload() {
-        NSLog("reload sources")
+    public func disable() {
+        DispatchQueue.main.async {
+            self.sourcesMenuItem.isHidden = true
+
+            if let existingItems = self.sourcesMenuItem.submenu?.items[2...] {
+                for item in existingItems {
+                    self.sourcesMenuItem.submenu?.removeItem(item)
+                }
+            }
+
+            self.lastKnownSourceId = nil
+            self.tuneInMenuController?.disable()
+        }
+    }
+
+    public func enable() {
+        NSLog("load sources")
 
         self.remoteControl.getEnabledSources { (sources: [BeoplaySource]) in
             DispatchQueue.main.async {
-                self.sourcesMenuItem.submenu?
-                    .items
-                    .filter { $0.representedObject != nil }
-                    .forEach { self.sourcesMenuItem.submenu!.removeItem($0) }
+                self.sourcesMenuItem.isHidden = false
 
-                var hasAnySources = false
                 var hasTuneInSource = false
 
                 for source in sources {
                     if self.hideTypes.contains(source.sourceType.lowercased()) {
                         continue
                     }
-
-                    hasAnySources = true
 
                     if source.sourceType == "TUNEIN" {
                         hasTuneInSource = true
@@ -78,29 +104,26 @@ public class SourcesMenuController {
                     item.representedObject = source.id
                     item.target = self
                     item.isEnabled = true
-                    item.state = source.id == self.currentSourceId ? NSControl.StateValue.on : NSControl.StateValue.off
+                    item.state = source.id == self.lastKnownSourceId
+                        ? NSControl.StateValue.on
+                        : NSControl.StateValue.off
                     self.sourcesMenuItem.submenu?.addItem(item)
                     NSLog("source id: \(source.id), source name: \(name)")
                 }
 
-                self.setVisibility(hasAnySources: hasAnySources, hasTuneInSource: hasTuneInSource)
+                if hasTuneInSource {
+                    self.tuneInMenuController?.enable()
+                } else {
+                    self.tuneInMenuController?.disable()
+                }
             }
         }
     }
 
-    public func noDevicesAvailable() {
-        self.setVisibility(hasAnySources: false, hasTuneInSource: false)
-    }
-
-    private func setVisibility(hasAnySources: Bool, hasTuneInSource: Bool) {
-        self.sourcesMenuItem.isHidden = !hasAnySources
-        self.separatorMenuItem.isHidden = !hasAnySources
-        self.tuneInMenuController?.deviceHasTuneInSource(hasTuneInSource)
-    }
-
     @IBAction func setSource(_ sender: NSMenuItem) {
-        let id = sender.representedObject as! String
-        self.remoteControl.setSource(id: id)
-        NSLog("setSource: \(id)")
+        if let id = sender.representedObject as? String {
+            NSLog("setSource: \(id)")
+            self.remoteControl.setSource(id: id)
+        }
     }
 }

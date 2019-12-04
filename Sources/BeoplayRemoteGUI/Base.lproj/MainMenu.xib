@@ -15,7 +15,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="BeoplayRemoteGUI" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="alx-iL-ssJ" userLabel="Main" customClass="MainMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
+        <customObject id="alx-iL-ssJ" userLabel="MainMenuController" customClass="MainMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
             <connections>
                 <outlet property="deviceSeparatorMenuItem" destination="GZI-74-Bbh" id="S1t-Jt-YHQ"/>
                 <outlet property="separatorMenuItem" destination="xH5-41-cNT" id="k2V-Hb-N1U"/>
@@ -27,7 +27,7 @@
                 <outlet property="volumeLevelView" destination="Qyl-Dg-uny" id="9Sj-DX-kvy"/>
             </connections>
         </customObject>
-        <menu id="1Xh-Lf-Elu">
+        <menu autoenablesItems="NO" id="1Xh-Lf-Elu">
             <items>
                 <menuItem title="Volume: " enabled="NO" id="OHD-zl-J7n">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -104,7 +104,7 @@
                 <slider canDrawConcurrently="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-Wr-2xK" customClass="ScrollableSlider" customModule="BeoplayRemoteGUI" customModuleProvider="target">
                     <rect key="frame" x="19" y="5" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <sliderCell key="cell" continuous="YES" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="OUU-1o-3ef"/>
+                    <sliderCell key="cell" continuous="YES" enabled="NO" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="OUU-1o-3ef"/>
                     <connections>
                         <action selector="sliderMoved:" target="alx-iL-ssJ" id="obx-1b-yi3"/>
                     </connections>

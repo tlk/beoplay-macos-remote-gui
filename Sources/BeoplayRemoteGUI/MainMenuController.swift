@@ -22,7 +22,7 @@ class MainMenuController: NSObject {
 
     private let menuBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let remoteControl = RemoteControl()
-    private let deviceController = DeviceController()
+    private var deviceMenuController: DeviceMenuController?
     private var volumeLevelViewController: VolumeLevelViewController?
     private var hotkeysController: HotkeysController?
     private var sourcesMenuController: SourcesMenuController?
@@ -34,12 +34,12 @@ class MainMenuController: NSObject {
 
         if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
             hotkeysController = HotkeysController(remoteControl: remoteControl)
-            hotkeysController?.setup()
         }
 
         if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
             tuneInMenuController = TuneInMenuController(remoteControl: remoteControl, tuneInMenuItem: tuneInMenuItem)
-            tuneInMenuController?.setup()
+            tuneInMenuController?.enable()
+            separatorMenuItem.isHidden = false
         }
 
         volumeLevelViewController = VolumeLevelViewController(
@@ -48,27 +48,33 @@ class MainMenuController: NSObject {
             volumeLevelView: volumeLevelView,
             volumeLevelSlider: volumeLevelSlider)
 
-        sourcesMenuController = SourcesMenuController(
-            remoteControl: remoteControl,
-            tuneInMenuController: tuneInMenuController,
-            sourcesMenuItem: sourcesMenuItem,
-            separatorMenuItem: separatorMenuItem)
+        if UserDefaults.standard.bool(forKey: "sources.enabled") {
+            sourcesMenuController = SourcesMenuController(
+                remoteControl: remoteControl,
+                tuneInMenuController: tuneInMenuController,
+                sourcesMenuItem: sourcesMenuItem,
+                separatorMenuItem: separatorMenuItem)
+            sourcesMenuController?.enable()
+            separatorMenuItem.isHidden = false
+        }
 
-        deviceController.menuController = DeviceMenuController(
+        deviceMenuController = DeviceMenuController(
             remoteControl: remoteControl,
             statusMenu: statusMenu,
-            deviceSeparatorMenuItem: deviceSeparatorMenuItem,
             volumeLevelViewController: volumeLevelViewController!,
-            sourcesMenuController: sourcesMenuController!)
+            deviceSeparatorMenuItem: deviceSeparatorMenuItem,
+            sourcesMenuController: sourcesMenuController)
 
         volumeLevelViewController?.addObserver()
         sourcesMenuController?.addObserver()
-        deviceController.menuController?.addObserver()
+        deviceMenuController?.addObserver()
 
-        remoteControl.startDiscovery(delegate: deviceController)
+        let deviceBrowserDelegate = DeviceBrowserDelegate(deviceMenuController: deviceMenuController!)
+        remoteControl.startDiscovery(delegate: deviceBrowserDelegate)
     }
 
     @IBAction func sliderMoved(_ sender: NSSlider) {
+        // Do this on the main thread for maximum scrolling smoothness
         self.volumeLevelViewController?.sliderMoved(sender)
     }
     

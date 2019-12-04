@@ -46,9 +46,7 @@ public class HotkeysController {
 
     public init(remoteControl: RemoteControl) {
         self.remoteControl = remoteControl
-    }
 
-    public func setup() {
         let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
         let isTrusted = AXIsProcessTrustedWithOptions(options)
 

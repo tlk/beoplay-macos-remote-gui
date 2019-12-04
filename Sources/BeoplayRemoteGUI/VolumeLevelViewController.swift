@@ -29,23 +29,28 @@ public class VolumeLevelViewController : NSObject {
 
     public func addObserver() {
         NotificationCenter.default.addObserver(forName: Notification.Name.onVolumeChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            if let data = notification.userInfo?["data"] as? RemoteCore.Volume {
-                DispatchQueue.main.async {
-                    if self.ignoreReceivedVolumeUpdates {
-                        NSLog("receive: \(data.volume)  (ignored!)")
-                    } else {
-                        self.lastVolumeLevel = data.volume
-                        self.volumeLevelSlider.integerValue = self.lastVolumeLevel
-                        NSLog("receive: \(self.lastVolumeLevel)")
-                    }
+            guard let data = notification.userInfo?["data"] as? RemoteCore.Volume else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                if self.ignoreReceivedVolumeUpdates {
+                    NSLog("receive: \(data.volume)  (ignored!)")
+                } else {
+                    self.lastVolumeLevel = data.volume
+                    self.volumeLevelSlider.integerValue = self.lastVolumeLevel
+                    NSLog("receive: \(self.lastVolumeLevel)")
                 }
             }
         }
     }
 
-    private func sendVolumeUpdate(vol: Int) {
-        self.remoteControl.setVolume(volume: vol)
-        NSLog("send: \(vol)")
+    public func disable() {
+        self.volumeLevelSlider.isEnabled = false
+    }
+
+    public func enable() {
+        self.volumeLevelSlider.isEnabled = true
     }
 
     public func sliderMoved(_ sender: NSSlider) {
@@ -84,4 +89,8 @@ public class VolumeLevelViewController : NSObject {
         }
     }
 
+    private func sendVolumeUpdate(vol: Int) {
+        self.remoteControl.setVolume(volume: vol)
+        NSLog("send: \(vol)")
+    }
 }

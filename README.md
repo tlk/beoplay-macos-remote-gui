@@ -64,7 +64,7 @@ defaults write $bundleid hotkeys.VolumeUp 111
 defaults write $bundleid hotkeys.VolumeStep 4
 
 defaults write $bundleid sources.enabled true
-defaults write $bundleid sources.hideTypes -array QPLAY DEEZER GC4A DLNA_DMR ALARM
+defaults write $bundleid sources.hideTypes -array GC4A DLNA_DMR ALARM
 # defaults delete $bundleid sources.hideTypes
 
 defaults write $bundleid tuneIn.enabled true
@@ -75,6 +75,10 @@ defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
 defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
 defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056
 ```
+
+## Known issues
+Deezer and QPlay appear in the list of sources as "Music".
+Selecting Deezer as a source will begin playback only when a playlist has already been added from the B&O app. Switching from Deezer to tuneIn and back to Deezer will not restart playback as the previous Deezer playlist has been cleared from the play queue. This is surprising as switching from Spotify to tuneIn and back works fine.
 
 # Read more
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface

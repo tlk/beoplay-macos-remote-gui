@@ -17,18 +17,23 @@ struct DeviceCommand {
     let device: NetService
 }
 
-class DeviceController : NSObject, NetServiceBrowserDelegate {
+class DeviceBrowserDelegate : NSObject, NetServiceBrowserDelegate {
     private let q = DispatchQueue(label: "beoplay-device-manager")
     private var pendingUpdates = [DeviceCommand]()
-    
-    public var menuController: DeviceMenuController?
+    private var deviceMenuController: DeviceMenuController?
+
+    public init(deviceMenuController: DeviceMenuController) {
+        self.deviceMenuController = deviceMenuController
+    }
 
     func netServiceBrowser(_ browser: NetServiceBrowser, didRemove service: NetService, moreComing: Bool) {
         self.q.async {
             self.pendingUpdates.append(DeviceCommand(type: DeviceAction.Remove, device: service))
             
+            NSLog("didRemove: \(service.name), moreComing: \(moreComing)")
+            
             if moreComing == false {
-                self.handleDeviceUpdates()
+                self.devicePresenceChanged()
             }
         }
     }
@@ -40,16 +45,16 @@ class DeviceController : NSObject, NetServiceBrowserDelegate {
             NSLog("didFind: \(service.name), moreComing: \(moreComing)")
             
             if moreComing == false {
-                self.handleDeviceUpdates()
+                self.devicePresenceChanged()
             }
         }
     }
 
-    private func handleDeviceUpdates() {
+    private func devicePresenceChanged() {
         NSLog("pending updates: \(self.pendingUpdates.count)")
         let updates = self.pendingUpdates
         self.pendingUpdates = [DeviceCommand]()
         
-        self.menuController?.handleDeviceUpdates(updates)
+        self.deviceMenuController?.devicePresenceChanged(updates)
     }
 }
