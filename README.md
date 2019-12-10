@@ -2,7 +2,7 @@
 
 This is an unofficial menu bar app for macOS to remote control network enabled Beoplay loudspeakers.
 
-![Screenshot](./screenshot.png)
+![Example](https://i.imgur.com/k16Uca8.gifv)
 
 The menu bar has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original Bang&Olufsen iOS app, Spotify, etc. Speakers are automatically discovered via Bonjour.
 
