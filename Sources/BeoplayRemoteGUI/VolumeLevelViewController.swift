@@ -27,21 +27,13 @@ public class VolumeLevelViewController : NSObject {
         volumeLevelMenuItem.view = volumeLevelView
     }
 
-    public func addObserver() {
-        NotificationCenter.default.addObserver(forName: Notification.Name.onVolumeChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            guard let data = notification.userInfo?["data"] as? RemoteCore.Volume else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                if self.ignoreReceivedVolumeUpdates {
-                    NSLog("receive: \(data.volume)  (ignored!)")
-                } else {
-                    self.lastVolumeLevel = data.volume
-                    self.volumeLevelSlider.integerValue = self.lastVolumeLevel
-                    NSLog("receive: \(self.lastVolumeLevel)")
-                }
-            }
+    public func onVolumeChange(_ data: RemoteCore.Volume) {
+        if self.ignoreReceivedVolumeUpdates {
+            NSLog("receive: \(data.volume)  (ignored!)")
+        } else {
+            self.lastVolumeLevel = data.volume
+            self.volumeLevelSlider.integerValue = self.lastVolumeLevel
+            NSLog("receive: \(self.lastVolumeLevel)")
         }
     }
 

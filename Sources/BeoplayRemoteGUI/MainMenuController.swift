@@ -63,12 +63,46 @@ class MainMenuController: NSObject {
             deviceSeparatorMenuItem: deviceSeparatorMenuItem,
             sourcesMenuController: sourcesMenuController)
 
-        volumeLevelViewController?.addObserver()
-        sourcesMenuController?.addObserver()
-        deviceMenuController?.addObserver()
+        addObservers()
 
         let deviceBrowserDelegate = DeviceBrowserDelegate(deviceMenuController: deviceMenuController!)
         remoteControl.startDiscovery(delegate: deviceBrowserDelegate)
+    }
+
+    func addObservers() {
+        NotificationCenter.default.addObserver(forName: Notification.Name.onProgress, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? RemoteCore.Progress {
+                DispatchQueue.main.async { self.onProgress(data) }
+            }
+        }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.onVolumeChange, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? RemoteCore.Volume {
+                DispatchQueue.main.async { self.volumeLevelViewController?.onVolumeChange(data) }
+            }
+        }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? RemoteCore.Source {
+                DispatchQueue.main.async { self.sourcesMenuController?.onSourceChange(data) }
+            }
+        }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.onConnectionChange, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? NotificationBridge.DataConnectionNotification {
+                DispatchQueue.main.async { self.deviceMenuController?.onConnectionChange(data) }
+            }
+        }
+    }
+
+    func onProgress(_ data: RemoteCore.Progress) {
+        if data.state == RemoteCore.DeviceState.play {
+            self.playMenuItem.isHidden = true
+            self.pauseMenuItem.isHidden = false
+        } else {
+            self.playMenuItem.isHidden = false
+            self.pauseMenuItem.isHidden = true
+        }
     }
 
     func enableControls() {
@@ -83,6 +117,9 @@ class MainMenuController: NSObject {
         pauseMenuItem.isEnabled = false
         nextMenuItem.isEnabled = false
         backMenuItem.isEnabled = false
+
+        self.playMenuItem.isHidden = false
+        self.pauseMenuItem.isHidden = true
     }
 
     @IBAction func sliderMoved(_ sender: NSSlider) {

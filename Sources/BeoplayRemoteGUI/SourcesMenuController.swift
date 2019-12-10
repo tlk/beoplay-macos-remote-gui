@@ -27,36 +27,28 @@ public class SourcesMenuController {
         self.sourcesMenuItem = sourcesMenuItem
     }
 
-    public func addObserver() {
-        NotificationCenter.default.addObserver(forName: Notification.Name.onSourceChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            guard let data = notification.userInfo?["data"] as? RemoteCore.Source else {
-                return
+    public func onSourceChange(_ data: RemoteCore.Source) {
+        NSLog("source changed: \(data.id)")
+
+        var sourceId = data.id
+
+        if let alias = self.typeAliases[data.type] {
+            sourceId = data.id.replacingOccurrences(of: alias[0], with: alias[1])
+            NSLog("source id modified to match with enabled sources: \(data.id) -> \(sourceId)")
+        }
+
+        self.lastKnownSourceId = sourceId
+
+        for item in self.sourcesMenuItem.submenu!.items[2...] {
+            if let x = item.representedObject as? String, x == sourceId {
+                item.state = NSControl.StateValue.on
+            } else {
+                item.state = NSControl.StateValue.off
             }
+        }
 
-            DispatchQueue.main.async {
-                NSLog("source changed: \(data.id)")
-
-                var sourceId = data.id
-
-                if let alias = self.typeAliases[data.type] {
-                    sourceId = data.id.replacingOccurrences(of: alias[0], with: alias[1])
-                    NSLog("source id modified to match with enabled sources: \(data.id) -> \(sourceId)")
-                }
-
-                self.lastKnownSourceId = sourceId
-
-                for item in self.sourcesMenuItem.submenu!.items[2...] {
-                    if let x = item.representedObject as? String, x == sourceId {
-                        item.state = NSControl.StateValue.on
-                    } else {
-                        item.state = NSControl.StateValue.off
-                    }
-                }
-
-                if data.type != self.tuneInType {
-                    self.tuneInMenuController?.clear()
-                }
-            }
+        if data.type != self.tuneInType {
+            self.tuneInMenuController?.clear()
         }
     }
 

@@ -27,27 +27,18 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.sourcesMenuController = sourcesMenuController
     }
 
-    public func addObserver() {
-        NotificationCenter.default.addObserver(forName: Notification.Name.onConnectionChange, object: nil, queue: nil) { (notification: Notification) -> Void in
-            guard let data = notification.userInfo?["data"] as? NotificationBridge.DataConnectionNotification else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                if let item = self.getDeviceMenuItems().filter({ $0.isEnabled && $0.state != NSControl.StateValue.off}).first {
-                    if data.state == NotificationSession.ConnectionState.online {
-                        self.setConnected(item: item)
-                    } else {
-                        self.setConnecting(item: item)
-                    }
-                }
-            }
-
-            if data.message == nil {
-                NSLog("connection state: \(data.state)")
+    public func onConnectionChange(_ data: NotificationBridge.DataConnectionNotification) {
+        if let item = self.getDeviceMenuItems().filter({ $0.isEnabled && $0.state != NSControl.StateValue.off}).first {
+            if data.state == NotificationSession.ConnectionState.online {
+                self.setConnected(item: item)
             } else {
-                NSLog("connection state: \(data.state): \(data.message!)")
+                self.setConnecting(item: item)
             }
+        }
+        if data.message == nil {
+            NSLog("connection state: \(data.state)")
+        } else {
+            NSLog("connection state: \(data.state): \(data.message!)")
         }
     }
 
