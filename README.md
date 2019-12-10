@@ -37,13 +37,24 @@ defaults write $bundleid hotkeys.enabled true
 ```
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
-Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this:
+Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this. <kbd>F11</kbd> and <kbd>F12</kbd> in [Mission Control](https://apple.stackexchange.com/a/110528). <kbd>F12</kbd> in [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf).
 
-| Hotkey          | Application                                                             |
-| --------------- | ----------------------------------------------------------------------- |
-| <kbd>F11</kbd>  | [Mission Control](https://apple.stackexchange.com/a/110528)             |
-| <kbd>F12</kbd>  | [Mission Control](https://apple.stackexchange.com/a/110528)             |
-| <kbd>F12</kbd>  | [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf) |
+| Key            | Action           |
+| -------------- | ---------------- |
+| <kbd>F1 </kbd> | PrevDevice       |
+| <kbd>F2 </kbd> | NextDevice       |
+| <kbd>F3 </kbd> | Leave            |
+| <kbd>F4 </kbd> | Join             |
+| <kbd>F5 </kbd> | PrevSource       |
+| <kbd>F6 </kbd> | NextSource       |
+| <kbd>F7 </kbd> | Back             |
+| <kbd>F8 </kbd> | TogglePlayPause  |
+| <kbd>F9 </kbd> | Next             |
+| <kbd>F10</kbd> | ToggleMute       |
+| <kbd>F11</kbd> | VolumeDown       |
+| <kbd>F12</kbd> | VolumeUp         |
+
+
 
 
 ## Optional configuration
