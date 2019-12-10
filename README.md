@@ -50,15 +50,23 @@ Some hotkeys (keyboard shortcuts) are used by other applications but fortunately
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 
+defaults delete $bundleid
+
 defaults write $bundleid app.title "BeoplayRemote"
 
 defaults write $bundleid devices.default "Beoplay M5 i køkkenet"
 
 defaults write $bundleid hotkeys.enabled true
-defaults write $bundleid hotkeys.Leave 122
-defaults write $bundleid hotkeys.Join 120
+defaults write $bundleid hotkeys.PrevDevice 122
+defaults write $bundleid hotkeys.NextDevice 120
+defaults write $bundleid hotkeys.Leave 99
+defaults write $bundleid hotkeys.Join 118
+defaults write $bundleid hotkeys.PrevSource 96
+defaults write $bundleid hotkeys.NextSource 97
 defaults write $bundleid hotkeys.Back 98
+defaults write $bundleid hotkeys.TogglePlayPause 100
 defaults write $bundleid hotkeys.Next 101
+defaults write $bundleid hotkeys.ToggleMute 109
 defaults write $bundleid hotkeys.VolumeDown 103
 defaults write $bundleid hotkeys.VolumeUp 111
 defaults write $bundleid hotkeys.VolumeStep 4

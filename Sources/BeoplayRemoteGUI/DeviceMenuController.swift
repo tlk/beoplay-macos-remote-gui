@@ -136,6 +136,30 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.mainMenuController.disableControls()
     }
 
+    func skipDevice(_ n: Int = 1) {
+        let items = self.getDeviceMenuItems().filter { $0.isEnabled }
+
+        guard items.count > 1 else {
+            return
+        }
+
+        let count = items.count
+        let skipBy = n < 0
+            ? n % count + count
+            : n
+
+        let selected = items.firstIndex { $0.state != NSControl.StateValue.off }
+        let current = (selected ?? 0)
+        let next = (current + skipBy) % count
+        let nextItem = items[next]
+
+        if let device = nextItem.representedObject as? NetService {
+            self.disconnect()
+            self.setConnecting(item: nextItem)
+            self.connect(device: device)
+        }
+    }
+
     func devicePresenceChanged(_ updates: [DeviceCommand]) {
         DispatchQueue.main.async {
             for update in updates {

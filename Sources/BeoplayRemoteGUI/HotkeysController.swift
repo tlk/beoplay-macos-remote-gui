@@ -8,15 +8,18 @@
 import Cocoa
 import RemoteCore
 
-public class HotkeysController {
+class HotkeysController {
     private let remoteControl: RemoteControl
+    private let deviceMenuController: DeviceMenuController
     private let sourcesMenuController: SourcesMenuController
     private var eventMonitor: Any?
     private var lastMuted: Bool?
     private var lastPlaybackState: RemoteCore.DeviceState?
 
     private enum Command : String {
-        case Leave,
+        case PrevDevice,
+             NextDevice,
+             Leave,
              Join,
              PrevSource,
              NextSource,
@@ -44,8 +47,10 @@ public class HotkeysController {
     }
 
     private let defaultConfiguration = [
-        Hotkey.F1  : Command.Leave,
-        Hotkey.F2  : Command.Join,
+        Hotkey.F1  : Command.PrevDevice,
+        Hotkey.F2  : Command.NextDevice,
+        Hotkey.F3  : Command.Leave,
+        Hotkey.F4  : Command.Join,
         Hotkey.F5  : Command.PrevSource,
         Hotkey.F6  : Command.NextSource,
         Hotkey.F7  : Command.Back,
@@ -56,8 +61,9 @@ public class HotkeysController {
         Hotkey.F12 : Command.VolumeUp
     ]
 
-    public init(remoteControl: RemoteControl, sourcesMenuController: SourcesMenuController) {
+    init(remoteControl: RemoteControl, deviceMenuController: DeviceMenuController, sourcesMenuController: SourcesMenuController) {
         self.remoteControl = remoteControl
+        self.deviceMenuController = deviceMenuController
         self.sourcesMenuController = sourcesMenuController
 
         let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
@@ -99,6 +105,12 @@ public class HotkeysController {
             NSLog("hotkey command: \(command)")
 
             switch(command) {
+            case Command.PrevDevice:
+                self.deviceMenuController.skipDevice(-1)
+                break
+            case Command.NextDevice:
+                self.deviceMenuController.skipDevice(1)
+                break
             case Command.Leave:
                 self.remoteControl.leave()
                 break

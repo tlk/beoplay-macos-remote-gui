@@ -51,12 +51,6 @@ class MainMenuController: NSObject {
             tuneInMenuController: tuneInMenuController,
             sourcesMenuItem: sourcesMenuItem)
 
-        if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
-            hotkeysController = HotkeysController(
-                remoteControl: remoteControl,
-                sourcesMenuController: sourcesMenuController!)
-        }
-
         deviceMenuController = DeviceMenuController(
             remoteControl: remoteControl,
             statusMenu: statusMenu,
@@ -64,6 +58,13 @@ class MainMenuController: NSObject {
             volumeLevelViewController: volumeLevelViewController!,
             deviceSeparatorMenuItem: deviceSeparatorMenuItem,
             sourcesMenuController: sourcesMenuController)
+
+        if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
+            hotkeysController = HotkeysController(
+                remoteControl: remoteControl,
+                deviceMenuController: deviceMenuController!,
+                sourcesMenuController: sourcesMenuController!)
+        }
 
         addObservers()
 
