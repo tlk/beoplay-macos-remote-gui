@@ -74,13 +74,19 @@ class MainMenuController: NSObject {
     func addObservers() {
         NotificationCenter.default.addObserver(forName: Notification.Name.onProgress, object: nil, queue: nil) { (notification: Notification) -> Void in
             if let data = notification.userInfo?["data"] as? RemoteCore.Progress {
-                DispatchQueue.main.async { self.onProgress(data) }
+                DispatchQueue.main.async {
+                    self.onProgress(data)
+                    self.hotkeysController?.onProgress(data)
+                }
             }
         }
 
         NotificationCenter.default.addObserver(forName: Notification.Name.onVolumeChange, object: nil, queue: nil) { (notification: Notification) -> Void in
             if let data = notification.userInfo?["data"] as? RemoteCore.Volume {
-                DispatchQueue.main.async { self.volumeLevelViewController?.onVolumeChange(data) }
+                DispatchQueue.main.async {
+                    self.volumeLevelViewController?.onVolumeChange(data)
+                    self.hotkeysController?.onVolumeChange(data)
+                }
             }
         }
 

@@ -12,6 +12,8 @@ public class HotkeysController {
     private let remoteControl: RemoteControl
     private let sourcesMenuController: SourcesMenuController
     private var eventMonitor: Any?
+    private var lastMuted: Bool?
+    private var lastPlaybackState: RemoteCore.DeviceState?
 
     private enum Command : String {
         case Leave,
@@ -21,7 +23,7 @@ public class HotkeysController {
              Back,
              TogglePlayPause,
              Next,
-             Mute,
+             ToggleMute,
              VolumeDown,
              VolumeUp
     }
@@ -49,7 +51,7 @@ public class HotkeysController {
         Hotkey.F7  : Command.Back,
         Hotkey.F8  : Command.TogglePlayPause,
         Hotkey.F9  : Command.Next,
-        Hotkey.F10 : Command.Mute,
+        Hotkey.F10 : Command.ToggleMute,
         Hotkey.F11 : Command.VolumeDown,
         Hotkey.F12 : Command.VolumeUp
     ]
@@ -113,13 +115,21 @@ public class HotkeysController {
                 self.remoteControl.back()
                 break
             case Command.TogglePlayPause:
-                NSLog("Not implemented")
+                if self.lastPlaybackState == RemoteCore.DeviceState.play {
+                    self.remoteControl.pause()
+                } else {
+                    self.remoteControl.play()
+                }
                 break
             case Command.Next:
                 self.remoteControl.next()
                 break
-            case Command.Mute:
-                NSLog("Not implemented")
+            case Command.ToggleMute:
+                if self.lastMuted == true {
+                    self.remoteControl.unmute()
+                } else {
+                    self.remoteControl.mute()
+                }
                 break
             case Command.VolumeDown:
                 self.remoteControl.adjustVolume(delta: -volumeStep)
@@ -129,5 +139,13 @@ public class HotkeysController {
                 break
             }
         }
+    }
+
+    public func onVolumeChange(_ data: RemoteCore.Volume) {
+        self.lastMuted = data.muted
+    }
+
+    public func onProgress(_ data: RemoteCore.Progress) {
+        self.lastPlaybackState = data.state
     }
 }
