@@ -13,13 +13,15 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
     private let resolveTimeout = 5.0
     private let remoteControl: RemoteControl
     private let statusMenu: NSMenu
+    private let mainMenuController: MainMenuController
     private let volumeLevelViewController: VolumeLevelViewController
     private let deviceSeparatorMenuItem: NSMenuItem
     private let sourcesMenuController: SourcesMenuController?
 
-    public init(remoteControl: RemoteControl, statusMenu: NSMenu, volumeLevelViewController: VolumeLevelViewController, deviceSeparatorMenuItem: NSMenuItem, sourcesMenuController: SourcesMenuController?) {
+    public init(remoteControl: RemoteControl, statusMenu: NSMenu, mainMenuController: MainMenuController, volumeLevelViewController: VolumeLevelViewController, deviceSeparatorMenuItem: NSMenuItem, sourcesMenuController: SourcesMenuController?) {
         self.remoteControl = remoteControl
         self.statusMenu = statusMenu
+        self.mainMenuController = mainMenuController
         self.volumeLevelViewController = volumeLevelViewController
         self.deviceSeparatorMenuItem = deviceSeparatorMenuItem
         self.sourcesMenuController = sourcesMenuController
@@ -131,8 +133,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.remoteControl.startNotifications()
         self.volumeLevelViewController.enable()
         self.sourcesMenuController?.enable()
-
-        // TODO: enableStatusMenuControls()
+        self.mainMenuController.enableControls()
     }
 
     func disconnect() {
@@ -141,8 +142,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.remoteControl.clearEndpoint()
         self.volumeLevelViewController.disable()
         self.sourcesMenuController?.disable()
-
-        // TODO: disableStatusMenuControls()
+        self.mainMenuController.disableControls()
     }
 
     func devicePresenceChanged(_ updates: [DeviceCommand]) {

@@ -63,10 +63,6 @@ defaults write $bundleid hotkeys.VolumeDown 103
 defaults write $bundleid hotkeys.VolumeUp 111
 defaults write $bundleid hotkeys.VolumeStep 4
 
-defaults write $bundleid sources.enabled true
-defaults write $bundleid sources.hideTypes -array GC4A DLNA_DMR ALARM
-# defaults delete $bundleid sources.hideTypes
-
 defaults write $bundleid tuneIn.enabled true
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
 defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"

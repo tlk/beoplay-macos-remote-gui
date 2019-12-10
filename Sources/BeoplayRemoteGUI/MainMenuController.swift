@@ -18,7 +18,11 @@ class MainMenuController: NSObject {
     @IBOutlet weak var deviceSeparatorMenuItem: NSMenuItem!
     @IBOutlet weak var sourcesMenuItem: NSMenuItem!
     @IBOutlet weak var tuneInMenuItem: NSMenuItem!
-    @IBOutlet weak var separatorMenuItem: NSMenuItem!
+
+    @IBOutlet weak var playMenuItem: NSMenuItem!
+    @IBOutlet weak var pauseMenuItem: NSMenuItem!
+    @IBOutlet weak var nextMenuItem: NSMenuItem!
+    @IBOutlet weak var backMenuItem: NSMenuItem!
 
     private let menuBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let remoteControl = RemoteControl()
@@ -38,8 +42,6 @@ class MainMenuController: NSObject {
 
         if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
             tuneInMenuController = TuneInMenuController(remoteControl: remoteControl, tuneInMenuItem: tuneInMenuItem)
-            tuneInMenuController?.enable()
-            separatorMenuItem.isHidden = false
         }
 
         volumeLevelViewController = VolumeLevelViewController(
@@ -48,19 +50,15 @@ class MainMenuController: NSObject {
             volumeLevelView: volumeLevelView,
             volumeLevelSlider: volumeLevelSlider)
 
-        if UserDefaults.standard.bool(forKey: "sources.enabled") {
-            sourcesMenuController = SourcesMenuController(
-                remoteControl: remoteControl,
-                tuneInMenuController: tuneInMenuController,
-                sourcesMenuItem: sourcesMenuItem,
-                separatorMenuItem: separatorMenuItem)
-            sourcesMenuController?.enable()
-            separatorMenuItem.isHidden = false
-        }
+        sourcesMenuController = SourcesMenuController(
+            remoteControl: remoteControl,
+            tuneInMenuController: tuneInMenuController,
+            sourcesMenuItem: sourcesMenuItem)
 
         deviceMenuController = DeviceMenuController(
             remoteControl: remoteControl,
             statusMenu: statusMenu,
+            mainMenuController: self,
             volumeLevelViewController: volumeLevelViewController!,
             deviceSeparatorMenuItem: deviceSeparatorMenuItem,
             sourcesMenuController: sourcesMenuController)
@@ -71,6 +69,20 @@ class MainMenuController: NSObject {
 
         let deviceBrowserDelegate = DeviceBrowserDelegate(deviceMenuController: deviceMenuController!)
         remoteControl.startDiscovery(delegate: deviceBrowserDelegate)
+    }
+
+    func enableControls() {
+        playMenuItem.isEnabled = true
+        pauseMenuItem.isEnabled = true
+        nextMenuItem.isEnabled = true
+        backMenuItem.isEnabled = true
+    }
+
+    func disableControls() {
+        playMenuItem.isEnabled = false
+        pauseMenuItem.isEnabled = false
+        nextMenuItem.isEnabled = false
+        backMenuItem.isEnabled = false
     }
 
     @IBAction func sliderMoved(_ sender: NSSlider) {

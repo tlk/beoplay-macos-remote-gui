@@ -17,8 +17,11 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="alx-iL-ssJ" userLabel="MainMenuController" customClass="MainMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
             <connections>
+                <outlet property="backMenuItem" destination="S5r-Ym-sNj" id="gcB-gO-2SN"/>
                 <outlet property="deviceSeparatorMenuItem" destination="GZI-74-Bbh" id="S1t-Jt-YHQ"/>
-                <outlet property="separatorMenuItem" destination="xH5-41-cNT" id="k2V-Hb-N1U"/>
+                <outlet property="nextMenuItem" destination="KeU-58-sE1" id="PCX-Le-AbH"/>
+                <outlet property="pauseMenuItem" destination="VFe-4y-61o" id="dVM-xX-Ebx"/>
+                <outlet property="playMenuItem" destination="p6f-gd-ldN" id="XNO-Ws-tUC"/>
                 <outlet property="sourcesMenuItem" destination="kgn-98-8ke" id="PId-kJ-w1k"/>
                 <outlet property="statusMenu" destination="1Xh-Lf-Elu" id="kDo-2h-EvE"/>
                 <outlet property="tuneInMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
@@ -39,17 +42,17 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" title="deviceSeparator" identifier="deviceSeparator" id="GZI-74-Bbh"/>
-                <menuItem title="Sources" hidden="YES" id="kgn-98-8ke">
+                <menuItem title="Sources" enabled="NO" id="kgn-98-8ke">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Sources" id="jdX-PL-kHj">
                         <items>
-                            <menuItem title="Join Multiroom" id="zaJ-t8-6dj">
+                            <menuItem title="Join Multiroom" enabled="NO" id="zaJ-t8-6dj">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="joinClicked:" target="alx-iL-ssJ" id="e04-3P-lie"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Leave Multiroom" id="YbL-n3-TK6">
+                            <menuItem title="Leave Multiroom" enabled="NO" id="YbL-n3-TK6">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="leaveClicked:" target="alx-iL-ssJ" id="8Lf-w2-UC6"/>
@@ -63,25 +66,25 @@
                     <menu key="submenu" title="TuneIn Radio" id="5LN-aQ-QEd"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xH5-41-cNT"/>
-                <menuItem title="Play" id="p6f-gd-ldN">
+                <menuItem title="Play" enabled="NO" id="p6f-gd-ldN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playClicked:" target="alx-iL-ssJ" id="AG6-ad-V9Z"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Pause" id="VFe-4y-61o">
+                <menuItem title="Pause" enabled="NO" id="VFe-4y-61o">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="pauseClicked:" target="alx-iL-ssJ" id="REm-Bw-lOL"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Next" id="KeU-58-sE1">
+                <menuItem title="Next" enabled="NO" id="KeU-58-sE1">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="nextClicked:" target="alx-iL-ssJ" id="Eqi-35-UEy"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Back" id="S5r-Ym-sNj">
+                <menuItem title="Back" enabled="NO" id="S5r-Ym-sNj">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="backClicked:" target="alx-iL-ssJ" id="6wR-eE-aRi"/>

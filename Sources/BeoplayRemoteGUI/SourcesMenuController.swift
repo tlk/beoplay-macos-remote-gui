@@ -9,22 +9,22 @@ import Cocoa
 import RemoteCore
 
 public class SourcesMenuController {
+    private let hideTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM"]
+    private let tuneInType = "TUNEIN"
+    private let typeAliases = [
+        "DEEZER": ["deezer:", "music:"],
+        "QPLAY" : ["qplay:", "music:"]
+    ]
+
     private let remoteControl: RemoteControl
     private let tuneInMenuController: TuneInMenuController?
     private let sourcesMenuItem: NSMenuItem
-    private let separatorMenuItem: NSMenuItem
-    private var hideTypes: [String] = []
     private var lastKnownSourceId: String? = nil
 
-    public init(remoteControl: RemoteControl, tuneInMenuController: TuneInMenuController?, sourcesMenuItem: NSMenuItem, separatorMenuItem: NSMenuItem) {
+    public init(remoteControl: RemoteControl, tuneInMenuController: TuneInMenuController?, sourcesMenuItem: NSMenuItem) {
         self.remoteControl = remoteControl
         self.tuneInMenuController = tuneInMenuController
         self.sourcesMenuItem = sourcesMenuItem
-        self.separatorMenuItem = separatorMenuItem
-
-        if let tmp = UserDefaults.standard.array(forKey: "sources.hideTypes") {
-            hideTypes = tmp.map { ($0 as! String).lowercased() }
-        }
     }
 
     public func addObserver() {
@@ -38,11 +38,8 @@ public class SourcesMenuController {
 
                 var sourceId = data.id
 
-                let musicAliases = ["DEEZER", "QPLAY"]
-                if musicAliases.contains(data.type) {
-                    sourceId = data.id
-                        .replacingOccurrences(of: "deezer:", with: "music:")
-                        .replacingOccurrences(of: "qplay:", with: "music:")
+                if let alias = self.typeAliases[data.type] {
+                    sourceId = data.id.replacingOccurrences(of: alias[0], with: alias[1])
                     NSLog("source id modified to match with enabled sources: \(data.id) -> \(sourceId)")
                 }
 
@@ -56,7 +53,7 @@ public class SourcesMenuController {
                     }
                 }
 
-                if data.type != "TUNEIN" {
+                if data.type != self.tuneInType {
                     self.tuneInMenuController?.clear()
                 }
             }
@@ -65,7 +62,7 @@ public class SourcesMenuController {
 
     public func disable() {
         DispatchQueue.main.async {
-            self.sourcesMenuItem.isHidden = true
+            self.sourcesMenuItem.isEnabled = false
 
             if let existingItems = self.sourcesMenuItem.submenu?.items[2...] {
                 for item in existingItems {
@@ -83,7 +80,7 @@ public class SourcesMenuController {
 
         self.remoteControl.getEnabledSources { (sources: [BeoplaySource]) in
             DispatchQueue.main.async {
-                self.sourcesMenuItem.isHidden = false
+                self.sourcesMenuItem.isEnabled = true
 
                 var hasTuneInSource = false
 
