@@ -67,18 +67,9 @@ Some hotkeys (keyboard shortcuts) are used by other applications but fortunately
 | <kbd>F12</kbd> | VolumeUp         |
 
 
-
-
-## Optional configuration
+#### Optional hotkeys configuration
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-
-defaults delete $bundleid
-
-defaults write $bundleid app.title "BeoplayRemote"
-
-defaults write $bundleid devices.default "Beoplay M5 i køkkenet"
-
 defaults write $bundleid hotkeys.enabled true
 defaults write $bundleid hotkeys.PrevDevice 122
 defaults write $bundleid hotkeys.NextDevice 120
@@ -93,7 +84,13 @@ defaults write $bundleid hotkeys.ToggleMute 109
 defaults write $bundleid hotkeys.VolumeDown 103
 defaults write $bundleid hotkeys.VolumeUp 111
 defaults write $bundleid hotkeys.VolumeStep 4
+```
 
+
+
+## Enable tuneIn
+```
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid tuneIn.enabled true
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
 defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
@@ -101,6 +98,20 @@ defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
 defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
 defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
 defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056
+```
+
+## Optional configuration
+```
+# Default device name (auto-connect):
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults write $bundleid devices.default "Beoplay M5 i køkkenet"
+
+# Custom app name in the menu bar:
+defaults write $bundleid app.title "BeoplayRemote"
+
+# Reset all configuration:
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults delete $bundleid
 ```
 
 ## Known issues
