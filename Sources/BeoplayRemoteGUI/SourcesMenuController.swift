@@ -15,6 +15,8 @@ public class SourcesMenuController {
         "DEEZER": ["deezer:", "music:"],
         "QPLAY" : ["qplay:", "music:"]
     ]
+    
+    private let menuOffset = 2
 
     private let remoteControl: RemoteControl
     private let tuneInMenuController: TuneInMenuController?
@@ -39,7 +41,7 @@ public class SourcesMenuController {
 
         self.lastKnownSourceId = sourceId
 
-        for item in self.sourcesMenuItem.submenu!.items[2...] {
+        for item in self.sourcesMenuItem.submenu!.items[self.menuOffset...] {
             if let x = item.representedObject as? String, x == sourceId {
                 item.state = NSControl.StateValue.on
             } else {
@@ -56,7 +58,7 @@ public class SourcesMenuController {
         DispatchQueue.main.async {
             self.sourcesMenuItem.isEnabled = false
 
-            if let existingItems = self.sourcesMenuItem.submenu?.items[2...] {
+            if let existingItems = self.sourcesMenuItem.submenu?.items[self.menuOffset...] {
                 for item in existingItems {
                     self.sourcesMenuItem.submenu?.removeItem(item)
                 }
@@ -81,7 +83,7 @@ public class SourcesMenuController {
                         continue
                     }
 
-                    if source.sourceType == "TUNEIN" {
+                    if source.sourceType == self.tuneInType {
                         hasTuneInSource = true
                     }
 
@@ -106,6 +108,26 @@ public class SourcesMenuController {
                     self.tuneInMenuController?.disable()
                 }
             }
+        }
+    }
+
+    func skipSource(_ n: Int = 1) {
+        let offset = self.menuOffset
+        guard let ceiling = self.sourcesMenuItem.submenu?.items.count, ceiling > offset else {
+            return
+        }
+
+        let count = ceiling - offset
+        let skipBy = n < 0
+            ? n % count + count
+            : n
+
+        let selected = self.sourcesMenuItem.submenu?.items.firstIndex { $0.state == NSControl.StateValue.on }
+        let current = (selected ?? ceiling)
+        let next = (current + skipBy - offset) % count + offset
+
+        if let id = self.sourcesMenuItem.submenu?.item(at: next)?.representedObject as? String {
+            self.remoteControl.setSource(id: id)
         }
     }
 

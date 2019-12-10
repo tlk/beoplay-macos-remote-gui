@@ -36,10 +36,6 @@ class MainMenuController: NSObject {
         menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title") ?? "BeoplayRemote"
         menuBar.menu = statusMenu
 
-        if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
-            hotkeysController = HotkeysController(remoteControl: remoteControl)
-        }
-
         if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
             tuneInMenuController = TuneInMenuController(remoteControl: remoteControl, tuneInMenuItem: tuneInMenuItem)
         }
@@ -54,6 +50,12 @@ class MainMenuController: NSObject {
             remoteControl: remoteControl,
             tuneInMenuController: tuneInMenuController,
             sourcesMenuItem: sourcesMenuItem)
+
+        if UserDefaults.standard.bool(forKey: "hotkeys.enabled") {
+            hotkeysController = HotkeysController(
+                remoteControl: remoteControl,
+                sourcesMenuController: sourcesMenuController!)
+        }
 
         deviceMenuController = DeviceMenuController(
             remoteControl: remoteControl,

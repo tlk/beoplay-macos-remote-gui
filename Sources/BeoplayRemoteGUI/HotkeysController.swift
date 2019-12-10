@@ -10,10 +10,20 @@ import RemoteCore
 
 public class HotkeysController {
     private let remoteControl: RemoteControl
+    private let sourcesMenuController: SourcesMenuController
     private var eventMonitor: Any?
 
     private enum Command : String {
-        case Leave, Join, PrevSource, NextSource, Back, TogglePlayPause, Next, Mute, VolumeDown, VolumeUp
+        case Leave,
+             Join,
+             PrevSource,
+             NextSource,
+             Back,
+             TogglePlayPause,
+             Next,
+             Mute,
+             VolumeDown,
+             VolumeUp
     }
 
     private enum Hotkey : String {
@@ -44,8 +54,9 @@ public class HotkeysController {
         Hotkey.F12 : Command.VolumeUp
     ]
 
-    public init(remoteControl: RemoteControl) {
+    public init(remoteControl: RemoteControl, sourcesMenuController: SourcesMenuController) {
         self.remoteControl = remoteControl
+        self.sourcesMenuController = sourcesMenuController
 
         let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
         let isTrusted = AXIsProcessTrustedWithOptions(options)
@@ -93,12 +104,10 @@ public class HotkeysController {
                 self.remoteControl.join()
                 break
             case Command.PrevSource:
-                NSLog("Not implemented")
-//                self.setSource(self.sourcesMenuItem!.submenu!.item(at: 2) as! NSMenuItem)
+                self.sourcesMenuController.skipSource(-1)
                 break
             case Command.NextSource:
-                NSLog("Not implemented")
-//                self.setSource(self.sourcesMenuItem!.submenu!.item(at: 3) as! NSMenuItem)
+                self.sourcesMenuController.skipSource(1)
                 break
             case Command.Back:
                 self.remoteControl.back()
