@@ -18,6 +18,8 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 
 # Installation
+
+## From source (recommended)
 ```
 $ xcodebuild -version
 Xcode 11.2.1
@@ -30,7 +32,17 @@ cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Application
 $
 ```
 
+## From github release
+
+**Disclaimer: This procedure is not very user friendly! Danger! Proceed with caution!**
+
+The latest .zip file can be downloaded from the [Releases page](https://github.com/tlk/beoplay-macos-remote-gui/releases)
+
+BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Downloading software from an unknown source is **not recommended** and Chrome as well as macOS do a great job warning you. If you want to do it anyway, it is possible to tell Chrome to keep the downloaded file and macOS can also be convinced to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
+
+
 ## Enable hotkeys
+Please note that the following is done by copy-pasting into Terminal.app or similar.
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid hotkeys.enabled true
