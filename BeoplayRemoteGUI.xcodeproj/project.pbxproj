@@ -18,8 +18,8 @@
 		5A513BA022A4E13D00BE2687 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A513B9822A4E13D00BE2687 /* MainMenu.xib */; };
 		5A513BA122A4E13D00BE2687 /* VolumeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9A22A4E13D00BE2687 /* VolumeLevelView.swift */; };
 		5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */; };
+		5A64899723A57C01001679DA /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A64899623A57C01001679DA /* BeoplayRemoteCore */; };
 		5A84AF0A2389BB7D00DD8FD0 /* DeviceBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A84AF092389BB7D00DD8FD0 /* DeviceBrowserDelegate.swift */; };
-		5AA22AD02398F27E008A935F /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA22ACF2398F27E008A935F /* BeoplayRemoteCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AA22AD02398F27E008A935F /* BeoplayRemoteCore in Frameworks */,
+				5A64899723A57C01001679DA /* BeoplayRemoteCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +131,7 @@
 			);
 			name = BeoplayRemoteGUI;
 			packageProductDependencies = (
-				5AA22ACF2398F27E008A935F /* BeoplayRemoteCore */,
+				5A64899623A57C01001679DA /* BeoplayRemoteCore */,
 			);
 			productName = BeoplayRemoteGUI;
 			productReference = 5A56912C22A49696006B4718 /* BeoplayRemoteGUI.app */;
@@ -149,6 +149,7 @@
 				TargetAttributes = {
 					5A56912B22A49696006B4718 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = QT4LJ8F6JR;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -164,7 +165,7 @@
 			);
 			mainGroup = OBJ_5;
 			packageReferences = (
-				5AA22ACE2398F27E008A935F /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */,
+				5A64899523A57C01001679DA /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */,
 			);
 			productRefGroup = OBJ_23 /* Products */;
 			projectDirPath = "";
@@ -484,20 +485,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5AA22ACE2398F27E008A935F /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */ = {
+		5A64899523A57C01001679DA /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tlk/beoplay-macos-remote-cli";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.3;
+				minimumVersion = 0.3.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5AA22ACF2398F27E008A935F /* BeoplayRemoteCore */ = {
+		5A64899623A57C01001679DA /* BeoplayRemoteCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5AA22ACE2398F27E008A935F /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */;
+			package = 5A64899523A57C01001679DA /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */;
 			productName = BeoplayRemoteCore;
 		};
 /* End XCSwiftPackageProductDependency section */
