@@ -19,3 +19,4 @@ build/
 *.LinkFileList
 *.hmap
 *.xcarchive
+*.dmg

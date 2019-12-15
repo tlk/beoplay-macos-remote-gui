@@ -34,11 +34,11 @@ $
 
 ## From github release
 
-**Disclaimer: This procedure is not very user friendly! Danger! Proceed with caution!**
+**Disclaimer: This procedure is not very user friendly! Proceed with caution!**
 
-The latest .zip file can be downloaded from the [Releases page](https://github.com/tlk/beoplay-macos-remote-gui/releases)
+The latest release can be downloaded from the [Releases page](https://github.com/tlk/beoplay-macos-remote-gui/releases)
 
-BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Downloading software from an unknown source is **not recommended** and Chrome as well as macOS do a great job warning you. If you want to do it anyway, it is possible to tell Chrome to keep the downloaded file and macOS can also be convinced to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
+BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Downloading software from an unknown source is **not recommended** and Chrome as well as macOS do a great job warning you. Please read these instructions on how to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
 
 
 ## Enable hotkeys
