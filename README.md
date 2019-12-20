@@ -32,13 +32,11 @@ cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Application
 $
 ```
 
-## From github release
+## BeoplayRemoteGUI.dmg
 
-**Disclaimer: This procedure is not very user friendly! Proceed with caution!**
+The latest release can be downloaded from [www.beoplayremote.com](https://www.beoplayremote.com)
 
-The latest release can be downloaded from the [Releases page](https://github.com/tlk/beoplay-macos-remote-gui/releases)
-
-BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Downloading software from an unknown source is **not recommended** and Chrome as well as macOS do a great job warning you. Please read these instructions on how to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
+BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Please read these instructions on how to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
 
 
 ## Enable hotkeys
