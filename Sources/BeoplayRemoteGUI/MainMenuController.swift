@@ -102,6 +102,12 @@ class MainMenuController: NSObject {
                 DispatchQueue.main.async { self.deviceMenuController?.onConnectionChange(data) }
             }
         }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.onNowPlayingRadio, object: nil, queue: nil) { (notification: Notification) -> Void in
+            if let data = notification.userInfo?["data"] as? RemoteCore.NowPlayingRadio {
+                DispatchQueue.main.async { self.tuneInMenuController?.onNowPlayingRadio(data) }
+            }
+        }
     }
 
     func onProgress(_ data: RemoteCore.Progress) {
