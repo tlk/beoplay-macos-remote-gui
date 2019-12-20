@@ -112,10 +112,6 @@ bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist 
 defaults delete $bundleid
 ```
 
-## Known issues
-Deezer and QPlay appear in the list of sources as "Music".
-Selecting Deezer as a source will begin playback only when a playlist has already been added from the B&O app. Switching from Deezer to tuneIn and back to Deezer will not restart playback as the previous Deezer playlist has been cleared from the play queue. This is surprising as switching from Spotify to tuneIn and back works fine.
-
 # Read more
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface
 * [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
