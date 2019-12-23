@@ -26,6 +26,7 @@ class MainMenuController: NSObject {
 
     private let menuBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let remoteControl = RemoteControl()
+
     private var deviceMenuController: DeviceMenuController?
     private var volumeLevelViewController: VolumeLevelViewController?
     private var hotkeysController: HotkeysController?
@@ -33,7 +34,13 @@ class MainMenuController: NSObject {
     private var tuneInMenuController: TuneInMenuController?
 
     override func awakeFromNib() {
-        menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title") ?? "BeoplayRemote"
+        UserDefaults.standard.register(defaults: [
+            "app.title": "BeoplayRemote",
+            "tuneIn.enabled": true,
+            "hotkeys.enabled": false
+        ])
+
+        menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title")!
         menuBar.menu = statusMenu
 
         if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
