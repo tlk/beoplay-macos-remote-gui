@@ -19,11 +19,13 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 # Installation
 
-Download the latest [BeoplayRemoteGUI.dmg release](https://github.com/tlk/beoplay-macos-remote-gui/releases) from [www.beoplayremote.com](https://www.beoplayremote.com)
+The latest version of BeoplayRemoteGUI.app — code-signed with a registered Apple ID from the developer — is available for download at the Github project release page.
 
 
-### Enable hotkeys and TuneIn favorite stations
-Copy and paste this into Terminal.app:
+1. Download the latest release from https://github.com/tlk/beoplay-macos-remote-gui/releases or https://www.beoplayremote.com
+
+
+2. Copy and paste this into Terminal.app to enable hotkeys and TuneIn favorite stations
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid hotkeys.enabled true
