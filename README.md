@@ -1,10 +1,10 @@
 # Beoplay Remote for macOS
 
-This is an unofficial menu bar app for macOS to remote control network enabled Beoplay loudspeakers.
+This is an unofficial app to remote control network enabled [Bang & Olufsen](https://www.bang-olufsen.com/) loudspeakers from macOS.
 
 ![Screenshot](./screenshot.jpg)
 
-The menu bar has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original Bang&Olufsen iOS app, Spotify, etc. Speakers are automatically discovered via Bonjour.
+The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original Bang&Olufsen iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour.
 
 
 
@@ -19,32 +19,17 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 # Installation
 
-## From source (recommended)
-```
-$ xcodebuild -version
-Xcode 11.2.1
-Build version 11B500
-
-$ make install
-xcodebuild [..]
-rm -rf /Applications/BeoplayRemoteGUI.app
-cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Applications
-$
-```
-
-## BeoplayRemoteGUI.dmg
-
-The latest release can be downloaded from [www.beoplayremote.com](https://www.beoplayremote.com)
-
-BeoplayRemoteGUI.app is [automatically compiled and relased](https://github.com/tlk/beoplay-macos-remote-gui/blob/master/.github/workflows/release.yml) by the github infrastructure. Please read these instructions on how to [run an application that has not been signed with an Apple developer certificate](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
+Download the latest [BeoplayRemoteGUI.dmg release](https://github.com/tlk/beoplay-macos-remote-gui/releases) from [www.beoplayremote.com](https://www.beoplayremote.com)
 
 
-## Enable hotkeys
-Please note that the following is done by copy-pasting into Terminal.app or similar.
+### Enable hotkeys and TuneIn favorite stations
+Copy and paste this into Terminal.app:
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid hotkeys.enabled true
+defaults write $bundleid tuneIn.enabled true
 ```
+
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
 Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this. <kbd>F11</kbd> and <kbd>F12</kbd> in [Mission Control](https://apple.stackexchange.com/a/110528). <kbd>F12</kbd> in [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf).
@@ -64,55 +49,24 @@ Some hotkeys (keyboard shortcuts) are used by other applications but fortunately
 | <kbd>F11</kbd> | VolumeDown       |
 | <kbd>F12</kbd> | VolumeUp         |
 
+Please see [Configuration.md](Configuration.md) for additional configuration.
 
-#### Optional hotkeys configuration
+
+## Build from source
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid hotkeys.enabled true
-defaults write $bundleid hotkeys.PrevDevice 122
-defaults write $bundleid hotkeys.NextDevice 120
-defaults write $bundleid hotkeys.Leave 99
-defaults write $bundleid hotkeys.Join 118
-defaults write $bundleid hotkeys.PrevSource 96
-defaults write $bundleid hotkeys.NextSource 97
-defaults write $bundleid hotkeys.Back 98
-defaults write $bundleid hotkeys.TogglePlayPause 100
-defaults write $bundleid hotkeys.Next 101
-defaults write $bundleid hotkeys.ToggleMute 109
-defaults write $bundleid hotkeys.VolumeDown 103
-defaults write $bundleid hotkeys.VolumeUp 111
-defaults write $bundleid hotkeys.VolumeStep 4
-```
+$ xcodebuild -version
+Xcode 11.2.1
+Build version 11B500
 
-
-
-## Enable tuneIn
-```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid tuneIn.enabled true
-defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
-defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
-defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
-defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
-defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
-defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056
-```
-
-## Optional configuration
-```
-# Default device name (auto-connect):
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid devices.default "Beoplay M5 i køkkenet"
-
-# Custom app name in the menu bar:
-defaults write $bundleid app.title "BeoplayRemote"
-
-# Reset all configuration:
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults delete $bundleid
+$ make install
+xcodebuild [..]
+rm -rf /Applications/BeoplayRemoteGUI.app
+cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Applications
+$
 ```
 
 # Read more
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface
 * [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
 * [Beoplay Remote for macOS (PoC)](https://forum.beoworld.org/forums/t/37724.aspx) (BeoWorld)
+
