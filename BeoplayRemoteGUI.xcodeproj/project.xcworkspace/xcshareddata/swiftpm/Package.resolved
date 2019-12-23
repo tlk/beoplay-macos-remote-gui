@@ -3,28 +3,28 @@
     "pins": [
       {
         "package": "Ambassador",
-        "repositoryURL": "https://github.com/tlk/Ambassador",
+        "repositoryURL": "https://github.com/Envoy/Ambassador",
         "state": {
           "branch": null,
-          "revision": "6bbfaaedbbc07b007941a81f76ce63141c22038e",
-          "version": "4.0.6"
+          "revision": "447cf56f692999153bd261b1775ea4a58f7f7be9",
+          "version": "4.0.5"
         }
       },
       {
         "package": "BeoplayRemote",
-        "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli",
+        "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli/",
         "state": {
           "branch": null,
-          "revision": "fe584315e60ac7ce15a2fe2219c8ff57aaeb5e36",
-          "version": "0.3.8"
+          "revision": "08c7f8ebf102f219dc47f7c9c750f0ca22fa01ee",
+          "version": "0.3.9"
         }
       },
       {
         "package": "Embassy",
-        "repositoryURL": "https://github.com/tlk/Embassy.git",
+        "repositoryURL": "https://github.com/envoy/Embassy.git",
         "state": {
           "branch": null,
-          "revision": "a163f1ef5609a960a90d73e4c3438f8a15a61eab",
+          "revision": "189436100c00efbf5fb2653fe7972a9371db0a91",
           "version": "4.1.1"
         }
       },
