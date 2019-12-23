@@ -42,11 +42,18 @@ defaults write $bundleid hotkeys.VolumeStep 4
 
 The tuneIn menu item is enabled via the tuneIn.enabled setting. Favorites are fetched from the local B&O device which in turn uses a tuneIn account to fetch favorite radio stations from https://tunein.com
 
-The name of a radio station can be customized by adding an entry to tuneIn.stations with a custom station name.
+The name of a radio station can be customized by adding an entry to tuneIn.stations with a custom station name. Make sure that the station id matches:
 
+
+```
+bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults write $bundleid tuneIn.enabled true
+defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
+```
 
 ### Without a TuneIn account
-Favorite radio stations can be configured without a TuneIn account via tuneIn.stations and tuneIn.order. See the example.
+
+Favorite radio stations can be configured without a TuneIn account via tuneIn.stations and tuneIn.order:
 
 
 ```
