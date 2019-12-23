@@ -17,15 +17,17 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 
 
-# Installation
+## Installation
 
-The latest version of BeoplayRemoteGUI.app — code-signed with a registered Apple ID from the developer — is available for download at the Github project release page.
+The latest version of BeoplayRemoteGUI.app — code-signed with a registered Apple ID from the developer — is available for download at the Github project release page:
+
+* https://github.com/tlk/beoplay-macos-remote-gui/releases
+* https://www.beoplayremote.com (which simply links to the above)
 
 
-1. Download the latest release from https://github.com/tlk/beoplay-macos-remote-gui/releases or https://www.beoplayremote.com
+## Configuration
 
-
-2. Copy and paste this into Terminal.app to enable hotkeys and TuneIn favorite stations
+Copy and paste this into Terminal.app to enable hotkeys and TuneIn favorite stations:
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid hotkeys.enabled true
@@ -67,7 +69,7 @@ cp -rp Release.xcarchive/Products/Applications/BeoplayRemoteGUI.app /Application
 $
 ```
 
-# Read more
+## Read more
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface
 * [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
 * [Beoplay Remote for macOS (PoC)](https://forum.beoworld.org/forums/t/37724.aspx) (BeoWorld)
