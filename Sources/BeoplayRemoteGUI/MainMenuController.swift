@@ -71,6 +71,9 @@ class MainMenuController: NSObject {
                 remoteControl: remoteControl,
                 deviceMenuController: deviceMenuController!,
                 sourcesMenuController: sourcesMenuController!)
+
+            statusMenu.delegate = hotkeysController
+            hotkeysController?.enable()
         }
 
         addObservers()

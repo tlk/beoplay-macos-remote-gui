@@ -9,7 +9,7 @@ import Cocoa
 import RemoteCore
 import HotKey
 
-class HotkeysController {
+class HotkeysController: NSObject {
     private let remoteControl: RemoteControl
     private let deviceMenuController: DeviceMenuController
     private let sourcesMenuController: SourcesMenuController
@@ -47,35 +47,36 @@ class HotkeysController {
         Command.VolumeUp:         Key.f12
     ]
 
+    private var configuration = [Command:Key]()
     private var hotkeys = [HotKey]()
     private let defaultVolumeStep = 4
+    private var volumeStep: Int
 
     init(remoteControl: RemoteControl, deviceMenuController: DeviceMenuController, sourcesMenuController: SourcesMenuController) {
         self.remoteControl = remoteControl
         self.deviceMenuController = deviceMenuController
         self.sourcesMenuController = sourcesMenuController
 
-        let volumeStep: Int = UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") > 0 ?
-                              UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") : defaultVolumeStep
+        self.volumeStep = UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") > 0 ?
+            UserDefaults.standard.integer(forKey: "hotkeys.VolumeStep") : defaultVolumeStep
 
         NSLog("hotkeys.VolumeStep: \(volumeStep)")
 
-        defaultConfiguration.forEach { command, defaultKey in
-            guard UserDefaults.standard.string(forKey: "hotkeys.\(command)") != "disabled" else {
-                NSLog("hotkeys.\(command) -- disabled!")
-                return
+        self.configuration = Dictionary(uniqueKeysWithValues:
+            defaultConfiguration.compactMap { command, defaultKey in
+                guard UserDefaults.standard.string(forKey: "hotkeys.\(command)") != "disabled" else {
+                    NSLog("hotkeys.\(command) -- disabled!")
+                    return nil
+                }
+
+                let key = UserDefaults.standard.string(forKey: "hotkeys.\(command)") == nil
+                    ? defaultKey
+                    : Key.init(string: UserDefaults.standard.string(forKey: "hotkeys.\(command)")!) ?? defaultKey
+
+                NSLog("hotkeys.\(command): \(key.description)")
+                return (command, key)
             }
-
-            let key = UserDefaults.standard.string(forKey: "hotkeys.\(command)") == nil
-                ? defaultKey
-                : Key.init(string: UserDefaults.standard.string(forKey: "hotkeys.\(command)")!) ?? defaultKey
-
-            let hotkey = HotKey(key: key, modifiers: [])
-            hotkey.keyDownHandler = getHandler(key: key, command: command, volumeStep: volumeStep)
-            hotkeys.append(hotkey)
-
-            NSLog("hotkeys.\(command): \(key.description)")
-        }
+        )
     }
 
     private func getHandler(key: Key, command: Command, volumeStep: Int) -> (() -> Void) {
@@ -138,5 +139,35 @@ class HotkeysController {
 
     public func onProgress(_ data: RemoteCore.Progress) {
         self.lastPlaybackState = data.state
+    }
+
+    func enable() {
+        DispatchQueue.main.async {
+            NSLog("Hotkeys enabled")
+            self.configuration.forEach { command, key in
+                let hotkey = HotKey(key: key, modifiers: [])
+                hotkey.keyDownHandler = self.getHandler(key: key, command: command, volumeStep: self.volumeStep)
+                self.hotkeys.append(hotkey)
+            }
+        }
+    }
+
+    func disable() {
+        DispatchQueue.main.async {
+            NSLog("Hotkeys disabled")
+            self.hotkeys.removeAll()
+        }
+    }
+}
+
+extension HotkeysController: NSMenuDelegate {
+    // work around https://github.com/soffes/HotKey/issues/17
+    func menuWillOpen(_ menu: NSMenu) {
+        disable()
+    }
+
+    // work around https://github.com/soffes/HotKey/issues/17
+    func menuDidClose(_ menu: NSMenu) {
+        enable()
     }
 }
