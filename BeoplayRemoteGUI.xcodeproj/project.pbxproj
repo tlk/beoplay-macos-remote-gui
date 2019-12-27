@@ -20,6 +20,7 @@
 		5A513BA222A4E13D00BE2687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A513B9B22A4E13D00BE2687 /* AppDelegate.swift */; };
 		5A64899723A57C01001679DA /* BeoplayRemoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A64899623A57C01001679DA /* BeoplayRemoteCore */; };
 		5A84AF0A2389BB7D00DD8FD0 /* DeviceBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A84AF092389BB7D00DD8FD0 /* DeviceBrowserDelegate.swift */; };
+		5ADB667E23B3AF6700612D0F /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADB667D23B3AF6700612D0F /* HotKey */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADB667E23B3AF6700612D0F /* HotKey in Frameworks */,
 				5A64899723A57C01001679DA /* BeoplayRemoteCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,6 +134,7 @@
 			name = BeoplayRemoteGUI;
 			packageProductDependencies = (
 				5A64899623A57C01001679DA /* BeoplayRemoteCore */,
+				5ADB667D23B3AF6700612D0F /* HotKey */,
 			);
 			productName = BeoplayRemoteGUI;
 			productReference = 5A56912C22A49696006B4718 /* BeoplayRemoteGUI.app */;
@@ -166,6 +169,7 @@
 			mainGroup = OBJ_5;
 			packageReferences = (
 				5A64899523A57C01001679DA /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */,
+				5ADB667C23B3AF6700612D0F /* XCRemoteSwiftPackageReference "HotKey" */,
 			);
 			productRefGroup = OBJ_23 /* Products */;
 			projectDirPath = "";
@@ -493,6 +497,14 @@
 				minimumVersion = 0.3.8;
 			};
 		};
+		5ADB667C23B3AF6700612D0F /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -500,6 +512,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5A64899523A57C01001679DA /* XCRemoteSwiftPackageReference "beoplay-macos-remote-cli" */;
 			productName = BeoplayRemoteCore;
+		};
+		5ADB667D23B3AF6700612D0F /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5ADB667C23B3AF6700612D0F /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

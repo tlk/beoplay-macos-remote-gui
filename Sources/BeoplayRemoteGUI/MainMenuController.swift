@@ -37,7 +37,7 @@ class MainMenuController: NSObject {
         UserDefaults.standard.register(defaults: [
             "app.title": "BeoplayRemote",
             "tuneIn.enabled": true,
-            "hotkeys.enabled": false
+            "hotkeys.enabled": true
         ])
 
         menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title")!

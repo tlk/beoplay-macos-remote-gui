@@ -27,13 +27,6 @@ The latest version of BeoplayRemoteGUI.app — code-signed with a registered App
 
 ## Configuration
 
-Copy and paste this into Terminal.app to enable hotkeys and TuneIn favorite stations:
-```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid hotkeys.enabled true
-defaults write $bundleid tuneIn.enabled true
-```
-
 The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
 
 Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this. <kbd>F11</kbd> and <kbd>F12</kbd> in [Mission Control](https://apple.stackexchange.com/a/110528). <kbd>F12</kbd> in [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf).

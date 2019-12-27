@@ -12,7 +12,7 @@
       },
       {
         "package": "BeoplayRemote",
-        "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli/",
+        "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli",
         "state": {
           "branch": null,
           "revision": "08c7f8ebf102f219dc47f7c9c750f0ca22fa01ee",
@@ -26,6 +26,15 @@
           "branch": null,
           "revision": "189436100c00efbf5fb2653fe7972a9371db0a91",
           "version": "4.1.1"
+        }
+      },
+      {
+        "package": "HotKey",
+        "repositoryURL": "https://github.com/soffes/HotKey",
+        "state": {
+          "branch": null,
+          "revision": "c13662730cb5bc28de4a799854bbb018a90649bf",
+          "version": "0.1.3"
         }
       },
       {

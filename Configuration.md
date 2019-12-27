@@ -23,18 +23,18 @@ defaults delete $bundleid
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid hotkeys.enabled true
-defaults write $bundleid hotkeys.PrevDevice 122
-defaults write $bundleid hotkeys.NextDevice 120
-defaults write $bundleid hotkeys.Leave 99
-defaults write $bundleid hotkeys.Join 118
-defaults write $bundleid hotkeys.PrevSource 96
-defaults write $bundleid hotkeys.NextSource 97
-defaults write $bundleid hotkeys.Back 98
-defaults write $bundleid hotkeys.TogglePlayPause 100
-defaults write $bundleid hotkeys.Next 101
-defaults write $bundleid hotkeys.ToggleMute 109
-defaults write $bundleid hotkeys.VolumeDown 103
-defaults write $bundleid hotkeys.VolumeUp 111
+defaults write $bundleid hotkeys.PrevDevice       f1
+defaults write $bundleid hotkeys.NextDevice       f2
+defaults write $bundleid hotkeys.Leave            f3
+defaults write $bundleid hotkeys.Join             f4
+defaults write $bundleid hotkeys.PrevSource       f5
+defaults write $bundleid hotkeys.NextSource       f6
+defaults write $bundleid hotkeys.Back             f7
+defaults write $bundleid hotkeys.TogglePlayPause  f8
+defaults write $bundleid hotkeys.Next             f9
+defaults write $bundleid hotkeys.ToggleMute      f10
+defaults write $bundleid hotkeys.VolumeDown      f11
+defaults write $bundleid hotkeys.VolumeUp        f12
 defaults write $bundleid hotkeys.VolumeStep 4
 ```
 
