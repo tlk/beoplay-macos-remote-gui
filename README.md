@@ -4,7 +4,7 @@ This is an unofficial app to remote control network enabled [Bang & Olufsen](htt
 
 ![Screenshot](./screenshot.jpg)
 
-The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original B&O iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour. TuneIn favorite radio stations are fetched from the device and can be changed via [hotkeys](Configuration.md).
+The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original B&O iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour. TuneIn favorite radio stations are fetched from the device and can be changed via [hotkeys](Configuration.md#hotkeys--keyboard-shortcuts).
 
 
 
