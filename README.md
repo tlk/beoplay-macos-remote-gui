@@ -4,7 +4,7 @@ This is an unofficial app to remote control network enabled [Bang & Olufsen](htt
 
 ![Screenshot](./screenshot.jpg)
 
-The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original Bang&Olufsen iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour.
+The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original B&O iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour. TuneIn favorite radio stations are fetched from the device and can be changed via [hotkeys](Configuration.md).
 
 
 
@@ -17,7 +17,7 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 
 
-## Installation
+## Download and installation
 
 The latest version of BeoplayRemoteGUI.app — code-signed with a registered Apple ID from the developer — is available for download at the Github project release page:
 
@@ -25,28 +25,7 @@ The latest version of BeoplayRemoteGUI.app — code-signed with a registered App
 * https://www.beoplayremote.com (which simply links to the above)
 
 
-## Configuration
-
-The application will ask for permission to 'control this computer using accessibility features'. Hotkeys will not work without this permission.
-
-Some hotkeys (keyboard shortcuts) are used by other applications but fortunately there are ways to handle this. <kbd>F11</kbd> and <kbd>F12</kbd> in [Mission Control](https://apple.stackexchange.com/a/110528). <kbd>F12</kbd> in [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf).
-
-| Key            | Action           |
-| -------------- | ---------------- |
-| <kbd>F1 </kbd> | PrevDevice       |
-| <kbd>F2 </kbd> | NextDevice       |
-| <kbd>F3 </kbd> | Leave            |
-| <kbd>F4 </kbd> | Join             |
-| <kbd>F5 </kbd> | PrevSource       |
-| <kbd>F6 </kbd> | NextSource       |
-| <kbd>F7 </kbd> | Back             |
-| <kbd>F8 </kbd> | TogglePlayPause  |
-| <kbd>F9 </kbd> | Next             |
-| <kbd>F10</kbd> | ToggleMute       |
-| <kbd>F11</kbd> | VolumeDown       |
-| <kbd>F12</kbd> | VolumeUp         |
-
-Please see [Configuration.md](Configuration.md) for additional configuration.
+Please see [Configuration.md](Configuration.md) for optional settings and how to deal with existing hotkey bindings.
 
 
 ## Build from source
