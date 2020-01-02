@@ -70,7 +70,9 @@ Favorite radio stations are fetched from the selected B&O device which in turn u
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid tuneIn.enabled true
+defaults write $bundleid tuneIn.stations -dict-add s37197 "DR P2"
 defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
+defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
 ```
 
 ### Manual configuration with no TuneIn account
@@ -80,11 +82,14 @@ Favorite radio stations can be configured with tuneIn.stations and tuneIn.order.
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid tuneIn.enabled true
+
+
+defaults write $bundleid tuneIn.stations -dict-add s24860 "DR P1"
+defaults write $bundleid tuneIn.stations -dict-add s37197 "DR P2"
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
 defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
 defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
 defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
-defaults write $bundleid tuneIn.stations -dict-add s69056 "DR P7"
-defaults write $bundleid tuneIn.order -array s24861 s37309 s69060 s45455 s69056
+defaults write $bundleid tuneIn.order -array s24860 s37197 s24861 s37309 s69060 s45455
 ```
 
