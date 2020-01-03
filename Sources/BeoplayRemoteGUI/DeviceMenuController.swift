@@ -204,5 +204,8 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.disconnect()
         self.setConnecting(item: sender)
         self.connect(device: sender.representedObject as! NetService)
+
+        // Keep the menu open to allow the user to select source
+        self.mainMenuController.open()
     }
 }

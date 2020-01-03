@@ -147,6 +147,11 @@ class MainMenuController: NSObject {
         self.pauseMenuItem.isHidden = true
     }
 
+    func open() {
+        // Is there another way to do this without triggering the hide/show animation?
+        self.menuBar.button?.performClick(self)
+    }
+
     @IBAction func sliderMoved(_ sender: NSSlider) {
         // Do this on the main thread for maximum scrolling smoothness
         self.volumeLevelViewController?.sliderMoved(sender)
