@@ -82,8 +82,6 @@ Favorite radio stations can be configured with tuneIn.stations and tuneIn.order.
 ```
 bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
 defaults write $bundleid tuneIn.enabled true
-
-
 defaults write $bundleid tuneIn.stations -dict-add s24860 "DR P1"
 defaults write $bundleid tuneIn.stations -dict-add s37197 "DR P2"
 defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
