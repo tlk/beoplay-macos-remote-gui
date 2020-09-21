@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -104,7 +104,7 @@
             <rect key="frame" x="0.0" y="0.0" width="203" height="30"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <slider canDrawConcurrently="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-Wr-2xK" customClass="ScrollableSlider" customModule="BeoplayRemoteGUI" customModuleProvider="target">
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-Wr-2xK" customClass="ScrollableSlider" customModule="BeoplayRemoteGUI" customModuleProvider="target">
                     <rect key="frame" x="19" y="5" width="174" height="19"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <sliderCell key="cell" continuous="YES" enabled="NO" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="OUU-1o-3ef"/>
