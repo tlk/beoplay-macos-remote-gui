@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/tlk/beoplay-macos-remote-cli",
         "state": {
           "branch": null,
-          "revision": "08c7f8ebf102f219dc47f7c9c750f0ca22fa01ee",
-          "version": "0.3.9"
+          "revision": "f4d85b681cc49da038f83a37bd5fe499d392ea53",
+          "version": "0.4.0"
         }
       },
       {
