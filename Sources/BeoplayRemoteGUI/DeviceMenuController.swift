@@ -26,18 +26,33 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.sourcesMenuController = sourcesMenuController
     }
 
+    // The device menu item has a StateValue that reflects
+    // the current connection state for the device.
+    //
+    //     symbol |  StateValue |  meaning
+    //    --------|-------------|------------
+    //       ―    |  .mixed     |  connecting
+    //       ✓    |  .on        |  connected
+    //     blank  |  .off       |  not connected
+    //
     public func onConnectionChange(_ data: NotificationBridge.DataConnectionNotification) {
-        if let item = self.getDeviceMenuItems().filter({ $0.isEnabled && $0.state != NSControl.StateValue.off}).first {
+        let selectedItems = self.getDeviceMenuItems().filter {
+            $0.isEnabled &&
+            $0.state != NSControl.StateValue.off
+        }
+
+        if let item = selectedItems.first {
             if data.state == NotificationSession.ConnectionState.online {
                 self.setConnected(item: item)
             } else {
                 self.setConnecting(item: item)
             }
         }
-        if data.message == nil {
-            NSLog("connection state: \(data.state)")
+
+        if let message = data.message {
+            NSLog("connection state: \(data.state): \(message)")
         } else {
-            NSLog("connection state: \(data.state): \(data.message!)")
+            NSLog("connection state: \(data.state)")
         }
     }
 
@@ -80,15 +95,24 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         }
 
         let menuItems = self.getDeviceMenuItems()
-        let enabledItems = menuItems.filter { $0.isEnabled }
-        let selectedItems = menuItems.filter { $0.state != NSControl.StateValue.off }
 
-        if selectedItems.count == 0 {
-            if let item = enabledItems.filter({ $0.title == defaultDevice }).first {
-                NSLog("connecting to default device")
-                self.setConnecting(item: item)
-                self.connect(device: item.representedObject as! NetService)
-            }
+        let selectedItems = menuItems.filter {
+            $0.state != NSControl.StateValue.off
+        }
+
+        let enabledItems = menuItems.filter {
+            $0.isEnabled &&
+            $0.title == defaultDevice
+        }
+
+        guard selectedItems.count == 0, let item = enabledItems.first else {
+            return
+        }
+
+        if let device = item.representedObject as? NetService {
+            NSLog("connecting to default device")
+            self.setConnecting(item: item)
+            self.connect(device: device)
         }
     }
 
@@ -106,16 +130,6 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         return self.statusMenu.item(at: location)
     }
 
-    // The device menu item has a StateValue that reflects
-    // the current connection state for the device.
-    //
-    //     symbol |  StateValue |  meaning
-    //    --------|-------------|------------
-    //       ―    |  .mixed     |  connecting
-    //       ✓    |  .on        |  connected
-    //
-    // This is updated via the notification event
-    // Notification.Name.onConnectionChange
     func setConnecting(item selectedItem: NSMenuItem) {
         let items = self.getDeviceMenuItems()
         for item in items {
@@ -197,6 +211,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                     //      The maximum number of seconds to attempt a resolve.
                     //      A value of 0.0 indicates no timeout and a resolve
                     //      process of indefinite duration.
+
                     let indefinite = 0.0
                     self.addMenuItem(device: update.device)
                     update.device.delegate = self
@@ -210,12 +225,12 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                         return
                     }
 
-                    if item.state != NSControl.StateValue.off {
+                    if item.state == NSControl.StateValue.off {
+                        self.statusMenu.removeItem(item)
+                    } else {
                         self.disconnect()
                         self.statusMenu.removeItem(item)
                         self.connectDefaultDevice()
-                    } else {
-                        self.statusMenu.removeItem(item)
                     }
                 }
             }
