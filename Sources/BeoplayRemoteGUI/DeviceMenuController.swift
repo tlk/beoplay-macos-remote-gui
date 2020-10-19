@@ -41,6 +41,8 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
             $0.state != NSControl.StateValue.off
         }
 
+        precondition(selectedItems.count == 0 || selectedItems.count == 1)
+
         if let item = selectedItems.first {
             if data.state == NotificationSession.ConnectionState.online {
                 self.setConnected(item: item)
