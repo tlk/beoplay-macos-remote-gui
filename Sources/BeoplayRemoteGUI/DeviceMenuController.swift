@@ -10,7 +10,6 @@ import RemoteCore
 
 class DeviceMenuController : NSObject, NetServiceDelegate {
     private let queue = DispatchQueue.init(label: "serialized-device-connection")
-    private let resolveTimeout = 5.0
     private let remoteControl: RemoteControl
     private let statusMenu: NSMenu
     private let mainMenuController: MainMenuController
@@ -62,8 +61,15 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
     func netServiceDidResolveAddress(_ device: NetService) {
         DispatchQueue.main.async {
+            guard let menuItem = self.getMenuItem(device), !menuItem.isEnabled else {
+                // When the resolve process runs with an indefinite duration it
+                // may call this method repeatedly. However, a single update is
+                // all that is needed so let us keep this method idempotent.
+                return
+            }
+
             NSLog("resolved: \(device.name) -> http://\(device.hostName!):\(device.port)")
-            self.getMenuItem(device)?.isEnabled = true
+            menuItem.isEnabled = true
             self.connectDefaultDevice()
         }
     }
@@ -92,6 +98,11 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         
     func getMenuItem(_ device: NetService) -> NSMenuItem? {
         let location = self.statusMenu.indexOfItem(withRepresentedObject: device)
+
+        guard location > -1 else {
+            return nil
+        }
+
         return self.statusMenu.item(at: location)
     }
 
@@ -167,23 +178,35 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                 case DeviceAction.Add:
                     NSLog("addDevice: \(update.device.name)")
 
-                    let menuHasDevice = self.statusMenu.indexOfItem(withRepresentedObject: update.device) > -1
-                    guard menuHasDevice == false else {
-                        // It does not make sense to represent the same device more than once
+                    guard self.getMenuItem(update.device) == nil else {
+                        NSLog("found an existing menu item for this device(!)")
                         return
                     }
 
+                    // The device IP address must be resolved before the menu item is
+                    // enabled and before attempting to connect to it.
+                    //
+                    // The call to update.device.resolve will start a resolve process
+                    // that will call NSNetServiceDelegate.netServiceDidResolveAddress
+                    // zero or many times when the service address is resolved.
+                    //
+                    // The delegate netServiceDidResolveAddress() method is
+                    // responsible for enabling the menu item.
+                    //
+                    // From NSNetService.resolve(withTimeout):
+                    //      The maximum number of seconds to attempt a resolve.
+                    //      A value of 0.0 indicates no timeout and a resolve
+                    //      process of indefinite duration.
+                    let indefinite = 0.0
                     self.addMenuItem(device: update.device)
-
-                    // The menu item is enabled when the service address has been resolved
-                    // See netServiceDidResolveAddress
                     update.device.delegate = self
-                    update.device.resolve(withTimeout: self.resolveTimeout)
+                    update.device.resolve(withTimeout: indefinite)
 
                 case DeviceAction.Remove:
                     NSLog("removeDevice: \(update.device.name)")
 
                     guard let item = self.getMenuItem(update.device) else {
+                        NSLog("no menu item found for this device(!)")
                         return
                     }
 
