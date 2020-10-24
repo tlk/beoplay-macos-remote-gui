@@ -86,18 +86,16 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
             }
 
             NSLog("resolved: \(device.name) -> http://\(device.hostName!):\(device.port)")
+
             menuItem.isEnabled = true
-            self.reconnectLastConnectedDevice()
+
+            if let deviceName = UserDefaults.standard.string(forKey: "devices.lastConnected") {
+                self.tryAutoConnect(deviceName)
+            }
         }
     }
 
-    func reconnectLastConnectedDevice() {
-        if let name = UserDefaults.standard.string(forKey: "devices.lastConnected") {
-            connect(name: name)
-        }
-    }
-
-    func connect(name: String) {
+    func tryAutoConnect(_ deviceName: String) {
         let menuItems = self.getDeviceMenuItems()
 
         let selectedItems = menuItems.filter {
@@ -106,18 +104,19 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
         let enabledItems = menuItems.filter {
             $0.isEnabled &&
-            $0.title == name
+            $0.title == deviceName
         }
 
-        guard selectedItems.count == 0, let item = enabledItems.first else {
+        guard selectedItems.count == 0,
+           let item = enabledItems.first,
+           let device = item.representedObject as? NetService else {
+            // Already connected to a device or device not found
             return
         }
 
-        if let device = item.representedObject as? NetService {
-            NSLog("connecting to default device")
-            self.setConnecting(item: item)
-            self.connect(device: device)
-        }
+        NSLog("auto connect: \(deviceName)")
+        self.setConnecting(item: item)
+        self.connect(device: device)
     }
 
     func getDeviceMenuItems() -> [NSMenuItem] {
