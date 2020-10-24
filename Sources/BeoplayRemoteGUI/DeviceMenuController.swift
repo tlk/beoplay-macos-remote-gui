@@ -87,15 +87,17 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
             NSLog("resolved: \(device.name) -> http://\(device.hostName!):\(device.port)")
             menuItem.isEnabled = true
-            self.connectDefaultDevice()
+            self.reconnectLastConnectedDevice()
         }
     }
 
-    func connectDefaultDevice() {
-        guard let defaultDevice = UserDefaults.standard.string(forKey: "devices.default") else {
-            return
+    func reconnectLastConnectedDevice() {
+        if let name = UserDefaults.standard.string(forKey: "devices.lastConnected") {
+            connect(name: name)
         }
+    }
 
+    func connect(name: String) {
         let menuItems = self.getDeviceMenuItems()
 
         let selectedItems = menuItems.filter {
@@ -104,7 +106,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
         let enabledItems = menuItems.filter {
             $0.isEnabled &&
-            $0.title == defaultDevice
+            $0.title == name
         }
 
         guard selectedItems.count == 0, let item = enabledItems.first else {
@@ -147,6 +149,7 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
 
     func connect(device: NetService) {
         NSLog("connect: \(device.name) -> http://\(device.hostName!):\(device.port)")
+        UserDefaults.standard.setValue(device.name, forKey: "devices.lastConnected")
         self.remoteControl.setEndpoint(host: device.hostName!, port: device.port)
         self.remoteControl.startNotifications()
         self.volumeLevelViewController.enable()
@@ -227,13 +230,11 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
                         return
                     }
 
-                    if item.state == NSControl.StateValue.off {
-                        self.statusMenu.removeItem(item)
-                    } else {
+                    if item.state != NSControl.StateValue.off {
                         self.disconnect()
-                        self.statusMenu.removeItem(item)
-                        self.connectDefaultDevice()
                     }
+
+                    self.statusMenu.removeItem(item)
                 }
             }
         }

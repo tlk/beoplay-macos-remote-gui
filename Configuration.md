@@ -1,28 +1,38 @@
-# Optional configuration
+# Configuration
 
-Auto-connect to a default device:
-```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid devices.default "Beoplay M5 i køkkenet"
-```
+The application preferences can be configured manually via the command line.
 
-Customize the app name in the menu bar:
+Example:
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid app.title "B&O"
+defaults write -app BeoplayRemoteGUI app.title "B&O"
+
+defaults write -app BeoplayRemoteGUI hotkeys.PrevDevice  disabled
+defaults write -app BeoplayRemoteGUI hotkeys.NextDevice  disabled
+defaults write -app BeoplayRemoteGUI hotkeys.Leave       disabled
+defaults write -app BeoplayRemoteGUI hotkeys.Join        disabled
+defaults write -app BeoplayRemoteGUI hotkeys.PrevSource  disabled
+defaults write -app BeoplayRemoteGUI hotkeys.NextSource  disabled
+
+defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s37197 "DR P2"
+defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s37309 "DR P4"
+defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s45455 "DR P6"
 ```
 
 Reset all configuration to start over:
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults delete $bundleid
+defaults delete -app BeoplayRemoteGUI
+```
+
+
+## App display name in the menu
+
+Customize the app name in the menu bar:
+```
+defaults write -app BeoplayRemoteGUI app.title "B&O"
 ```
 
 
 ## Hotkeys / keyboard shortcuts
-
-Some hotkeys such as <kbd>F11</kbd> and <kbd>F12</kbd> might be assigned to functions in other applications.
-This can be changed by changing the configuration of those other applications. See [Mission Control](https://apple.stackexchange.com/a/110528) (<kbd>F11</kbd>) and [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf) (<kbd>F12</kbd>).
 
 Default configuration:
 
@@ -44,35 +54,36 @@ Default configuration:
 
 Manual configuration:
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
+defaults write -app BeoplayRemoteGUI hotkeys.enabled true
+defaults write -app BeoplayRemoteGUI hotkeys.VolumeStep 4
 
-defaults write $bundleid hotkeys.enabled true
-defaults write $bundleid hotkeys.VolumeStep 4
-
-defaults write $bundleid hotkeys.PrevDevice       f1
-defaults write $bundleid hotkeys.NextDevice       f2
-defaults write $bundleid hotkeys.Leave            f3
-defaults write $bundleid hotkeys.Join             f4
-defaults write $bundleid hotkeys.PrevSource       f5
-defaults write $bundleid hotkeys.NextSource       f6
-defaults write $bundleid hotkeys.Back             f7
-defaults write $bundleid hotkeys.TogglePlayPause  f8
-defaults write $bundleid hotkeys.Next             f9
-defaults write $bundleid hotkeys.ToggleMute      f10
-defaults write $bundleid hotkeys.VolumeDown      f11
-defaults write $bundleid hotkeys.VolumeUp        f12
+defaults write -app BeoplayRemoteGUI hotkeys.PrevDevice       disabled
+defaults write -app BeoplayRemoteGUI hotkeys.NextDevice       disabled
+defaults write -app BeoplayRemoteGUI hotkeys.Leave            disabled
+defaults write -app BeoplayRemoteGUI hotkeys.Join             disabled
+defaults write -app BeoplayRemoteGUI hotkeys.PrevSource       disabled
+defaults write -app BeoplayRemoteGUI hotkeys.NextSource       disabled
+defaults write -app BeoplayRemoteGUI hotkeys.Back             f7
+defaults write -app BeoplayRemoteGUI hotkeys.TogglePlayPause  f8
+defaults write -app BeoplayRemoteGUI hotkeys.Next             f9
+defaults write -app BeoplayRemoteGUI hotkeys.ToggleMute      f10
+defaults write -app BeoplayRemoteGUI hotkeys.VolumeDown      f11
+defaults write -app BeoplayRemoteGUI hotkeys.VolumeUp        f12
 ```
+
+Note that some hotkeys such as <kbd>F11</kbd> and <kbd>F12</kbd> may already be in use by other applications.
+Consider changing the configuration of those applications or disabling the hotkeys for this application as illustrated above. See [Mission Control](https://apple.stackexchange.com/a/110528) (<kbd>F11</kbd>) and [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf) (<kbd>F12</kbd>).
+
 
 ## TuneIn radio stations
 
 Favorite radio stations are fetched from the selected B&O device which in turn uses a tuneIn account to fetch favorite radio stations from https://tunein.com. The display name of a radio station can be customized by adding an entry to tuneIn.stations with a custom station name. Make sure that the station id matches.
 
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid tuneIn.enabled true
-defaults write $bundleid tuneIn.stations -dict-add s37197 "DR P2"
-defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
-defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
+defaults write -app BeoplayRemoteGUI tuneIn.enabled true
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37197 "DR P2"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37309 "DR P4"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s45455 "DR P6"
 ```
 
 ### Manual configuration with no TuneIn account
@@ -80,14 +91,13 @@ defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
 Favorite radio stations can be configured with tuneIn.stations and tuneIn.order. Double check that the entries in tuneIn.stations and tuneIn.order matches.
 
 ```
-bundleid=$(defaults read /Applications/BeoplayRemoteGUI.app/Contents/Info.plist CFBundleIdentifier)
-defaults write $bundleid tuneIn.enabled true
-defaults write $bundleid tuneIn.stations -dict-add s24860 "DR P1"
-defaults write $bundleid tuneIn.stations -dict-add s37197 "DR P2"
-defaults write $bundleid tuneIn.stations -dict-add s24861 "DR P3"
-defaults write $bundleid tuneIn.stations -dict-add s37309 "DR P4"
-defaults write $bundleid tuneIn.stations -dict-add s69060 "DR P5"
-defaults write $bundleid tuneIn.stations -dict-add s45455 "DR P6"
-defaults write $bundleid tuneIn.order -array s24860 s37197 s24861 s37309 s69060 s45455
+defaults write -app BeoplayRemoteGUI tuneIn.enabled true
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s24860 "DR P1"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37197 "DR P2"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s24861 "DR P3"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37309 "DR P4"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s69060 "DR P5"
+defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s45455 "DR P6"
+defaults write -app BeoplayRemoteGUI tuneIn.order -array s24860 s37197 s24861 s37309 s69060 s45455
 ```
 
