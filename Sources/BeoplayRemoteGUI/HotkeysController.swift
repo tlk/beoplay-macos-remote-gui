@@ -33,18 +33,18 @@ class HotkeysController: NSObject {
     }
 
     private let defaultConfiguration = [
-        Command.PrevDevice:       Key.f1,
-        Command.NextDevice:       Key.f2,
-        Command.Leave:            Key.f3,
-        Command.Join :            Key.f4,
-        Command.PrevSource:       Key.f5,
-        Command.NextSource:       Key.f6,
-        Command.Back:             Key.f7,
-        Command.TogglePlayPause:  Key.f8,
-        Command.Next:             Key.f9,
-        Command.ToggleMute:       Key.f10,
-        Command.VolumeDown:       Key.f11,
-        Command.VolumeUp:         Key.f12
+        (Command.PrevDevice,      Key.f1),
+        (Command.NextDevice,      Key.f2),
+        (Command.Leave,           Key.f3),
+        (Command.Join,            Key.f4),
+        (Command.PrevSource,      Key.f5),
+        (Command.NextSource,      Key.f6),
+        (Command.Back,            Key.f7),
+        (Command.TogglePlayPause, Key.f8),
+        (Command.Next,            Key.f9),
+        (Command.ToggleMute,      Key.f10),
+        (Command.VolumeDown,      Key.f11),
+        (Command.VolumeUp,        Key.f12),
     ]
 
     private var configuration = [Command:Key]()
@@ -62,21 +62,24 @@ class HotkeysController: NSObject {
 
         NSLog("hotkeys.VolumeStep: \(volumeStep)")
 
-        self.configuration = Dictionary(uniqueKeysWithValues:
-            defaultConfiguration.compactMap { command, defaultKey in
-                guard UserDefaults.standard.string(forKey: "hotkeys.\(command)") != "disabled" else {
-                    NSLog("hotkeys.\(command) -- disabled!")
-                    return nil
-                }
 
-                let key = UserDefaults.standard.string(forKey: "hotkeys.\(command)") == nil
-                    ? defaultKey
-                    : Key.init(string: UserDefaults.standard.string(forKey: "hotkeys.\(command)")!) ?? defaultKey
-
-                NSLog("hotkeys.\(command): \(key.description)")
-                return (command, key)
+        for (command, defaultKey) in defaultConfiguration {
+            guard let setting = UserDefaults.standard.string(forKey: "hotkeys.\(command)") else {
+                NSLog("hotkeys.\(command): \(defaultKey.description) (default)")
+                self.configuration[command] = defaultKey
+                continue
             }
-        )
+
+            if setting == "disabled" {
+                NSLog("hotkeys.\(command): disabled")
+            } else if let key = Key.init(string: setting) {
+                NSLog("hotkeys.\(command): \(key.description) (custom setting)")
+                self.configuration[command] = key
+            } else {
+                NSLog("hotkeys.\(command): \(defaultKey.description) (default, could not recognize '\(setting)')")
+                self.configuration[command] = defaultKey
+            }
+        }
     }
 
     private func getHandler(key: Key, command: Command, volumeStep: Int) -> (() -> Void) {
