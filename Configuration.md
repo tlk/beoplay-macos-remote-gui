@@ -18,6 +18,11 @@ defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s37309 "DR P4"
 defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s45455 "DR P6"
 ```
 
+See current configuration:
+```
+defaults delete -app BeoplayRemoteGUI
+```
+
 Reset all configuration to start over:
 ```
 defaults delete -app BeoplayRemoteGUI
