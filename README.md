@@ -31,8 +31,8 @@ Please see [Configuration.md](Configuration.md) for optional settings and how to
 ## Build from source
 ```
 $ xcodebuild -version
-Xcode 11.2.1
-Build version 11B500
+Xcode 12.3
+Build version 12C33
 
 $ make install
 xcodebuild [..]
