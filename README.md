@@ -40,4 +40,4 @@ Note that it is possible to run the official B&O iOS applications on Apple compu
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface
 * [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
 * [Beoplay Remote for macOS (PoC)](https://forum.beoworld.org/forums/t/37724.aspx) (BeoWorld)
-* [Apple HomeKit](https://en.wikipedia.org/wiki/HomeKit) integration via [Homebridge plugin for Bang & Olufsen/Beoplay devices](https://homebridge.io/)
+* [Apple HomeKit](https://en.wikipedia.org/wiki/HomeKit) integration via [Homebridge plugin for Bang & Olufsen/Beoplay devices](https://github.com/connectjunkie/homebridge-beoplay)
