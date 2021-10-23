@@ -16,6 +16,19 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 | <kbd>volume-up</kbd>     | <kbd>fn</kbd> + <kbd>volume-up</kbd>   |
 
 
+
+## Installation
+
+Download the latest release and follow the instructions here:
+* https://github.com/tlk/beoplay-macos-remote-gui/releases
+
+Alternatively, install with Homebrew:
+
+```
+$ brew install tlk/beoplayremote/beoplayremotegui
+```
+
+
 ## Build from source
 ```
 $ xcodebuild -version
