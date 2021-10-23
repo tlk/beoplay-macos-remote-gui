@@ -25,7 +25,7 @@ Download the latest release and follow the instructions here:
 Alternatively, install with Homebrew:
 
 ```
-$ brew install tlk/beoplayremote/beoplayremotegui --no-quarantine
+brew install tlk/beoplayremote/beoplayremotegui --no-quarantine
 ```
 
 
