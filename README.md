@@ -16,6 +16,8 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 | <kbd>volume-up</kbd>     | <kbd>fn</kbd> + <kbd>volume-up</kbd>   |
 
 
+Please see [Configuration.md](Configuration.md) for optional settings and how to deal with existing hotkey bindings.
+
 
 ## Installation
 
@@ -43,14 +45,10 @@ $
 ```
 
 
-## Configuration
-Please see [Configuration.md](Configuration.md) for optional settings and how to deal with existing hotkey bindings.
-
-Note that it is possible to run the official B&O iOS applications on Apple computers with the "M1" processor: https://www.theverge.com/2020/11/18/21574207/how-to-install-run-any-iphone-ipad-app-m1-mac
-
-
 ## Read more
+
 * See the [beoplay-cli](https://github.com/tlk/beoplay-macos-remote-cli) for a command line interface
 * [How do I control the volume in spotify with the volume buttons on my apple keyboard?](https://community.spotify.com/t5/Desktop-Mac/How-do-I-control-the-volume-in-spotify-with-the-volume-buttons/m-p/4726068) (Spotify Community)
 * [Beoplay Remote for macOS (PoC)](https://forum.beoworld.org/forums/t/37724.aspx) (BeoWorld)
 * [Apple HomeKit](https://en.wikipedia.org/wiki/HomeKit) integration via [Homebridge plugin for Bang & Olufsen/Beoplay devices](https://github.com/connectjunkie/homebridge-beoplay)
+* How to [run the official B&O iOS applications on Apple computers with the "M1" processor](https://www.theverge.com/2020/11/18/21574207/how-to-install-run-any-iphone-ipad-app-m1-mac)
