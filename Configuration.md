@@ -1,6 +1,6 @@
 # Configuration
 
-The application preferences can be configured manually via the command line.
+The application can be configured via the command line and must be restarted to pick up configuration changes.
 
 Example:
 ```
