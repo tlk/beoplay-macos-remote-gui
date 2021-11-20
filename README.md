@@ -16,8 +16,6 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 | <kbd>volume-up</kbd>     | <kbd>fn</kbd> + <kbd>volume-up</kbd>   |
 
 
-Please see [Configuration.md](Configuration.md) for optional settings and how to deal with existing hotkey bindings.
-
 
 ## Installation
 
@@ -29,6 +27,9 @@ Alternatively, install with Homebrew:
 ```
 brew install tlk/beoplayremote/beoplayremotegui --no-quarantine
 ```
+
+Please see [Configuration.md](Configuration.md) for optional settings and how to deal with existing hotkey bindings.
+
 
 
 ## Build from source
