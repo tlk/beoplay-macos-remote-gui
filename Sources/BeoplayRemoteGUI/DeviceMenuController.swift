@@ -8,14 +8,40 @@
 import Cocoa
 import RemoteCore
 
-class DeviceMenuController : NSObject, NetServiceDelegate {
-    private let queue = DispatchQueue.init(label: "serialized-device-connection")
+class DeviceDelegate : NSObject, NetServiceDelegate {
+    private let deviceMenuController: DeviceMenuController
+
+    public init(deviceMenuController: DeviceMenuController) {
+        self.deviceMenuController = deviceMenuController
+    }
+
+    func netServiceDidResolveAddress(_ device: NetService) {
+        DispatchQueue.main.async {
+            NSLog("resolved: \(device.name) -> http://\(device.hostName!):\(device.port)")
+
+            guard let menuItem = self.deviceMenuController.getMenuItem(device) else {
+                NSLog("resolved: unexpected error")
+                return
+            }
+
+            menuItem.isEnabled = true
+
+            if let deviceName = UserDefaults.standard.string(forKey: "devices.lastConnected") {
+                self.deviceMenuController.tryAutoConnect(deviceName)
+            }
+        }
+    }
+}
+
+class DeviceMenuController {
     private let remoteControl: RemoteControl
     private let statusMenu: NSMenu
     private let mainMenuController: MainMenuController
     private let volumeLevelViewController: VolumeLevelViewController
     private let deviceSeparatorMenuItem: NSMenuItem
     private let sourcesMenuController: SourcesMenuController?
+
+    private var deviceDelegate: DeviceDelegate?
 
     public init(remoteControl: RemoteControl, statusMenu: NSMenu, mainMenuController: MainMenuController, volumeLevelViewController: VolumeLevelViewController, deviceSeparatorMenuItem: NSMenuItem, sourcesMenuController: SourcesMenuController?) {
         self.remoteControl = remoteControl
@@ -26,35 +52,39 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.sourcesMenuController = sourcesMenuController
     }
 
-    // The device menu item has a StateValue that reflects
-    // the current connection state for the device.
-    //
-    //     symbol |  StateValue |  meaning
-    //    --------|-------------|------------
-    //       ―    |  .mixed     |  connecting
-    //       ✓    |  .on        |  connected
-    //     blank  |  .off       |  not connected
-    //
-    public func onConnectionChange(_ data: NotificationBridge.DataConnectionNotification) {
-        let selectedItems = self.getDeviceMenuItems().filter {
-            $0.isEnabled &&
-            $0.state != NSControl.StateValue.off
-        }
+    // This is called from DeviceBrowserDelegate when a device is
+    // to be added or removed according to DNS-SD (Bonjour).
+    func devicePresenceChanged(_ updates: [DeviceCommand]) {
+        DispatchQueue.main.async {
+            for update in updates {
+                switch update.type {
+                case DeviceAction.Add:
+                    NSLog("addDevice: \(update.device.name)")
 
-        precondition(selectedItems.count == 0 || selectedItems.count == 1)
+                    guard self.getMenuItem(update.device) == nil else {
+                        NSLog("found an existing menu item for this device(!)")
+                        return
+                    }
 
-        if let item = selectedItems.first {
-            if data.state == NotificationSession.ConnectionState.online {
-                self.setConnected(item: item)
-            } else {
-                self.setConnecting(item: item)
+                    self.addMenuItem(device: update.device)
+                    self.resolveDevices()
+
+                case DeviceAction.Remove:
+                    NSLog("removeDevice: \(update.device.name)")
+
+                    guard let item = self.getMenuItem(update.device) else {
+                        NSLog("no menu item found for this device(!)")
+                        return
+                    }
+
+                    if item.state != NSControl.StateValue.off {
+                        self.disconnect()
+                    }
+
+                    update.device.stop()
+                    self.statusMenu.removeItem(item)
+                }
             }
-        }
-
-        if let message = data.message {
-            NSLog("connection state: \(data.state): \(message)")
-        } else {
-            NSLog("connection state: \(data.state)")
         }
     }
 
@@ -76,23 +106,53 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         self.statusMenu.insertItem(item, at: getInsertLocation(item))
     }
 
-    func netServiceDidResolveAddress(_ device: NetService) {
-        DispatchQueue.main.async {
-            guard let menuItem = self.getMenuItem(device), !menuItem.isEnabled else {
-                // When the resolve process runs with an indefinite duration it
-                // may call this method repeatedly. However, a single update is
-                // all that is needed so let us keep this method idempotent.
-                return
-            }
+    func getDeviceMenuItems() -> [NSMenuItem] {
+        self.statusMenu.items.filter { $0.representedObject is NetService }
+    }
 
-            NSLog("resolved: \(device.name) -> http://\(device.hostName!):\(device.port)")
+    func getMenuItem(_ device: NetService) -> NSMenuItem? {
+        let location = self.statusMenu.indexOfItem(withRepresentedObject: device)
 
-            menuItem.isEnabled = true
-
-            if let deviceName = UserDefaults.standard.string(forKey: "devices.lastConnected") {
-                self.tryAutoConnect(deviceName)
-            }
+        guard location > -1 else {
+            return nil
         }
+
+        return self.statusMenu.item(at: location)
+    }
+
+    // Resolve any devices that have not yet been resolved.
+    func resolveDevices() {
+        let remaining = getDeviceMenuItems().filter { !$0.isEnabled }
+
+        for item in remaining {
+            guard let device = item.representedObject as? NetService else {
+                NSLog("resolveDevices: unexpected error")
+                continue
+            }
+
+            resolve(device)
+        }
+    }
+    
+    // The device address and port must be resolved before
+    // attempting to connect to it.
+    //
+    // NSNetService.resolve starts a process on the main thread
+    // that will call DeviceDelegate.netServiceDidResolveAddress
+    // zero or many times when the service address is resolved.
+    //
+    // DeviceDelegate.netServiceDidResolveAddress is
+    // responsible for enabling the menu item.
+    func resolve(_ device: NetService) {
+        NSLog("resolveDevice: \(device.name)")
+
+        if self.deviceDelegate == nil {
+            self.deviceDelegate = DeviceDelegate(deviceMenuController: self)
+        }
+
+        device.stop()
+        device.delegate = self.deviceDelegate
+        device.resolve(withTimeout: 1.0)
     }
 
     func tryAutoConnect(_ deviceName: String) {
@@ -107,30 +167,19 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
             $0.title == deviceName
         }
 
-        guard selectedItems.count == 0,
-           let item = enabledItems.first,
+        guard selectedItems.count == 0 else {
+            NSLog("auto connect: already connected")
+            return
+        }
+        guard let item = enabledItems.first,
            let device = item.representedObject as? NetService else {
-            // Already connected to a device or device not found
+            NSLog("auto connect: no device")
             return
         }
 
         NSLog("auto connect: \(deviceName)")
         self.setConnecting(item: item)
         self.connect(device: device)
-    }
-
-    func getDeviceMenuItems() -> [NSMenuItem] {
-        self.statusMenu.items.filter { $0.representedObject is NetService }
-    }
-        
-    func getMenuItem(_ device: NetService) -> NSMenuItem? {
-        let location = self.statusMenu.indexOfItem(withRepresentedObject: device)
-
-        guard location > -1 else {
-            return nil
-        }
-
-        return self.statusMenu.item(at: location)
     }
 
     func setConnecting(item selectedItem: NSMenuItem) {
@@ -189,53 +238,35 @@ class DeviceMenuController : NSObject, NetServiceDelegate {
         }
     }
 
-    func devicePresenceChanged(_ updates: [DeviceCommand]) {
-        DispatchQueue.main.async {
-            for update in updates {
-                switch update.type {
-                case DeviceAction.Add:
-                    NSLog("addDevice: \(update.device.name)")
+    // The device menu item has a StateValue that reflects
+    // the current connection state for the device.
+    //
+    //     symbol |  StateValue |  meaning
+    //    --------|-------------|------------
+    //       ―    |  .mixed     |  connecting
+    //       ✓    |  .on        |  connected
+    //     blank  |  .off       |  not connected
+    //
+    public func onConnectionChange(_ data: NotificationBridge.DataConnectionNotification) {
+        let selectedItems = self.getDeviceMenuItems().filter {
+            $0.isEnabled &&
+            $0.state != NSControl.StateValue.off
+        }
 
-                    guard self.getMenuItem(update.device) == nil else {
-                        NSLog("found an existing menu item for this device(!)")
-                        return
-                    }
+        precondition(selectedItems.count == 0 || selectedItems.count == 1)
 
-                    // The device IP address must be resolved before the menu item is
-                    // enabled and before attempting to connect to it.
-                    //
-                    // The call to update.device.resolve will start a resolve process
-                    // that will call NSNetServiceDelegate.netServiceDidResolveAddress
-                    // zero or many times when the service address is resolved.
-                    //
-                    // The delegate netServiceDidResolveAddress() method is
-                    // responsible for enabling the menu item.
-                    //
-                    // From NSNetService.resolve(withTimeout):
-                    //      The maximum number of seconds to attempt a resolve.
-                    //      A value of 0.0 indicates no timeout and a resolve
-                    //      process of indefinite duration.
-
-                    let indefinite = 0.0
-                    self.addMenuItem(device: update.device)
-                    update.device.delegate = self
-                    update.device.resolve(withTimeout: indefinite)
-
-                case DeviceAction.Remove:
-                    NSLog("removeDevice: \(update.device.name)")
-
-                    guard let item = self.getMenuItem(update.device) else {
-                        NSLog("no menu item found for this device(!)")
-                        return
-                    }
-
-                    if item.state != NSControl.StateValue.off {
-                        self.disconnect()
-                    }
-
-                    self.statusMenu.removeItem(item)
-                }
+        if let item = selectedItems.first {
+            if data.state == NotificationSession.ConnectionState.online {
+                self.setConnected(item: item)
+            } else {
+                self.setConnecting(item: item)
             }
+        }
+
+        if let message = data.message {
+            NSLog("connection state: \(data.state): \(message)")
+        } else {
+            NSLog("connection state: \(data.state)")
         }
     }
 

@@ -18,7 +18,6 @@ struct DeviceCommand {
 }
 
 class DeviceBrowserDelegate : NSObject, NetServiceBrowserDelegate {
-    private let q = DispatchQueue(label: "beoplay-device-manager")
     private var pendingUpdates = [DeviceCommand]()
     private var deviceMenuController: DeviceMenuController?
 
@@ -27,7 +26,7 @@ class DeviceBrowserDelegate : NSObject, NetServiceBrowserDelegate {
     }
 
     func netServiceBrowser(_ browser: NetServiceBrowser, didRemove service: NetService, moreComing: Bool) {
-        self.q.async {
+        DispatchQueue.main.async {
             self.pendingUpdates.append(DeviceCommand(type: DeviceAction.Remove, device: service))
             
             NSLog("didRemove: \(service.name), moreComing: \(moreComing)")
@@ -39,7 +38,7 @@ class DeviceBrowserDelegate : NSObject, NetServiceBrowserDelegate {
     }
 
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
-        self.q.async {
+        DispatchQueue.main.async {
             self.pendingUpdates.append(DeviceCommand(type: DeviceAction.Add, device: service))
             
             NSLog("didFind: \(service.name), moreComing: \(moreComing)")

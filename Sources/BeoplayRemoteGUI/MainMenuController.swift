@@ -26,7 +26,9 @@ class MainMenuController: NSObject {
 
     private let menuBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let remoteControl = RemoteControl()
+    private let browser = NetServiceBrowser()
 
+    private var browserDelegate: DeviceBrowserDelegate?
     private var deviceMenuController: DeviceMenuController?
     private var volumeLevelViewController: VolumeLevelViewController?
     private var hotkeysController: HotkeysController?
@@ -78,8 +80,17 @@ class MainMenuController: NSObject {
 
         addObservers()
 
-        let deviceBrowserDelegate = DeviceBrowserDelegate(deviceMenuController: deviceMenuController!)
-        remoteControl.startDiscovery(delegate: deviceBrowserDelegate)
+        browserDelegate = DeviceBrowserDelegate(deviceMenuController: deviceMenuController!)
+        browser.delegate = browserDelegate
+        browser.schedule(in: .main, forMode: .default)
+        browser.searchForServices(ofType: "_beoremote._tcp.", inDomain: "local.")
+
+        // Watchdog: handle sporadic resolver issues, refs #29
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { timer in
+            DispatchQueue.main.async {
+                self.deviceMenuController?.resolveDevices()
+            }
+       }
     }
 
     func addObservers() {
