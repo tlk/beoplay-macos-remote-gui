@@ -19,8 +19,8 @@ Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to
 
 ## Installation
 
-You can download the latest release of BeoplayRemoteGUI.dmg here:
-* https://github.com/tlk/beoplay-macos-remote-gui/releases
+Get the latest release and follow the installation instructions:
+> [Download BeoplayRemoteGUI.dmg](https://github.com/tlk/beoplay-macos-remote-gui/releases/latest)
 
 Alternatively, you can install it with Homebrew:
 ```
@@ -30,8 +30,7 @@ brew install tlk/beoplayremote/beoplayremotegui --no-quarantine
 Please see [Configuration.md](Configuration.md) on how to setup hotkey bindings.
 
 
------
-
+## Build from source
 
 If you have Xcode you can build and install from source:
 ```
