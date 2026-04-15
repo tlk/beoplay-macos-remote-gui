@@ -1,8 +1,6 @@
 # Configuration
 
-The application can be configured via the command line (Terminal.app). The app will only pick up configuration changes when it is opened.
-
-Example:
+The application can be configured from the command line (Terminal.app):
 ```
 defaults write -app BeoplayRemoteGUI app.title "B&O"
 
@@ -13,6 +11,8 @@ defaults write -app BeoplayRemoteGUI hotkeys.Join        disabled
 defaults write -app BeoplayRemoteGUI hotkeys.PrevSource  disabled
 defaults write -app BeoplayRemoteGUI hotkeys.NextSource  disabled
 ```
+
+Please restart the application after making configuration changes.
 
 See current configuration:
 ```
