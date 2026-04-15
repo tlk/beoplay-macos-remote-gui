@@ -8,7 +8,7 @@ This app can be used to adjust the sound volume on connected speakers and to con
 
 
 
-Apple keyboards feature dedicated <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to control the sound volume of the local computer speakers. By holding down the <kbd>fn</kbd> function key, the same physical keys turn into <kbd>F11</kbd> and <kbd>F12</kbd> keys and can then be configured to control the volume of remote Beoplay speakers via this application. You can read more about this in the section on [hotkeys](Configuration.md#hotkeys--keyboard-shortcuts) (shortcut keys).
+Apple keyboards feature dedicated <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to control the sound volume of the local computer speakers. By holding down the <kbd>fn</kbd> function key, the same physical keys turn into <kbd>F11</kbd> and <kbd>F12</kbd> keys and can then be configured to control the volume of remote Beoplay speakers via this application. You can read more about this in the section on [hotkeys](Configuration.md#hotkeys-keyboard-shortcuts) (keyboard shortcuts).
 
 | Local speakers           | Remote Beoplay speakers                        |
 | ------------------------ | -------------------------------------- |
