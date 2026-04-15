@@ -4,7 +4,7 @@ This is an unofficial app to remote control network enabled [Bang & Olufsen](htt
 
 ![Screenshot](./screenshot.jpg)
 
-This app can be used to adjust the sound volume on connected speakers and to control music playback and radio stations. It works well with the original B&O iOS app and other connected apps such as Spotify and Deezer. Your speakers are automatically discovered on the local network via Bonjour. B&O Radio favorite stations are fetched from the device..
+This app can be used to adjust the sound volume on connected speakers and to control music playback and radio stations. It works well with the original B&O iOS app and other connected apps such as Spotify and Deezer. Your speakers are automatically discovered on the local network via Bonjour. B&O Radio favorite stations are automatically fetched from the device.
 
 
 
