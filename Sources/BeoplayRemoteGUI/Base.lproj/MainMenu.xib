@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,13 @@
         <customObject id="alx-iL-ssJ" userLabel="MainMenuController" customClass="MainMenuController" customModule="BeoplayRemoteGUI" customModuleProvider="target">
             <connections>
                 <outlet property="backMenuItem" destination="S5r-Ym-sNj" id="gcB-gO-2SN"/>
+                <outlet property="beoRadioMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
                 <outlet property="deviceSeparatorMenuItem" destination="GZI-74-Bbh" id="S1t-Jt-YHQ"/>
                 <outlet property="nextMenuItem" destination="KeU-58-sE1" id="PCX-Le-AbH"/>
                 <outlet property="pauseMenuItem" destination="VFe-4y-61o" id="dVM-xX-Ebx"/>
                 <outlet property="playMenuItem" destination="p6f-gd-ldN" id="XNO-Ws-tUC"/>
                 <outlet property="sourcesMenuItem" destination="kgn-98-8ke" id="PId-kJ-w1k"/>
                 <outlet property="statusMenu" destination="1Xh-Lf-Elu" id="kDo-2h-EvE"/>
-                <outlet property="beoRadioMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
                 <outlet property="volumeLevelMenuItem" destination="vNB-tl-eiA" id="dQg-lc-9Vc"/>
                 <outlet property="volumeLevelSlider" destination="lMI-Wr-2xK" id="AOd-CA-EV2"/>
                 <outlet property="volumeLevelView" destination="Qyl-Dg-uny" id="9Sj-DX-kvy"/>
@@ -105,7 +105,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-Wr-2xK" customClass="ScrollableSlider" customModule="BeoplayRemoteGUI" customModuleProvider="target">
-                    <rect key="frame" x="19" y="0" width="174" height="30"/>
+                    <rect key="frame" x="19" y="0.0" width="174" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <sliderCell key="cell" continuous="YES" enabled="NO" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="OUU-1o-3ef"/>
                     <connections>
@@ -113,7 +113,7 @@
                     </connections>
                 </slider>
             </subviews>
-            <point key="canvasLocation" x="-199" y="-191"/>
+            <point key="canvasLocation" x="-187" y="-147"/>
         </customView>
     </objects>
 </document>

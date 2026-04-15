@@ -9,8 +9,8 @@ import Cocoa
 import RemoteCore
 
 public class SourcesMenuController {
-    private let hideTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM"]
-    private let beoRadioType = "BEORADIO"
+    private let hideTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM", "MUSIC"]
+    private let beoRadioType = "BEO RADIO"
     private let typeAliases = [
         "DEEZER": ["deezer:", "music:"],
         "QPLAY" : ["qplay:", "music:"]
