@@ -1,6 +1,6 @@
 # Configuration
 
-The application can be configured via the command line and must be restarted to pick up configuration changes.
+The application can be configured via the command line (Terminal.app). The app will only pick up configuration changes when it is opened.
 
 Example:
 ```
@@ -33,7 +33,7 @@ defaults write -app BeoplayRemoteGUI app.title "B&O"
 ```
 
 
-## Hotkeys / keyboard shortcuts
+## Hotkeys (keyboard shortcuts)
 
 Default configuration:
 
