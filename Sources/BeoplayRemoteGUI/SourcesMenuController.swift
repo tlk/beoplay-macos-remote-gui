@@ -9,7 +9,7 @@ import Cocoa
 import RemoteCore
 
 public class SourcesMenuController {
-    private let hideTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM", "MUSIC"]
+    private let blockedSourceTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM", "MUSIC"]
     private let beoRadioType = "BEO RADIO"
     private let typeAliases = [
         "DEEZER": ["deezer:", "music:"],
@@ -80,7 +80,7 @@ public class SourcesMenuController {
                 var firstBeoRadioSourceId: String?
 
                 for source in sources {
-                    if self.hideTypes.contains(source.sourceType.lowercased()) {
+                    if self.blockedSourceTypes.contains(source.sourceType) {
                         continue
                     }
 
