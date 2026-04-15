@@ -2,8 +2,8 @@
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
 "5Jz-9g-qZA.title" = "Quit";
 
-/* Class = "NSMenu"; title = "TuneIn Radio"; ObjectID = "5LN-aQ-QEd"; */
-"5LN-aQ-QEd.title" = "TuneIn Radio";
+/* Class = "NSMenu"; title = "B&O Radio"; ObjectID = "5LN-aQ-QEd"; */
+"5LN-aQ-QEd.title" = "B&O Radio";
 
 /* Class = "NSMenuItem"; title = "deviceSeparator"; ObjectID = "GZI-74-Bbh"; */
 "GZI-74-Bbh.title" = "deviceSeparator";
@@ -17,8 +17,8 @@
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
 "S5r-Ym-sNj.title" = "Back";
 
-/* Class = "NSMenuItem"; title = "TuneIn Radio"; ObjectID = "TnM-U3-Th3"; */
-"TnM-U3-Th3.title" = "TuneIn Radio";
+/* Class = "NSMenuItem"; title = "B&O Radio"; ObjectID = "TnM-U3-Th3"; */
+"TnM-U3-Th3.title" = "B&O Radio";
 
 /* Class = "NSMenuItem"; title = "Pause"; ObjectID = "VFe-4y-61o"; */
 "VFe-4y-61o.title" = "Pause";

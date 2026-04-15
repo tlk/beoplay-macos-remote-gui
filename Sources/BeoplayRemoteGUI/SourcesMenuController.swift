@@ -10,7 +10,7 @@ import RemoteCore
 
 public class SourcesMenuController {
     private let hideTypes: [String] = ["GC4A", "DLNA_DMR", "ALARM"]
-    private let tuneInType = "TUNEIN"
+    private let beoRadioType = "BEORADIO"
     private let typeAliases = [
         "DEEZER": ["deezer:", "music:"],
         "QPLAY" : ["qplay:", "music:"]
@@ -19,13 +19,13 @@ public class SourcesMenuController {
     private let menuOffset = 2
 
     private let remoteControl: RemoteControl
-    private let tuneInMenuController: TuneInMenuController?
+    private let beoRadioMenuController: BeoRadioMenuController?
     private let sourcesMenuItem: NSMenuItem
     private var lastKnownSourceId: String? = nil
 
-    public init(remoteControl: RemoteControl, tuneInMenuController: TuneInMenuController?, sourcesMenuItem: NSMenuItem) {
+    public init(remoteControl: RemoteControl, beoRadioMenuController: BeoRadioMenuController?, sourcesMenuItem: NSMenuItem) {
         self.remoteControl = remoteControl
-        self.tuneInMenuController = tuneInMenuController
+        self.beoRadioMenuController = beoRadioMenuController
         self.sourcesMenuItem = sourcesMenuItem
     }
 
@@ -49,8 +49,8 @@ public class SourcesMenuController {
             }
         }
 
-        if data.type != self.tuneInType {
-            self.tuneInMenuController?.clear()
+        if data.type != self.beoRadioType {
+            self.beoRadioMenuController?.clear()
         }
     }
 
@@ -65,7 +65,7 @@ public class SourcesMenuController {
             }
 
             self.lastKnownSourceId = nil
-            self.tuneInMenuController?.disable()
+            self.beoRadioMenuController?.disable()
         }
     }
 
@@ -76,15 +76,19 @@ public class SourcesMenuController {
             DispatchQueue.main.async {
                 self.sourcesMenuItem.isEnabled = true
 
-                var hasTuneInSource = false
+                var hasBeoRadioSource = false
+                var firstBeoRadioSourceId: String?
 
                 for source in sources {
                     if self.hideTypes.contains(source.sourceType.lowercased()) {
                         continue
                     }
 
-                    if source.sourceType == self.tuneInType {
-                        hasTuneInSource = true
+                    if source.sourceType == self.beoRadioType {
+                        hasBeoRadioSource = true
+                        if firstBeoRadioSourceId == nil {
+                            firstBeoRadioSourceId = source.id
+                        }
                     }
 
                     let name = source.borrowed
@@ -102,10 +106,10 @@ public class SourcesMenuController {
                     NSLog("source id: \(source.id), source name: \(name)")
                 }
 
-                if hasTuneInSource {
-                    self.tuneInMenuController?.enable()
+                if hasBeoRadioSource, let sourceId = firstBeoRadioSourceId {
+                    self.beoRadioMenuController?.enable(sourceId: sourceId)
                 } else {
-                    self.tuneInMenuController?.disable()
+                    self.beoRadioMenuController?.disable()
                 }
             }
         }

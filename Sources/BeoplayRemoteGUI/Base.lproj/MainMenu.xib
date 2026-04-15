@@ -24,7 +24,7 @@
                 <outlet property="playMenuItem" destination="p6f-gd-ldN" id="XNO-Ws-tUC"/>
                 <outlet property="sourcesMenuItem" destination="kgn-98-8ke" id="PId-kJ-w1k"/>
                 <outlet property="statusMenu" destination="1Xh-Lf-Elu" id="kDo-2h-EvE"/>
-                <outlet property="tuneInMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
+                <outlet property="beoRadioMenuItem" destination="TnM-U3-Th3" id="joN-7L-FgG"/>
                 <outlet property="volumeLevelMenuItem" destination="vNB-tl-eiA" id="dQg-lc-9Vc"/>
                 <outlet property="volumeLevelSlider" destination="lMI-Wr-2xK" id="AOd-CA-EV2"/>
                 <outlet property="volumeLevelView" destination="Qyl-Dg-uny" id="9Sj-DX-kvy"/>
@@ -61,9 +61,9 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="TuneIn Radio" hidden="YES" id="TnM-U3-Th3">
+                <menuItem title="B&amp;O Radio" hidden="YES" id="TnM-U3-Th3">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="TuneIn Radio" id="5LN-aQ-QEd"/>
+                    <menu key="submenu" title="B&amp;O Radio" id="5LN-aQ-QEd"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xH5-41-cNT"/>
                 <menuItem title="Play" enabled="NO" id="p6f-gd-ldN">

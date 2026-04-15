@@ -12,10 +12,6 @@ defaults write -app BeoplayRemoteGUI hotkeys.Leave       disabled
 defaults write -app BeoplayRemoteGUI hotkeys.Join        disabled
 defaults write -app BeoplayRemoteGUI hotkeys.PrevSource  disabled
 defaults write -app BeoplayRemoteGUI hotkeys.NextSource  disabled
-
-defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s37197 "DR P2"
-defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s37309 "DR P4"
-defaults write -app BeoplayRemoteGUI tuneIn.stations  -dict-add s45455 "DR P6"
 ```
 
 See current configuration:
@@ -80,29 +76,16 @@ Note that some hotkeys such as <kbd>F11</kbd> and <kbd>F12</kbd> may already be 
 Consider changing the configuration of those applications or disabling the hotkeys for this application as illustrated above. See [Mission Control](https://apple.stackexchange.com/a/110528) (<kbd>F11</kbd>) and [Google Chrome](https://chrome.google.com/webstore/detail/disable-f12/kpfnljnhmfhomajodmlepkcoflmbjiaf) (<kbd>F12</kbd>).
 
 
-## TuneIn radio stations
+## Customize names for B&O Radio stations
 
-Favorite radio stations are fetched from the selected B&O device which in turn uses a tuneIn account to fetch favorite radio stations from https://tunein.com. The display name of a radio station can be customized by adding an entry to tuneIn.stations with a custom station name. Make sure that the station id matches.
+Favorite radio stations are automatically fetched from the selected B&O device. This is fine in most cases.
 
-```
-defaults write -app BeoplayRemoteGUI tuneIn.enabled true
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37197 "DR P2"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37309 "DR P4"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s45455 "DR P6"
-```
-
-### Manual configuration with no TuneIn account
-
-Favorite radio stations can be configured with tuneIn.stations and tuneIn.order. Double check that the entries in tuneIn.stations and tuneIn.order matches.
+Optionally, the display name of a radio station can be set manually by adding an entry to beoradio.stations with a custom station name.
 
 ```
-defaults write -app BeoplayRemoteGUI tuneIn.enabled true
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s24860 "DR P1"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37197 "DR P2"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s24861 "DR P3"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s37309 "DR P4"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s69060 "DR P5"
-defaults write -app BeoplayRemoteGUI tuneIn.stations -dict-add s45455 "DR P6"
-defaults write -app BeoplayRemoteGUI tuneIn.order -array s24860 s37197 s24861 s37309 s69060 s45455
+defaults write -app BeoplayRemoteGUI beoradio.enabled true
+defaults write -app BeoplayRemoteGUI beoradio.stations  -dict-add 8389481460675598 "DR P4"
+defaults write -app BeoplayRemoteGUI beoradio.stations  -dict-add 5207345892675221 "DR P6"
+defaults write -app BeoplayRemoteGUI beoradio.stations  -dict-add 4338732615578920 "DR P8"
 ```
 

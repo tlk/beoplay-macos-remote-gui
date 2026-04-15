@@ -17,7 +17,7 @@ class MainMenuController: NSObject {
 
     @IBOutlet weak var deviceSeparatorMenuItem: NSMenuItem!
     @IBOutlet weak var sourcesMenuItem: NSMenuItem!
-    @IBOutlet weak var tuneInMenuItem: NSMenuItem!
+    @IBOutlet weak var beoRadioMenuItem: NSMenuItem!
 
     @IBOutlet weak var playMenuItem: NSMenuItem!
     @IBOutlet weak var pauseMenuItem: NSMenuItem!
@@ -33,20 +33,22 @@ class MainMenuController: NSObject {
     private var volumeLevelViewController: VolumeLevelViewController?
     private var hotkeysController: HotkeysController?
     private var sourcesMenuController: SourcesMenuController?
-    private var tuneInMenuController: TuneInMenuController?
+    private var beoRadioMenuController: BeoRadioMenuController?
 
     override func awakeFromNib() {
         UserDefaults.standard.register(defaults: [
             "app.title": "BeoplayRemote",
-            "tuneIn.enabled": true,
+            "beoradio.enabled": true,
             "hotkeys.enabled": true
         ])
 
         menuBar.button?.title = UserDefaults.standard.string(forKey: "app.title")!
         menuBar.menu = statusMenu
 
-        if UserDefaults.standard.bool(forKey: "tuneIn.enabled") {
-            tuneInMenuController = TuneInMenuController(remoteControl: remoteControl, tuneInMenuItem: tuneInMenuItem)
+        let isBeoRadioEnabled = UserDefaults.standard.bool(forKey: "beoradio.enabled")
+
+        if isBeoRadioEnabled {
+            beoRadioMenuController = BeoRadioMenuController(remoteControl: remoteControl, beoRadioMenuItem: beoRadioMenuItem)
         }
 
         volumeLevelViewController = VolumeLevelViewController(
@@ -57,7 +59,7 @@ class MainMenuController: NSObject {
 
         sourcesMenuController = SourcesMenuController(
             remoteControl: remoteControl,
-            tuneInMenuController: tuneInMenuController,
+            beoRadioMenuController: beoRadioMenuController,
             sourcesMenuItem: sourcesMenuItem)
 
         deviceMenuController = DeviceMenuController(
@@ -126,7 +128,7 @@ class MainMenuController: NSObject {
 
         NotificationCenter.default.addObserver(forName: Notification.Name.onNowPlayingRadio, object: nil, queue: nil) { (notification: Notification) -> Void in
             if let data = notification.userInfo?["data"] as? RemoteCore.NowPlayingRadio {
-                DispatchQueue.main.async { self.tuneInMenuController?.onNowPlayingRadio(data) }
+                DispatchQueue.main.async { self.beoRadioMenuController?.onNowPlayingRadio(data) }
             }
         }
     }
