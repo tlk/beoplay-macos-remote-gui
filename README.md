@@ -1,16 +1,16 @@
 # Beoplay Remote for macOS
 
-This is an unofficial app to remote control network enabled [Bang & Olufsen](https://www.bang-olufsen.com/) loudspeakers from macOS.
+This is an unofficial app to remote control network enabled [Bang & Olufsen](https://www.bang-olufsen.com/) Beoplay loudspeakers from macOS.
 
 ![Screenshot](./screenshot.jpg)
 
-The menu bar app has basic support for play/pause and forward/backward. The volume level can be adjusted and works well with volume adjustments made directly on the loudspeakers, through the original B&O iOS app, Spotify and Deezer. Speakers are automatically discovered via Bonjour. B&O Radio favorite stations are fetched from the device and can be changed via [hotkeys](Configuration.md#hotkeys--keyboard-shortcuts).
+This app can be used to adjust the sound volume on connected speakers and to control music playback and radio stations. It works well with the original B&O iOS app and other connected apps such as Spotify and Deezer. Your speakers are automatically discovered on the local network via Bonjour. B&O Radio favorite stations are fetched from the device..
 
 
 
-Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to control the volume of the local speakers. When the same physical keys function as <kbd>F11</kbd> and <kbd>F12</kbd> keys they can control the volume of the remote speakers via this application.
+Apple keyboards features <kbd>volume-down</kbd> and <kbd>volume-up</kbd> keys to control the volume of the local speakers. When the same physical keys function as <kbd>F11</kbd> and <kbd>F12</kbd> keys they can be used to control the volume of remote Beoplay speakers via this application. You can read more about this in the [hotkeys](Configuration.md#hotkeys--keyboard-shortcuts) (shortcut) section.
 
-| Local speakers           | Remote speakers                        |
+| Local speakers           | Remote Beoplay speakers                        |
 | ------------------------ | -------------------------------------- |
 | <kbd>volume-down</kbd>   | <kbd>fn</kbd> + <kbd>volume-down</kbd> |
 | <kbd>volume-up</kbd>     | <kbd>fn</kbd> + <kbd>volume-up</kbd>   |
