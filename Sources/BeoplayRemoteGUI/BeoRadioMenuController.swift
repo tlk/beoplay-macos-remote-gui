@@ -27,7 +27,7 @@ public class BeoRadioMenuController {
         NSLog("now playing radio, station id: \(data.stationId), station name: \(data.name)")
 
         for item in self.beoRadioMenuItem.submenu!.items {
-            item.state = selection(from: item.representedObject)?.stationId == data.stationId
+            item.state = (item.representedObject as? BeoRadioSelection)?.stationId == data.stationId
                 ? NSControl.StateValue.on
                 : NSControl.StateValue.off
         }
@@ -46,18 +46,6 @@ public class BeoRadioMenuController {
 
         result = result.trimmingCharacters(in: .whitespacesAndNewlines)
         return result
-    }
-
-    private func selection(from representedObject: Any?) -> BeoRadioSelection? {
-        if let selection = representedObject as? BeoRadioSelection {
-            return selection
-        }
-
-        if let stationId = representedObject as? String {
-            return BeoRadioSelection(sourceId: "", stationId: stationId, stationName: stationId)
-        }
-
-        return nil
     }
 
     private func fillMenu(_ favorites: [BeoRadioSelection]) {
@@ -137,7 +125,7 @@ public class BeoRadioMenuController {
     @IBAction func beoRadioClicked(_ sender: NSMenuItem) {
         NSLog("beoRadioClicked")
 
-        guard let selection = selection(from: sender.representedObject) else {
+        guard let selection = sender.representedObject as? BeoRadioSelection else {
             NSLog("beoRadioClicked: missing selection data")
             return
         }
