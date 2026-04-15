@@ -84,7 +84,7 @@
                         <action selector="nextClicked:" target="alx-iL-ssJ" id="Eqi-35-UEy"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Back" enabled="NO" id="S5r-Ym-sNj">
+                <menuItem title="Previous" enabled="NO" id="S5r-Ym-sNj">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="backClicked:" target="alx-iL-ssJ" id="6wR-eE-aRi"/>

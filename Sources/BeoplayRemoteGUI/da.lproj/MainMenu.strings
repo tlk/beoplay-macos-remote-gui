@@ -1,6 +1,6 @@
 
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "5Jz-9g-qZA"; */
-"5Jz-9g-qZA.title" = "Quit";
+"5Jz-9g-qZA.title" = "Afslut";
 
 /* Class = "NSMenu"; title = "B&O Radio"; ObjectID = "5LN-aQ-QEd"; */
 "5LN-aQ-QEd.title" = "B&O Radio";
@@ -9,13 +9,13 @@
 "GZI-74-Bbh.title" = "deviceSeparator";
 
 /* Class = "NSMenuItem"; title = "Forward"; ObjectID = "KeU-58-sE1"; */
-"KeU-58-sE1.title" = "Next";
+"KeU-58-sE1.title" = "Næste";
 
 /* Class = "NSMenuItem"; title = "Volume: "; ObjectID = "OHD-zl-J7n"; */
-"OHD-zl-J7n.title" = "Volume: ";
+"OHD-zl-J7n.title" = "Lydstyrke: ";
 
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
-"S5r-Ym-sNj.title" = "Back";
+"S5r-Ym-sNj.title" = "Forrige";
 
 /* Class = "NSMenuItem"; title = "B&O Radio"; ObjectID = "TnM-U3-Th3"; */
 "TnM-U3-Th3.title" = "B&O Radio";
@@ -24,22 +24,22 @@
 "VFe-4y-61o.title" = "Pause";
 
 /* Class = "NSMenuItem"; title = "Leave Multiroom"; ObjectID = "YbL-n3-TK6"; */
-"YbL-n3-TK6.title" = "Leave Multiroom";
+"YbL-n3-TK6.title" = "Forlad Multiroom";
 
 /* Class = "NSMenu"; title = "Sources"; ObjectID = "jdX-PL-kHj"; */
-"jdX-PL-kHj.title" = "Sources";
+"jdX-PL-kHj.title" = "Kilder";
 
 /* Class = "NSMenuItem"; title = "Device:"; ObjectID = "jiP-To-6zk"; */
-"jiP-To-6zk.title" = "Device:";
+"jiP-To-6zk.title" = "Enhed:";
 
 /* Class = "NSMenuItem"; title = "Sources"; ObjectID = "kgn-98-8ke"; */
-"kgn-98-8ke.title" = "Sources";
+"kgn-98-8ke.title" = "Kilder";
 
 /* Class = "NSMenuItem"; title = "Play"; ObjectID = "p6f-gd-ldN"; */
-"p6f-gd-ldN.title" = "Play";
+"p6f-gd-ldN.title" = "Afspil";
 
 /* Class = "NSMenuItem"; title = "VolumeSlider"; ObjectID = "vNB-tl-eiA"; */
 "vNB-tl-eiA.title" = "VolumeSlider";
 
 /* Class = "NSMenuItem"; title = "Join Multiroom"; ObjectID = "zaJ-t8-6dj"; */
-"zaJ-t8-6dj.title" = "Join Multiroom";
+"zaJ-t8-6dj.title" = "Deltag i Multiroom";

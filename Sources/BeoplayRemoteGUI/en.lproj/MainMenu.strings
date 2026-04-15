@@ -15,7 +15,7 @@
 "OHD-zl-J7n.title" = "Volume: ";
 
 /* Class = "NSMenuItem"; title = "Backward"; ObjectID = "S5r-Ym-sNj"; */
-"S5r-Ym-sNj.title" = "Back";
+"S5r-Ym-sNj.title" = "Previous";
 
 /* Class = "NSMenuItem"; title = "B&O Radio"; ObjectID = "TnM-U3-Th3"; */
 "TnM-U3-Th3.title" = "B&O Radio";
